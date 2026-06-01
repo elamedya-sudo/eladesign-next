@@ -1,0 +1,14 @@
+[
+  { "id": 1, "title": "SHT Referans", "category": "Web Tasarım", "image": "/projeler/sht-ref.png" },
+  { "id": 2, "title": "Vicom Proje", "category": "E-Ticaret", "image": "/projeler/vicom-ref.png" },
+  { "id": 3, "title": "Vitrom Kurumsal", "category": "Kurumsal Kimlik", "image": "/projeler/vitrom-ref.png" },
+  { "id": 4, "title": "ZMA Tasarım", "category": "SEO", "image": "/projeler/zma-ref.png" },
+  { "id": 5, "title": "Karahan Grafik", "category": "Web Tasarım", "image": "/web-tasarim.png" },
+  { "id": 6, "title": "Adoçim Yeniden Yapılandırma", "category": "SEO", "image": "/projeler/sht-ref.png" },
+  { "id": 7, "title": "SHT Referans V2", "category": "Web Tasarım", "image": "/projeler/sht-ref.png" },
+  { "id": 8, "title": "Vicom Proje V2", "category": "E-Ticaret", "image": "/projeler/vicom-ref.png" },
+  { "id": 9, "title": "Vitrom Kurumsal V2", "category": "Kurumsal Kimlik", "image": "/projeler/vitrom-ref.png" },
+  { "id": 10, "title": "ZMA Tasarım V2", "category": "SEO", "image": "/projeler/zma-ref.png" },
+  { "id": 11, "title": "Karahan Grafik V2", "category": "Web Tasarım", "image": "/web-tasarim.png" },
+  { "id": 12, "title": "Adoçim Yeniden Yapılandırma V2", "category": "SEO", "image": "/projeler/sht-ref.png" }
+]

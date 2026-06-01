@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ServicesPage() {
   const brandColor = "#933c81";
 
-  // Tüm Hizmetlerimizin Listesi ve Linkleri
+  // Tüm Hizmetlerimizin Listesi ve Linkleri (Toplam 9 Adet)
   const allServices = [
     {
       id: "web-tasarim",
@@ -25,6 +25,13 @@ export default function ServicesPage() {
       title: "E-Ticaret Sistemleri",
       desc: "Satışlarınızı katlayacak, sanal POS ve kargo entegrasyonlarına sahip, ultra hızlı ve güvenli online mağazalar kuruyoruz.",
       href: "/eticaret-sitesi"
+    },
+    {
+      id: "geo-aio",
+      icon: "🧠",
+      title: "GEO & AIO Optimizasyonu",
+      desc: "Yapay zeka arama motorlarının (Generative Engine) markanızı öğrenmesi için modern optimizasyon uyguluyoruz.",
+      href: "/geo-ve-aio-optimizasyonu"
     },
     {
       id: "seo",
@@ -87,9 +94,9 @@ export default function ServicesPage() {
         </div>
       </div>
 
-      {/* 2. HİZMETLER GRİD ALANI */}
+      {/* 2. HİZMETLER GRİD ALANI - Yan yana 3'lü grid yapıldı */}
       <div className="max-w-[1440px] mx-auto px-6 lg:px-10 mt-16 lg:mt-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {allServices.map((service) => (
             <Link 
               key={service.id} 

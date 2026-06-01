@@ -7,37 +7,37 @@ export default function Services() {
     {
       title: "Web Tasarım",
       desc: "Terzi işi butik tasarımlar ve Next.js mimarisiyle ultra hızlı, modern arayüzler.",
-      // Globe / Web Icon
+      link: "/web-tasarim", 
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-3.6-9m3.6 9a9 9 0 003.6-9m-3.6-9a9 9 0 013.6 9m-3.6-9a9 9 0 00-3.6 9" />,
     },
     {
       title: "E-Ticaret Sistemleri",
       desc: "PayTR entegreli, yüksek dönüşüm oranlı ve güvenli Headless e-ticaret altyapıları.",
-      // Cart Icon
+      link: "/eticaret-sitesi", 
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />,
     },
     {
       title: "GEO & AIO Optimizasyonu",
       desc: "Yapay zeka arama motorlarının (Generative Engine) markanızı öğrenmesi için modern optimizasyon.",
-      // Brain / AI Icon
+      link: "/geo-ve-aio-optimizasyonu",
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />,
     },
     {
       title: "Stratejik SEO",
       desc: "Klasik arama motoru optimizasyonunu modern veri yapıları ile güçlendirerek üst sıralara taşıma.",
-      // Search / Trend Icon
+      link: "/arama-motoru-optimizasyonu", 
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />,
     },
     {
       title: "Özel Web Yazılım",
       desc: "Supabase ve Next.js gücüyle ajansınıza veya markanıza özel CRM ve yönetim panelleri.",
-      // Code Icon
+      link: "/web-yazilim",
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />,
     },
     {
       title: "Google Ads (Partner)",
       desc: "Sertifikalı uzmanlarımızla yüksek dönüşümlü ve bütçe dostu reklam kampanyası yönetimi.",
-      // Target Icon
+      link: "/google-adwords",
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v8l9-11h-7z" />,
     },
   ];
@@ -73,7 +73,7 @@ export default function Services() {
               <p className="text-[15px] leading-relaxed text-slate-600 font-light mb-6">
                 {service.desc}
               </p>
-              <Link href="/hizmetler" className="inline-flex items-center text-[14px] font-semibold text-slate-500 group-hover:text-[#933c81] transition-colors">
+              <Link href={service.link} className="inline-flex items-center text-[14px] font-semibold text-slate-500 group-hover:text-[#933c81] transition-colors">
                 Detaylı Bilgi <span className="ml-1 transition-transform group-hover:translate-x-1">→</span>
               </Link>
             </div>

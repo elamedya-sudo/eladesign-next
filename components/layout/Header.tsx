@@ -44,10 +44,12 @@ export default function Header() {
         { name: "Web Yazılım", href: "/web-yazilim" },
         { name: "E-Ticaret Sitesi", href: "/eticaret-sitesi" },
         { name: "SEO Optimizasyonu", href: "/arama-motoru-optimizasyonu" },
+        { name: "GEO & AIO Optimizasyonu", href: "/geo-ve-aio-optimizasyonu" },
         { name: "Google Ads", href: "/google-adwords" },
         { name: "Kurumsal Kimlik", href: "/kurumsal-kimlik-tasarimi" },
         { name: "Sosyal Medya Yönetimi", href: "/sosyal-medya-yonetimi" },
         { name: "2D Animasyon", href: "/2d-animasyon" },
+        
       ]
     },
     { name: "Neler Yaptık", href: "/neler-yaptik" },

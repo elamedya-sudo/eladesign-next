@@ -1,17 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import projects from "@/data/projects.json";
 
 export default function ProjectsPreview() {
   const brandColor = "#933c81";
 
-  const projects = [
-    { id: 1, title: "Vicom Energy", category: "Uluslararası Enerji", slug: "vicom-energy", image: "/projeler/vicom-ref.png" },
-    { id: 2, title: "Polight", category: "Kurumsal Web", slug: "polight", image: "/projeler/polight-ref.png" },
-    { id: 3, title: "Online Kombi", category: "E-Ticaret", slug: "online-kombi", image: "/projeler/onlinekombi-ref.png" },
-    { id: 4, title: "Çakmakçı", category: "Endüstriyel", slug: "cakmakci", image: "/projeler/cakmakci-ref.png" },
-    { id: 5, title: "Vitrom", category: "Kurumsal Çözüm", slug: "vitrom", image: "/projeler/vitrom-ref.png" },
-    { id: 6, title: "ZMA", category: "Kurumsal Web", slug: "zma", image: "/projeler/zma-ref.png" },
-  ];
+  // JSON'dan sadece ilk 6 projeyi çekiyoruz
+  const homepageProjects = projects.slice(0, 6);
 
   return (
     <section className="py-24 bg-slate-50 relative">
@@ -36,19 +31,20 @@ export default function ProjectsPreview() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
+          {homepageProjects.map((project) => (
             <Link 
               href={`/referanslar/${project.slug}`} 
               key={project.id} 
-              // İSTEDİĞİN İNCE MOR ÇERÇEVE EFEKTİ BURADA: border-2 ve hover:border-[#933c81] eklendi
-              className="group relative block overflow-hidden rounded-2xl bg-white border-2 border-transparent hover:border-[#933c81] shadow-sm hover:shadow-2xl hover:shadow-[#933c81]/20 transition-all duration-500 aspect-[4/3]"
+              // Portfolyo sayfasındaki gibi aspect oranını 3/2 yaptık ve arka plan rengini eşitledik
+              className="group relative block overflow-hidden rounded-2xl bg-[#f8f9fa] border-2 border-transparent hover:border-[#933c81] shadow-sm hover:shadow-2xl hover:shadow-[#933c81]/20 transition-all duration-500 aspect-[3/2]"
             >
-              <div className="absolute inset-0 bg-[#f8f9fa] transition-transform duration-700 group-hover:scale-105 p-4">
+              {/* İçerideki gereksiz padding'leri kaldırdık, scale oranını 110 yaptık */}
+              <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
                 <Image 
                   src={project.image} 
                   alt={project.title} 
                   fill 
-                  className="object-contain p-2" 
+                  className="object-cover" 
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>

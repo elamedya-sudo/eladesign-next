@@ -52,6 +52,7 @@ export default function Header() {
         
       ]
     },
+    { name: "Özel Yazılımlar", href: "/ozel-web-yazilim" },
     { name: "Neler Yaptık", href: "/neler-yaptik" },
     { name: "Akademi", href: "/blog" },
     { name: "İletişim", href: "/iletisim" },

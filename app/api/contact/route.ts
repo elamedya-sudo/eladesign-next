@@ -1,41 +1,61 @@
-// Dosya: app/api/contact/route.ts
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
   try {
-    // Formdan gelen verileri alıyoruz
     const body = await request.json();
-    const { firstName, lastName, email, message } = body;
+    const { firstName, lastName, email, phone, message } = body;
 
-    // SMTP Ayarlarını yapılandırıyoruz (.env.local dosyasından çeker)
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
-      secure: true, // 465 portu kullanıyorsan true, 587 ise false yap.
+      secure: true, // 465 kullanıyorsan true, 587 ise false
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
     });
 
-    // Gönderilecek Mailin Şablonu
-    const mailOptions = {
-      from: `"${firstName} ${lastName}" <${process.env.SMTP_USER}>`, // Sunucun kimlik doğrulaması için kendi adresinden çıkmalı
-      to: process.env.SMTP_USER, // Maillerin düşmesini istediğin adres
-      replyTo: email, // Sen mailden "Yanıtla" dediğinde müşterinin adresine gitsin
-      subject: `Yeni İletişim Formu Mesajı: ${firstName} ${lastName}`,
+    // 1. SİZE GELECEK MAİL (ADMIN)
+    const adminMail = {
+      from: `"${firstName} ${lastName}" <${process.env.SMTP_USER}>`,
+      to: process.env.SMTP_USER,
+      replyTo: email,
+      subject: `Yeni Proje Talebi: ${firstName} ${lastName}`,
       html: `
-        <h3>Web Sitenizden Yeni Bir Mesaj Var</h3>
-        <p><strong>Ad Soyad:</strong> ${firstName} ${lastName}</p>
-        <p><strong>E-Posta:</strong> ${email}</p>
-        <p><strong>Mesaj:</strong></p>
-        <p>${message}</p>
+        <div style="font-family: sans-serif; max-width: 600px; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
+          <h2 style="color: #933c81;">📩 Yeni Bir Talep Var!</h2>
+          <p>Siteden yeni bir form gönderildi:</p>
+          <ul style="list-style: none; padding: 0;">
+            <li><strong>Ad Soyad:</strong> ${firstName} ${lastName}</li>
+            <li><strong>E-Posta:</strong> ${email}</li>
+            <li><strong>Telefon:</strong> ${phone}</li>
+          </ul>
+          <p><strong>Mesaj:</strong><br>${message}</p>
+        </div>
       `,
     };
 
-    // Maili gönder
-    await transporter.sendMail(mailOptions);
+    // 2. KULLANICIYA GİDECEK MAİL (AUTO-REPLY)
+    const userMail = {
+      from: `"Ela Teknoloji" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "Talebinizi aldık - Ela Teknoloji",
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; padding: 20px;">
+          <h2 style="color: #933c81;">Merhaba ${firstName},</h2>
+          <p>Ela Teknoloji olarak talebinizi aldık, ilginiz için teşekkür ederiz.</p>
+          <p>Ekibimiz mesajınızı inceleyip size en kısa sürede dönüş yapacaktır.</p>
+          <hr>
+          <p><strong>Ela Teknoloji ve Tasarım</strong><br>
+          Ataşehir / İstanbul<br>
+          +90 (216) 576 58 26</p>
+        </div>
+      `,
+    };
+
+    await transporter.sendMail(adminMail);
+    await transporter.sendMail(userMail);
 
     return NextResponse.json({ message: "Mail başarıyla gönderildi." }, { status: 200 });
 

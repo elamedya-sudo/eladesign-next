@@ -4,63 +4,50 @@ import nodemailer from 'nodemailer';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { firstName, lastName, email, phone, message } = body;
+    // Frontend'den gelen isimleri aynen burada kullanıyoruz
+    const { fullName, company, email, phone, service, message } = body;
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
-      secure: true, // 465 kullanıyorsan true, 587 ise false
+      secure: true,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
     });
 
-    // 1. SİZE GELECEK MAİL (ADMIN)
-    const adminMail = {
-      from: `"${firstName} ${lastName}" <${process.env.SMTP_USER}>`,
+    // ADMIN MAİLİ - Temiz ve Düzenli
+    await transporter.sendMail({
+      from: `"Ela Teknoloji" <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_USER,
-      replyTo: email,
-      subject: `Yeni Proje Talebi: ${firstName} ${lastName}`,
+      subject: `Yeni Teklif Talebi: ${fullName}`,
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
-          <h2 style="color: #933c81;">📩 Yeni Bir Talep Var!</h2>
-          <p>Siteden yeni bir form gönderildi:</p>
-          <ul style="list-style: none; padding: 0;">
-            <li><strong>Ad Soyad:</strong> ${firstName} ${lastName}</li>
-            <li><strong>E-Posta:</strong> ${email}</li>
-            <li><strong>Telefon:</strong> ${phone}</li>
-          </ul>
-          <p><strong>Mesaj:</strong><br>${message}</p>
+        <div style="font-family: sans-serif; line-height: 1.6; color: #333;">
+          <h2 style="color: #933c81; border-bottom: 2px solid #933c81; padding-bottom: 10px;">📩 Yeni Bir Teklif Talebi Var!</h2>
+          <table style="width: 100%; text-align: left;">
+            <tr><td style="padding: 5px 0;"><strong>Ad Soyad:</strong></td><td>${fullName}</td></tr>
+            <tr><td style="padding: 5px 0;"><strong>Firma:</strong></td><td>${company || 'Belirtilmedi'}</td></tr>
+            <tr><td style="padding: 5px 0;"><strong>E-Posta:</strong></td><td>${email}</td></tr>
+            <tr><td style="padding: 5px 0;"><strong>Telefon:</strong></td><td>${phone}</td></tr>
+            <tr><td style="padding: 5px 0;"><strong>Hizmet:</strong></td><td>${service}</td></tr>
+          </table>
+          <h3 style="color: #933c81; margin-top: 20px;">Proje Detayları:</h3>
+          <p style="background: #f9f9f9; padding: 15px; border-radius: 5px;">${message || 'Detay belirtilmedi.'}</p>
         </div>
       `,
-    };
+    });
 
-    // 2. KULLANICIYA GİDECEK MAİL (AUTO-REPLY)
-    const userMail = {
+    // KULLANICIYA YANIT MAİLİ
+    await transporter.sendMail({
       from: `"Ela Teknoloji" <${process.env.SMTP_USER}>`,
       to: email,
       subject: "Talebinizi aldık - Ela Teknoloji",
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; padding: 20px;">
-          <h2 style="color: #933c81;">Merhaba ${firstName},</h2>
-          <p>Ela Teknoloji olarak talebinizi aldık, ilginiz için teşekkür ederiz.</p>
-          <p>Ekibimiz mesajınızı inceleyip size en kısa sürede dönüş yapacaktır.</p>
-          <hr>
-          <p><strong>Ela Teknoloji ve Tasarım</strong><br>
-          Ataşehir / İstanbul<br>
-          +90 (216) 576 58 26</p>
-        </div>
-      `,
-    };
+      html: `<h3>Merhaba ${fullName},</h3><p>Talebiniz ekibimize ulaştı. En kısa sürede inceleyip size dönüş yapacağız.</p>`,
+    });
 
-    await transporter.sendMail(adminMail);
-    await transporter.sendMail(userMail);
-
-    return NextResponse.json({ message: "Mail başarıyla gönderildi." }, { status: 200 });
-
+    return NextResponse.json({ message: "Başarılı" }, { status: 200 });
   } catch (error) {
-    console.error("Mail gönderme hatası:", error);
-    return NextResponse.json({ message: "Mail gönderilemedi." }, { status: 500 });
+    return NextResponse.json({ message: "Hata" }, { status: 500 });
   }
 }

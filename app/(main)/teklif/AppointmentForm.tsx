@@ -7,34 +7,21 @@ export default function AppointmentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Form Gönderme Fonksiyonu (Dinamik Backend Bağlantısı)
+  // Form Gönderme Fonksiyonu
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
     const formData = new FormData(e.currentTarget);
     
-    // Form verilerini alıyoruz
-    const fullName = formData.get("fullName");
-    const company = formData.get("company") || "Belirtilmedi";
-    const email = formData.get("email");
-    const phone = formData.get("phone");
-    const service = formData.get("service");
-    const messageDetail = formData.get("message") || "Detay belirtilmedi.";
-
-    // /api/contact rotamızın yapısına uyması için verileri derliyoruz
+    // API tarafındaki route.ts ile birebir eşleşen veri yapısı[cite: 5]
     const data = {
-      firstName: fullName,
-      lastName: "(Teklif Formu)", // Backend ad soyad ayırdığı için parantez içi bilgi olarak yolluyoruz
-      email: email,
-      message: `
-        Firma Adı: ${company}
-        Telefon: ${phone}
-        İlgilendiği Hizmet: ${service}
-
-        Proje Detayları:
-        ${messageDetail}
-      `,
+      fullName: formData.get("fullName"),
+      company: formData.get("company"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      service: formData.get("service"),
+      message: formData.get("message"),
     };
 
     try {
@@ -45,7 +32,7 @@ export default function AppointmentForm() {
       });
 
       if (response.ok) {
-        setIsSuccess(true); // Başarılı animasyonlu ekranı tetikler
+        setIsSuccess(true);
       } else {
         alert("Bir hata oluştu. Lütfen telefon ile iletişime geçiniz.");
       }
@@ -125,6 +112,7 @@ export default function AppointmentForm() {
           <div className="lg:w-3/5 p-10 lg:p-16">
             
             {isSuccess ? (
+              // BAŞARI EKRANI
               <div className="h-full flex flex-col items-center justify-center text-center py-20 animate-in fade-in zoom-in duration-500">
                 <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6">
                   <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
@@ -141,17 +129,16 @@ export default function AppointmentForm() {
                 </button>
               </div>
             ) : (
+              // FORM EKRANI
               <form onSubmit={handleSubmit} className="flex flex-col h-full justify-center">
                 <h2 className="text-2xl font-bold text-slate-900 mb-8">Randevu / Teklif Formu</h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  {/* Ad Soyad */}
                   <div>
                     <label htmlFor="fullName" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Adınız Soyadınız *</label>
                     <input type="text" name="fullName" id="fullName" required className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="Örn: Ahmet Yılmaz" />
                   </div>
                   
-                  {/* Şirket Adı */}
                   <div>
                     <label htmlFor="company" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Firma Adı</label>
                     <input type="text" name="company" id="company" className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="Örn: Ela Design" />
@@ -159,20 +146,17 @@ export default function AppointmentForm() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  {/* E-Posta */}
                   <div>
                     <label htmlFor="email" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">E-Posta Adresiniz *</label>
                     <input type="email" name="email" id="email" required className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="ornek@firma.com" />
                   </div>
                   
-                  {/* Telefon */}
                   <div>
                     <label htmlFor="phone" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Telefon Numaranız *</label>
                     <input type="tel" name="phone" id="phone" required className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="0 (5XX) XXX XX XX" />
                   </div>
                 </div>
 
-                {/* Hizmet Seçimi */}
                 <div className="mb-6">
                   <label htmlFor="service" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">İlgilendiğiniz Hizmet *</label>
                   <select name="service" id="service" required className="w-full bg-slate-50 border border-slate-200 text-slate-700 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all appearance-none cursor-pointer">
@@ -186,13 +170,11 @@ export default function AppointmentForm() {
                   </select>
                 </div>
 
-                {/* Mesaj */}
                 <div className="mb-8">
                   <label htmlFor="message" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Proje Detayları</label>
                   <textarea name="message" id="message" rows={4} className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all resize-none" placeholder="Projenizden veya hedeflerinizden kısaca bahsedin..."></textarea>
                 </div>
 
-                {/* Gönder Butonu */}
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
@@ -212,10 +194,6 @@ export default function AppointmentForm() {
                     </>
                   )}
                 </button>
-                <p className="text-center text-slate-400 text-[12px] mt-4">
-                  Göndererek <Link href="/yasal" className="underline hover:text-slate-600">Gizlilik Politikamızı</Link> kabul etmiş olursunuz.
-                </p>
-
               </form>
             )}
           </div>

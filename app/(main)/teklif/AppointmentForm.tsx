@@ -14,7 +14,7 @@ export default function AppointmentForm() {
     
     const formData = new FormData(e.currentTarget);
     
-    // API tarafındaki route.ts ile birebir eşleşen veri yapısı[cite: 5]
+    // API route ile tam uyumlu veri yapısı
     const data = {
       fullName: formData.get("fullName"),
       company: formData.get("company"),
@@ -34,10 +34,10 @@ export default function AppointmentForm() {
       if (response.ok) {
         setIsSuccess(true);
       } else {
-        alert("Bir hata oluştu. Lütfen telefon ile iletişime geçiniz.");
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
       }
     } catch (error) {
-      alert("Sunucuya bağlanılamadı. Lütfen daha sonra tekrar deneyin.");
+      alert("Sunucuya bağlanılamadı.");
     } finally {
       setIsSubmitting(false);
     }
@@ -45,7 +45,6 @@ export default function AppointmentForm() {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-24">
-      
       {/* ÜST BÖLÜM (HERO) */}
       <div className="bg-slate-900 pt-32 pb-20 border-b border-slate-800 relative overflow-hidden">
         <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-[600px] h-[600px] bg-[#933c81]/20 rounded-full blur-[100px] pointer-events-none"></div>
@@ -112,7 +111,6 @@ export default function AppointmentForm() {
           <div className="lg:w-3/5 p-10 lg:p-16">
             
             {isSuccess ? (
-              // BAŞARI EKRANI
               <div className="h-full flex flex-col items-center justify-center text-center py-20 animate-in fade-in zoom-in duration-500">
                 <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6">
                   <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
@@ -129,7 +127,6 @@ export default function AppointmentForm() {
                 </button>
               </div>
             ) : (
-              // FORM EKRANI
               <form onSubmit={handleSubmit} className="flex flex-col h-full justify-center">
                 <h2 className="text-2xl font-bold text-slate-900 mb-8">Randevu / Teklif Formu</h2>
                 

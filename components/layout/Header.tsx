@@ -42,6 +42,7 @@ export default function Header() {
         { name: "Tüm Hizmetler →", href: "/hizmetler" },
         { name: "Web Tasarım", href: "/web-tasarim" },
         { name: "Web Yazılım", href: "/web-yazilim" },
+        { name: "Saas ve CRM Çözümleri", href: "/saas-ve-crm-cozumleri" },
         { name: "E-Ticaret Sitesi", href: "/eticaret-sitesi" },
         { name: "SEO Optimizasyonu", href: "/arama-motoru-optimizasyonu" },
         { name: "GEO & AIO Optimizasyonu", href: "/geo-ve-aio-optimizasyonu" },
@@ -52,8 +53,7 @@ export default function Header() {
         
       ]
     },
-    { name: "Özel Yazılımlar", href: "/ozel-web-yazilim" },
-    { name: "Neler Yaptık", href: "/neler-yaptik" },
+        { name: "Neler Yaptık", href: "/neler-yaptik" },
     { name: "Akademi", href: "/blog" },
     { name: "İletişim", href: "/iletisim" },
   ];
@@ -147,7 +147,8 @@ export default function Header() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
-                    <div className={`overflow-hidden transition-all duration-300 ${isDropdownOpen ? 'max-h-[400px] opacity-100 mb-4' : 'max-h-0 opacity-0'}`}>
+                    {/* Hata Düzeltmesi: max-h-[400px] olan değer, uzun menüler için max-h-[1000px] yapıldı */}
+                    <div className={`overflow-hidden transition-all duration-300 ${isDropdownOpen ? 'max-h-[1000px] opacity-100 mb-4' : 'max-h-0 opacity-0'}`}>
                       <div className="pl-4 py-3 space-y-1 bg-slate-50 rounded-2xl border border-slate-100">
                         {link.subLinks?.map((subLink, index) => (
                           <Link key={index} href={subLink.href} className={`block px-4 py-2.5 text-[15px] rounded-xl ${index === 0 ? 'text-[#933c81] font-bold bg-[#933c81]/5' : 'text-slate-600 font-medium hover:text-[#933c81]'}`}>

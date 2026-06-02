@@ -10,8 +10,6 @@ export const metadata = {
 };
 
 export default function CustomSoftwarePage() {
-  const brandColor = "#933c81";
-
   // 2. BREADCRUMB SCHEMA (Google Arama Sonuçlarındaki Sayfa Yolu Hiyerarşisi)
   const breadcrumbSchema = {
     "@context": "https://schema.org",

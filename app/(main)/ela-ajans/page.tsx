@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 
-export default function ElaAjansPage() {
+export default function BankaHesapBilgileri() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    alert("IBAN kopyalandı!");
+    alert("IBAN numarası panoya kopyalandı!");
   };
 
   const bankalar = [
@@ -42,21 +42,24 @@ export default function ElaAjansPage() {
   ];
 
   return (
-    <div className="max-w-[1000px] mx-auto px-6 py-20">
-      <div className="mb-12">
+    <div className="max-w-[1000px] mx-auto px-6 py-20 min-h-screen">
+      
+      {/* Kurumsal Başlık */}
+      <div className="mb-12 border-b border-slate-200 pb-12">
         <h1 className="text-3xl font-bold text-slate-900 mb-4">Ela Teknoloji ve Tasarım San. Tic. Ltd. Şti.</h1>
         <div className="text-slate-600 space-y-1">
           <p><strong>Vergi Dairesi / No:</strong> Kozyatağı VD. / 3292175962</p>
-          <p><strong>Adres:</strong> K.Bakkalköy Mahallesi, Kayışdağı Cd. Ali Ay Sk. No: 3/1 Orkide Apt. Ataşehir - İSTANBUL</p>
+          <p><strong>Adres:</strong> Küçükbakkalköy Mh. Kayışdağı Cd. Ali Ay Sk. No: 3/1 Orkide Apt. Ataşehir - İSTANBUL</p>
           <p><strong>Tel:</strong> 0216 576 58 26 | <strong>Email:</strong> info@eladesign.org</p>
         </div>
       </div>
 
+      <h2 className="text-2xl font-bold text-slate-900 mb-8">Banka Hesap Bilgilerimiz</h2>
+
       <div className="space-y-8">
         {bankalar.map((banka, idx) => (
-          <div key={idx} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <div key={idx} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-4 mb-6">
-              {/* Logo alanı için placeholder; logoları ekleyince otomatik görünecek */}
               <div className="w-12 h-12 relative">
                 <Image src={banka.logo} alt={banka.name} fill className="object-contain" />
               </div>

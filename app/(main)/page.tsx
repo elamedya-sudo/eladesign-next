@@ -6,11 +6,62 @@ import ProjectsPreview from "@/components/sections/ProjectsPreview";
 import LatestArticles from "@/components/sections/LatestArticles";
 import postsData from "@/data/posts.json";
 
+// 1. ANASAYFA METADATA VE CANONICAL (SEO)
+export const metadata = {
+  title: "Kurumsal Web Tasarım ve Yazılım Ajansı | Ela Design",
+  description: "Web tasarım, özel yazılım, e-ticaret, SEO ve 360° dijital ajans hizmetleri. Terzi işi butik yaklaşımımızla markanızı dijital dünyada öne çıkarıyoruz.",
+  alternates: {
+    canonical: 'https://www.eladesign.org/',
+  }
+};
+
 export default function HomePage() {
   const brandColor = "#933c81";
 
+  // 2. ORGANIZATION VE WEBSITE SCHEMA (Kurumsal Kimlik ve SEO Otoritesi)
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Ela Design",
+      "url": "https://www.eladesign.org/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.eladesign.org/arama?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Ela Teknoloji ve Tasarım",
+      "url": "https://www.eladesign.org/",
+      "logo": "https://www.eladesign.org/logo/logo.webp",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+90-216-576-5826",
+        "contactType": "customer service",
+        "areaServed": "TR",
+        "availableLanguage": "Turkish"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Küçükbakkalköy Mh. Kayışdağı Cd. Ali Ay Sk. No: 3/1 Orkide Apt.",
+        "addressLocality": "Ataşehir",
+        "addressRegion": "İstanbul",
+        "addressCountry": "TR"
+      }
+    }
+  ];
+
   return (
     <>
+      {/* Schema kodunu görünmez şekilde gömüyoruz */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* 1. BÖLÜM: HERO (KARŞILAMA EKRANI) */}
       <div className="relative isolate overflow-hidden bg-white">
         <div className="absolute -top-10 -left-20 w-80 h-80 bg-slate-50 rounded-full opacity-50 -z-10"></div>

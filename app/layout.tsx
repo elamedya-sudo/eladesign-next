@@ -8,7 +8,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-// 1. Global SEO ve Metadata Yapılandırması (Az önce yaptığımız kısım)
+// 1. Global SEO ve Metadata Yapılandırması
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.eladesign.org'),
   alternates: {
@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     template: "%s | Ela Design"
   },
   description: "Geleneksel ajans kalıplarını yıkıyoruz. Web tasarım, SEO, e-ticaret, özel CRM ve SaaS çözümlerimizle markanızı dijitalde büyüten mühendislik harikası sistemler kuruyoruz.",
+  // FAVICON BÖLÜMÜ EKLENDİ
+  icons: {
+    icon: '/images/ela-favicon-y.jpg',
+    apple: '/images/ela-favicon-y.jpg',
+  },
   openGraph: {
     title: "Ela Design - 360° Dijital Performans Ajansı",
     description: "Markanızı dijitalde büyüten mühendislik harikası sistemler kuruyoruz. Yeni nesil web tasarım, SEO, e-ticaret, SaaS ve CRM çözümleri.",

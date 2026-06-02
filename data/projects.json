@@ -1,16 +1,84 @@
 [
-  { "id": 1, "title": "Vicom Energy", "category": "Endüstriyel", "slug": "vicom", "image": "/projeler/ref-vicom.png" },
-  { "id": 2, "title": "DWT Türkiye", "category": "E-Ticaret", "slug": "dwt-turkiye", "image": "/projeler/ref-dwt-turkiye.png" },
-  { "id": 3, "title": "İnokstek", "category": "Endüstriyel", "slug": "inokstek", "image": "/projeler/ref-inokstek.png" },
-  { "id": 4, "title": "Livyadent", "category": "Kurumsal Web", "slug": "livyadent", "image": "/projeler/ref-livyadent.png" },
-  { "id": 5, "title": "Pergolasan", "category": "Kurumsal Web", "slug": "pergolasan", "image": "/projeler/ref-pergolasan.png" },
-  { "id": 6, "title": "Artem", "category": "Kurumsal Web", "slug": "artem", "image": "/projeler/ref-artem.png" },
+  { 
+    "id": 1, 
+    "title": "Vicom Energy", 
+    "category": "Endüstriyel", 
+    "slug": "vicom", 
+    "image": "/projeler/ref-vicom.png",
+    "liveUrl": "https://www.vicomenergy.com",
+    "description": "Endüstriyel enerji devinin tüm dijital operasyonunu sıfırdan Next.js mimarisine taşıdık.",
+    "content": "<h3>🔥 Projenin Zorluğu neydi?</h3><p>Eski sistem çok yavaştı ve kurumsal kimliği yansıtmıyordu. Küresel müşteriler siteye girerken yüklenme sürelerinden şikayetçiydi.</p><h3>🛠️ Mühendislik Çözümümüz</h3><p>Next.js'in SSR (Server-Side Rendering) gücünü kullanarak sayfaları milisaniyeler içinde açılır hale getirdik. SEO skorlarını %100'e sabitledik.</p><h3>📈 Elde Edilen Sonuç</h3><ul><li>Organik trafikte %140 artış</li><li>Mobil dönüşüm oranlarında rekor büyüme</li></ul>"
+  },
+  { 
+    "id": 2, 
+    "title": "DWT Türkiye", 
+    "category": "E-Ticaret", 
+    "slug": "dwt-turkiye", 
+    "image": "/projeler/ref-dwt-turkiye.png",
+    "liveUrl": "https://www.dwt-turkiye.com/"
+  },
+  { 
+    "id": 3, 
+    "title": "İnokstek", 
+    "category": "Endüstriyel", 
+    "slug": "inokstek", 
+    "image": "/projeler/ref-inokstek.png",
+    "liveUrl": "https://www.inokstek.com/"
+  },
+  { 
+    "id": 4, 
+    "title": "Livyadent", 
+    "category": "Kurumsal Web", 
+    "slug": "livyadent", 
+    "image": "/projeler/ref-livyadent.png",
+    "liveUrl": "https://www.livyadent.com/"
+  },
+  { 
+    "id": 5, "title": "Pergolasan", 
+    "category": "Kurumsal Web", 
+    "slug": "pergolasan", 
+    "image": "/projeler/ref-pergolasan.png" ,
+    "liveUrl": "https://www.pergolasan.us/"
+  },
+  { 
+    "id": 6, 
+    "title": "Artem", 
+    "category": "Kurumsal Web", 
+    "slug": "artem", 
+    "image": "/projeler/ref-artem.png",
+    "liveUrl": "https://www.artem.com.tr/"
+  },
   { "id": 7, "title": "Hasan Sever İnşaat", "category": "İnşaat & Mimarlık", "slug": "hasan-sever", "image": "/projeler/ref-hasansever.png" },
-  { "id": 8, "title": "Tonermasters", "category": "E-Ticaret", "slug": "atm", "image": "/projeler/ref-atm.png" },
+  { 
+    "id": 8, 
+    "title": "Tonermasters", 
+    "category": "E-Ticaret", 
+    "slug": "atm", 
+    "image": "/projeler/ref-atm.png",
+    "liveUrl": "https://www.tonermasters.com.au/",
+    "description": "Altyapısı çöken Avustralyalı e-ticaret devini 15 günde nasıl hayata döndürdük? WooCommerce göçü, Özel Toner Alarm CRM'i ve Bot kalkanı başarı hikayemiz.",
+    "content": "<h3>🚀 15 Günlük Kritik Yazılım Göçü (Migration)</h3><p>Eski Alman e-ticaret altyapısı iflas edip kaynak kodlara erişim kapandığında, Tonermasters için saatler işliyordu. Elimizde sadece dağınık ürün listeleri, sipariş veritabanı ve üye kayıtları kalmıştı. Bu dağınık verileri temizleyerek <strong>WooCommerce</strong> altyapısına %100 uyumlu hale getirdik ve sıfır kesinti ile 15 gün gibi rekor bir sürede devasa bir göç operasyonunu tamamladık.</p><h3>🛡️ PayPal ve Bot Saldırılarına Karşı Siber Kalkan</h3><p>Sistem stabilize olduktan kısa süre sonra, sitenin PayPal ödeme kapısını hedef alan, dakikada 60 sahte sipariş üreten devasa bir saldırı başladı. Tüm e-ticaret akışını felç eden bu duruma karşı Cloudflare tarafında Edge seviyesinde <strong>Custom WAF kuralları</strong> yazdık. Botların dijital ayak izlerini (fingerprint) takip ederek sahte sipariş trafiğini anında %99 oranında engelledik.</p><h3>⚙️ 'Toner Alarm' Sistemi & Özel CRM Otomasyonu</h3><p>Operasyonu sadece kurtarmakla kalmadık, markayı geleceğe taşıyacak özel bir mühendislik harikası yarattık. Geleneksel e-ticaretin ötesine geçerek WooCommerce verileriyle tam entegre çalışan <strong>özel bir CRM modülü</strong> geliştirdik. Bu akıllı algoritma, her müşterinin satın alma geçmişini ve yazıcı kullanım sıklığını analiz ederek sarf malzemelerinin ne zaman biteceğini öngörüyor. Toner tükenmeden hemen önce müşteriye giden otomatik yenileme bildirimleri (Toner Alarm) sayesinde, tekrar satın alma oranını (LTV) ve müşteri sadakatini kusursuz bir otomasyona bağladık.</p><h3>📈 Veri Odaklı ADS Operasyonu ve Strateji</h3><p>Eski ajansın '9 aydır sessiz' bıraktığı Google Ads hesabını devraldık. Bütçeyi veri optimizasyonu ile 30.000 AUD'ye çıkararak ROAS rekorları kırarken asıl farkı mühendislik zekasıyla yarattık: Nisan ayındaki Paskalya (Easter) ve okul tatili durgunluğunu öngörerek bütçeyi anında 10.000 AUD'ye çektik ve markanın binlerce dolarlık ölü yatırım yapmasını engelledik.</p>"
+  },
   { "id": 9, "title": "USI İnşaat", "category": "İnşaat & Mimarlık", "slug": "usi", "image": "/projeler/ref-usi.png" },
   { "id": 10, "title": "Soyalan Mimarlık", "category": "İnşaat & Mimarlık", "slug": "soyalan", "image": "/projeler/ref-soyalan.png" },
-  { "id": 11, "title": "Adoçim", "category": "Endüstriyel", "slug": "adocim", "image": "/projeler/ref-adocim.png" },
-  { "id": 12, "title": "Veluxe", "category": "E-Ticaret", "slug": "veluxe", "image": "/projeler/ref-veluxe-deri-koltuk.png" },
+  { 
+    "id": 11, 
+    "title": "Adoçim", 
+    "category": "Endüstriyel", 
+    "slug": "adocim", 
+    "image": "/projeler/ref-adocim.png",
+    "description": "Alan adı (domain) çatışmasının ardından uyguladığımız başarılı site yeniden inşası ve SEO kurtarma (recovery) projesi.",
+    "content": "<h3>Kriz ve Çözüm</h3><p>Markanın yaşadığı domain problemi sonrası arama motoru sıralamalarındaki dramatik düşüşe anında müdahale ettik. Sitenin mimarisini baştan aşağı kurarken, kaybolan SEO değerini titiz bir 'Recovery' operasyonu ile geri kazandırdık.</p>"
+  },
+  { 
+    "id": 12, 
+    "title": "Veluxe", 
+    "category": "E-Ticaret", 
+    "slug": "veluxe", 
+    "image": "/projeler/ref-veluxe-deri-koltuk.png",
+    "description": "WordPress hantallığından kurtararak Headless mimarisine taşıdığımız modern e-ticaret platformu.",
+    "content": "<h3>Projenin Kapsamı</h3><p>Geniş ürün kategorilerine sahip Veluxe markasının e-ticaret altyapısını tamamen yeniledik. Geleneksel WordPress yapısından sıyrılarak çok daha hızlı, güvenli ve ölçeklenebilir olan Next.js Headless mimarisine geçiş yaptık.</p><ul><li>Sıfır milisaniye sayfa geçişleri</li><li>Özelleştirilmiş sepet ve ödeme adımları</li><li>Kusursuz SEO uyumluluğu</li></ul>"
+  },
   { "id": 13, "title": "ZMA Yapı", "category": "İnşaat & Mimarlık", "slug": "zma", "image": "/projeler/ref-zma.png" },
   { "id": 14, "title": "Ağlasun Belediyesi", "category": "Özel Yazılım", "slug": "aglasun", "image": "/projeler/ref-aglasun.png" },
   { "id": 15, "title": "Exact Türkiye", "category": "E-Ticaret", "slug": "exact", "image": "/projeler/ref-exact.png" },

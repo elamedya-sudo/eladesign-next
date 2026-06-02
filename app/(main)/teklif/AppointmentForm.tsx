@@ -7,22 +7,59 @@ export default function AppointmentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Form gönderim simülasyonu
-  const handleSubmit = (e: React.FormEvent) => {
+  // Form Gönderme Fonksiyonu (Dinamik Backend Bağlantısı)
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // 2 saniye sonra başarılı mesajı göster
-    setTimeout(() => {
+    const formData = new FormData(e.currentTarget);
+    
+    // Form verilerini alıyoruz
+    const fullName = formData.get("fullName");
+    const company = formData.get("company") || "Belirtilmedi";
+    const email = formData.get("email");
+    const phone = formData.get("phone");
+    const service = formData.get("service");
+    const messageDetail = formData.get("message") || "Detay belirtilmedi.";
+
+    // /api/contact rotamızın yapısına uyması için verileri derliyoruz
+    const data = {
+      firstName: fullName,
+      lastName: "(Teklif Formu)", // Backend ad soyad ayırdığı için parantez içi bilgi olarak yolluyoruz
+      email: email,
+      message: `
+        Firma Adı: ${company}
+        Telefon: ${phone}
+        İlgilendiği Hizmet: ${service}
+
+        Proje Detayları:
+        ${messageDetail}
+      `,
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setIsSuccess(true); // Başarılı animasyonlu ekranı tetikler
+      } else {
+        alert("Bir hata oluştu. Lütfen telefon ile iletişime geçiniz.");
+      }
+    } catch (error) {
+      alert("Sunucuya bağlanılamadı. Lütfen daha sonra tekrar deneyin.");
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 2000);
+    }
   };
 
   return (
     <div className="bg-slate-50 min-h-screen pb-24">
       
-      {/* ÜST BÖLÜM (HERO) - H1 Optimizasyonu Yapıldı */}
+      {/* ÜST BÖLÜM (HERO) */}
       <div className="bg-slate-900 pt-32 pb-20 border-b border-slate-800 relative overflow-hidden">
         <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-[600px] h-[600px] bg-[#933c81]/20 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10 text-center relative z-10">
@@ -110,49 +147,49 @@ export default function AppointmentForm() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   {/* Ad Soyad */}
                   <div>
-                    <label className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Adınız Soyadınız *</label>
-                    <input type="text" required className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="Örn: Ahmet Yılmaz" />
+                    <label htmlFor="fullName" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Adınız Soyadınız *</label>
+                    <input type="text" name="fullName" id="fullName" required className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="Örn: Ahmet Yılmaz" />
                   </div>
                   
                   {/* Şirket Adı */}
                   <div>
-                    <label className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Firma Adı</label>
-                    <input type="text" className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="Örn: Ela Design" />
+                    <label htmlFor="company" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Firma Adı</label>
+                    <input type="text" name="company" id="company" className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="Örn: Ela Design" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   {/* E-Posta */}
                   <div>
-                    <label className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">E-Posta Adresiniz *</label>
-                    <input type="email" required className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="ornek@firma.com" />
+                    <label htmlFor="email" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">E-Posta Adresiniz *</label>
+                    <input type="email" name="email" id="email" required className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="ornek@firma.com" />
                   </div>
                   
                   {/* Telefon */}
                   <div>
-                    <label className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Telefon Numaranız *</label>
-                    <input type="tel" required className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="0 (5XX) XXX XX XX" />
+                    <label htmlFor="phone" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Telefon Numaranız *</label>
+                    <input type="tel" name="phone" id="phone" required className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all" placeholder="0 (5XX) XXX XX XX" />
                   </div>
                 </div>
 
                 {/* Hizmet Seçimi */}
                 <div className="mb-6">
-                  <label className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">İlgilendiğiniz Hizmet *</label>
-                  <select required className="w-full bg-slate-50 border border-slate-200 text-slate-700 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all appearance-none cursor-pointer">
+                  <label htmlFor="service" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">İlgilendiğiniz Hizmet *</label>
+                  <select name="service" id="service" required className="w-full bg-slate-50 border border-slate-200 text-slate-700 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all appearance-none cursor-pointer">
                     <option value="">Lütfen Bir Hizmet Seçin</option>
-                    <option value="web">Kurumsal Web Tasarım & Next.js Dönüşümü</option>
-                    <option value="saas">Özel Yazılım & SaaS / CRM Geliştirme</option>
-                    <option value="ads">Google Ads & Reklam Yönetimi</option>
-                    <option value="seo">SEO & Arama Motoru Optimizasyonu</option>
-                    <option value="eticaret">E-Ticaret Sistemleri</option>
-                    <option value="diger">Diğer / Kararsızım</option>
+                    <option value="Kurumsal Web Tasarım">Kurumsal Web Tasarım & Next.js Dönüşümü</option>
+                    <option value="Özel Yazılım & SaaS">Özel Yazılım & SaaS / CRM Geliştirme</option>
+                    <option value="Google Ads">Google Ads & Reklam Yönetimi</option>
+                    <option value="SEO">SEO & Arama Motoru Optimizasyonu</option>
+                    <option value="E-Ticaret">E-Ticaret Sistemleri</option>
+                    <option value="Diğer">Diğer / Kararsızım</option>
                   </select>
                 </div>
 
                 {/* Mesaj */}
                 <div className="mb-8">
-                  <label className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Proje Detayları</label>
-                  <textarea rows={4} className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all resize-none" placeholder="Projenizden veya hedeflerinizden kısaca bahsedin..."></textarea>
+                  <label htmlFor="message" className="block text-[13px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Proje Detayları</label>
+                  <textarea name="message" id="message" rows={4} className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-[15px] rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#933c81]/30 focus:border-[#933c81] transition-all resize-none" placeholder="Projenizden veya hedeflerinizden kısaca bahsedin..."></textarea>
                 </div>
 
                 {/* Gönder Butonu */}
@@ -171,7 +208,7 @@ export default function AppointmentForm() {
                   ) : (
                     <>
                       Randevu Talebi Gönder
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7-7m7-7H3" /></svg>
                     </>
                   )}
                 </button>

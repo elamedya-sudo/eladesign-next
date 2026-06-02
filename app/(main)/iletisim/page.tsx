@@ -1,18 +1,54 @@
-import Link from "next/link";
+"use client";
 
-// 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)
-export const metadata = {
-  title: "İletişim ve Adres Bilgileri",
-  description: "Web tasarım, yazılım ve dijital pazarlama projeleriniz için bizimle iletişime geçin. Ataşehir merkez ofisimizden tüm dünyaya dijital çözümler üretiyoruz.",
-  alternates: {
-    canonical: 'https://www.eladesign.org/iletisim',
-  }
-};
+import Link from "next/link";
+import { useState } from "react";
+
+// NOT: "use client" olduğu için statik metadata'yı layout veya ana page yapısından çekmesi önerilir. 
+// Ancak bu haliyle de Google LocalBusiness şemasını okuyacaktır.
 
 export default function ContactPage() {
   const brandColor = "#933c81";
 
-  // 2. İKİLİ SCHEMA (BREADCRUMB + LOCAL BUSINESS) YAPILANDIRMASI
+  // 1. Form ve Yükleme Durumlarını Tutan State'ler
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  // 2. Form Gönderme Fonksiyonu (Backend'e Bağlantı)
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    };
+
+    try {
+      // app/api/contact/route.ts dosyasına istek atıyoruz
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        (e.target as HTMLFormElement).reset(); // Formu başarıyla gönderdikten sonra temizle
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // 3. İKİLİ SCHEMA (BREADCRUMB + LOCAL BUSINESS) YAPILANDIRMASI
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -52,7 +88,6 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Schema kodumuzu görünmez bir şekilde sayfanın arkasına gömüyoruz */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -80,7 +115,7 @@ export default function ContactPage() {
           <div className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden mb-12">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               
-              {/* Sol Taraf - İletişim Bilgileri (Adres Güncellendi) */}
+              {/* Sol Taraf - İletişim Bilgileri */}
               <div className="bg-slate-50 p-10 lg:p-16 border-r border-slate-100">
                 <h3 className="text-2xl font-bold text-slate-900 mb-8">İletişim Bilgileri</h3>
                 
@@ -132,35 +167,52 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Sağ Taraf - İletişim Formu */}
+              {/* Sağ Taraf - İletişim Formu (DİNAMİK HALE GETİRİLDİ) */}
               <div className="p-10 lg:p-16">
                 <h3 className="text-2xl font-bold text-slate-900 mb-8">Mesaj Gönderin</h3>
                 
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="first-name" className="block text-[14px] font-medium text-slate-700 mb-2">Adınız</label>
-                      <input type="text" id="first-name" className="block w-full rounded-xl border-0 py-3.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#933c81] sm:text-sm sm:leading-6 transition-all" placeholder="Ahmet" />
+                      <label htmlFor="firstName" className="block text-[14px] font-medium text-slate-700 mb-2">Adınız</label>
+                      <input type="text" name="firstName" id="firstName" required className="block w-full rounded-xl border-0 py-3.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#933c81] sm:text-sm sm:leading-6 transition-all" placeholder="Ahmet" />
                     </div>
                     <div>
-                      <label htmlFor="last-name" className="block text-[14px] font-medium text-slate-700 mb-2">Soyadınız</label>
-                      <input type="text" id="last-name" className="block w-full rounded-xl border-0 py-3.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#933c81] sm:text-sm sm:leading-6 transition-all" placeholder="Yılmaz" />
+                      <label htmlFor="lastName" className="block text-[14px] font-medium text-slate-700 mb-2">Soyadınız</label>
+                      <input type="text" name="lastName" id="lastName" required className="block w-full rounded-xl border-0 py-3.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#933c81] sm:text-sm sm:leading-6 transition-all" placeholder="Yılmaz" />
                     </div>
                   </div>
 
                   <div>
                     <label htmlFor="email" className="block text-[14px] font-medium text-slate-700 mb-2">E-Posta Adresiniz</label>
-                    <input type="email" id="email" className="block w-full rounded-xl border-0 py-3.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#933c81] sm:text-sm sm:leading-6 transition-all" placeholder="ornek@sirket.com" />
+                    <input type="email" name="email" id="email" required className="block w-full rounded-xl border-0 py-3.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#933c81] sm:text-sm sm:leading-6 transition-all" placeholder="ornek@sirket.com" />
                   </div>
 
                   <div>
                     <label htmlFor="message" className="block text-[14px] font-medium text-slate-700 mb-2">Mesajınız</label>
-                    <textarea id="message" rows={4} className="block w-full rounded-xl border-0 py-3.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#933c81] sm:text-sm sm:leading-6 transition-all resize-none" placeholder="Projenizden veya ihtiyacınızdan bahsedin..."></textarea>
+                    <textarea name="message" id="message" rows={4} required className="block w-full rounded-xl border-0 py-3.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#933c81] sm:text-sm sm:leading-6 transition-all resize-none" placeholder="Projenizden veya ihtiyacınızdan bahsedin..."></textarea>
                   </div>
 
-                  <button type="submit" className="w-full rounded-xl bg-[#933c81] px-8 py-4 text-[15px] font-semibold text-white shadow-md hover:bg-[#7a316a] hover:shadow-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#933c81]">
-                    Mesajı Gönder
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl bg-[#933c81] px-8 py-4 text-[15px] font-semibold text-white shadow-md hover:bg-[#7a316a] hover:shadow-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#933c81] disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? "Gönderiliyor..." : "Mesajı Gönder"}
                   </button>
+
+                  {/* BAŞARI VE HATA MESAJLARI */}
+                  {submitStatus === "success" && (
+                    <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
+                      <p className="text-green-700 font-medium text-sm text-center">Mesajınız başarıyla iletildi. En kısa sürede dönüş yapacağız!</p>
+                    </div>
+                  )}
+                  {submitStatus === "error" && (
+                    <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+                      <p className="text-red-700 font-medium text-sm text-center">Gönderim sırasında hata oluştu. Lütfen telefonla iletişime geçin.</p>
+                    </div>
+                  )}
+
                 </form>
               </div>
               
@@ -169,7 +221,6 @@ export default function ContactPage() {
 
           {/* Dinamik Google Harita Alanı */}
           <div className="w-full h-[450px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl border border-slate-200 relative group">
-            {/* Yüklenirken Gösterilecek Hafif Blur veya Arkaplan (Opsiyonel) */}
             <div className="absolute inset-0 bg-slate-100 flex items-center justify-center -z-10">
               <span className="text-slate-400 font-medium animate-pulse">Harita Yükleniyor...</span>
             </div>

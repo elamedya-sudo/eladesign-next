@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+# YAPAY ZEKA BOTLARI İZİNLERİ (GEO & AIO)
+User-agent: GPTBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: Anthropic-ai
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://www.eladesign.org/sitemap.xml

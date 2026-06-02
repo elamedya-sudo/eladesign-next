@@ -4,7 +4,7 @@ import Image from "next/image";
 // 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)
 export const metadata = {
   title: "Uzman Ekibimiz | Web Tasarım ve Yazılım Mühendisleri",
-  description: "Ela Design'ın dijital dünyadaki tecrübeli uzman ekibi. Web tasarım, yazılım, SEO ve kreatif süreçleri yürüten profesyonel kadromuzla tanışın.",
+  description: "Ela Teknoloji'nin dijital dünyadaki tecrübeli ekibi. Web tasarım, yazılım, SEO ve kreatif süreçleri yürüten profesyonel kadromuzla tanışın.",
   alternates: {
     canonical: 'https://www.eladesign.org/ekibimiz',
   }

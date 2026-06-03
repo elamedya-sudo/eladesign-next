@@ -32,7 +32,7 @@ export default function SearchBar() {
       {results.length > 0 && (
         <div className="absolute top-full mt-2 w-full min-w-[250px] bg-white shadow-2xl rounded-2xl border border-slate-100 p-2 z-[60] overflow-hidden">
           {results.map((post: any) => (
-            <Link href={`/blog/${post.slug}`} key={post.slug} onClick={() => setQuery('')} className="block px-4 py-3 text-[14px] text-slate-600 hover:text-[#933c81] hover:bg-slate-50 rounded-lg transition-colors border-b border-slate-50 last:border-0">
+            <Link href={`/${post.slug}`} key={post.slug} onClick={() => setQuery('')} className="block px-4 py-3 text-[14px] text-slate-600 hover:text-[#933c81] hover:bg-slate-50 rounded-lg transition-colors border-b border-slate-50 last:border-0">
               {post.title}
             </Link>
           ))}

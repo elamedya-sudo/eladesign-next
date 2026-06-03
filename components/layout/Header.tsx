@@ -33,6 +33,7 @@ export default function Header() {
         { name: "Ekibimiz", href: "/ekibimiz" },
         { name: "Banka Bilgilerimiz", href: "/ela-ajans" },
         { name: "Nerelerdeyiz?", href: "/nerelerdeyiz" },
+        { name: "Online Ödeme", href: "/online-odeme" },
       ]
     },
     { 

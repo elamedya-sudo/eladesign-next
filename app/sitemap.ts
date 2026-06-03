@@ -18,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     '', // Ana Sayfa
     '/hakkimizda',
-    '/misyon-vizyon',
     '/ekibimiz',
     '/ela-ajans',
     '/nerelerdeyiz', 
@@ -37,7 +36,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/neler-yaptik', 
     '/kurumsal-web-tasarim-fiyatlari',
     '/e-ticaret-sitesi-fiyatlari', 
-    '/basari-hikayeleri',
     '/blog',
     '/iletisim',
     '/teklif', 

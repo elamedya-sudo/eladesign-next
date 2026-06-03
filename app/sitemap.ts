@@ -2,6 +2,15 @@ import { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
 
+// GÜVENLİ TARİH FONKSİYONU: Hatalı tarihleri yakalayıp build çökmesini engeller
+function getSafeDate(dateString: string | undefined): Date {
+  if (!dateString) return new Date();
+  
+  const parsedDate = new Date(dateString);
+  // Eğer tarih geçersizse (Invalid Date) şu anki tarihi döndür
+  return isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.eladesign.org';
 
@@ -43,14 +52,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 2. DİNAMİK BLOG SAYFALARI
   let dynamicBlogRoutes: MetadataRoute.Sitemap = [];
   try {
-    // data klasörü altındaki posts.json dosyasına bağlandı
     const blogFilePath = path.join(process.cwd(), 'data', 'posts.json'); 
     const blogContents = fs.readFileSync(blogFilePath, 'utf8');
     const blogs = JSON.parse(blogContents);
 
     dynamicBlogRoutes = blogs.map((post: any) => ({
       url: `${baseUrl}/${post.slug}`, 
-      lastModified: new Date(post.date || new Date()),
+      // Artık tarih okuyamazsa sistemi çökertmek yerine güvenli tarihi kullanacak
+      lastModified: getSafeDate(post.date), 
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
@@ -61,14 +70,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 3. DİNAMİK REFERANS (PROJE) DETAY SAYFALARI
   let dynamicReferenceRoutes: MetadataRoute.Sitemap = [];
   try {
-    // data klasörü altındaki projects.json dosyasına bağlandı
     const refFilePath = path.join(process.cwd(), 'data', 'projects.json'); 
     const refContents = fs.readFileSync(refFilePath, 'utf8');
     const references = JSON.parse(refContents);
 
     dynamicReferenceRoutes = references.map((ref: any) => ({
       url: `${baseUrl}/referanslar/${ref.slug}`, 
-      lastModified: new Date(),
+      lastModified: getSafeDate(ref.date), // Burası da güvenli hale getirildi
       changeFrequency: 'monthly' as const,
       priority: 0.7, 
     }));

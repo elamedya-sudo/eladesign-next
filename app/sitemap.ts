@@ -5,30 +5,30 @@ import path from 'path';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.eladesign.org';
 
-  // 1. SİTENİN STATİK SAYFALARI (Yeni eklediklerimiz dahil)
+  // 1. SİTENİN STATİK SAYFALARI
   const staticRoutes = [
     '', // Ana Sayfa
-    '/kurumsal/hakkimizda',
-    '/kurumsal/misyon-vizyon',
-    '/kurumsal/ekibimiz',
-    '/kurumsal/nerelerdeyiz', // Yeni eklendi!
-    '/hizmetler/nextjs-headless',
-    '/hizmetler/dijital-kimlik',
-    '/hizmetler/geo-seo',
-    '/hizmetler/google-ads',
-    '/hizmetler/e-ticaret',
-    '/hizmetler/saas-crm',
+    '/hakkimizda',
+    '/misyon-vizyon',
+    '/ekibimiz',
+    '/nerelerdeyiz', 
+    '/nextjs-headless',
+    '/dijital-kimlik',
+    '/geo-seo',
+    '/google-ads',
+    '/e-ticaret',
+    '/saas-crm',
     '/projeler',
     '/basari-hikayeleri',
     '/blog',
     '/iletisim',
     '/teklif',
-    '/online-odeme', // Yeni eklendi!
+    '/online-odeme', 
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1 : 0.8, // Ana sayfa en yüksek öncelik
+    priority: route === '' ? 1 : 0.8,
   }));
 
   // 2. DİNAMİK BLOG SAYFALARI (JSON'dan otomatik çekilir)

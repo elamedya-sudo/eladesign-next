@@ -1,54 +1,56 @@
 import { MetadataRoute } from 'next';
-import postsData from '@/data/posts.json'; // Blog yazılarının JSON dosyası
-import projectsData from '@/data/projects.json'; // Referansların/Projelerin JSON dosyası
+import fs from 'fs';
+import path from 'path';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.eladesign.org';
 
-  // 1. STATİK SAYFALAR
-  // Sitede manuel olarak oluşturduğumuz tüm sayfalar
+  // 1. SİTENİN STATİK SAYFALARI (Yeni eklediklerimiz dahil)
   const staticRoutes = [
-    '',
-    '/hakkimizda',
-    '/hizmetler',
+    '', // Ana Sayfa
+    '/kurumsal/hakkimizda',
+    '/kurumsal/misyon-vizyon',
+    '/kurumsal/ekibimiz',
+    '/kurumsal/nerelerdeyiz', // Yeni eklendi!
+    '/hizmetler/nextjs-headless',
+    '/hizmetler/dijital-kimlik',
+    '/hizmetler/geo-seo',
+    '/hizmetler/google-ads',
+    '/hizmetler/e-ticaret',
+    '/hizmetler/saas-crm',
+    '/projeler',
+    '/basari-hikayeleri',
+    '/blog',
     '/iletisim',
     '/teklif',
-    '/ekibimiz',
-    '/neler-yaptik',
-    '/blog',
-    '/e-ticaret-sitesi-fiyatlari',
-    '/web-sitesi-fiyatlari',
-    '/geo-ve-aio-optimizasyonu',
-    '/google-adwords',
-    '/eticaret-sitesi',
-    '/2d-animasyon',
-    '/banka-hesap-bilgileri',
-    '/yasal'
-  ];
-
-  const staticPages = staticRoutes.map((route) => ({
+    '/online-odeme', // Yeni eklendi!
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString(),
+    lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1.0 : 0.8, // Anasayfa her zaman 1.0 (en yüksek) önceliğe sahiptir
+    priority: route === '' ? 1 : 0.8, // Ana sayfa en yüksek öncelik
   }));
 
-  // 2. DİNAMİK BLOG SAYFALARI (JSON'dan Çekilenler)
-  const blogPages = postsData.map((post) => ({
-    url: `${baseUrl}/${post.slug}`,
-    lastModified: new Date().toISOString(), 
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+  // 2. DİNAMİK BLOG SAYFALARI (JSON'dan otomatik çekilir)
+  let dynamicBlogRoutes: MetadataRoute.Sitemap = [];
+  
+  try {
+    // Blog JSON dosyasının yolunu belirtiyoruz (Kendi projene göre düzelt: örn './blog.json')
+    const filePath = path.join(process.cwd(), 'blog.json'); 
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const blogs = JSON.parse(fileContents);
 
-  // 3. DİNAMİK PORTFOLYO (Referans) SAYFALARI (JSON'dan Çekilenler)
-  const projectPages = projectsData.map((project) => ({
-    url: `${baseUrl}/referanslar/${project.slug}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+    dynamicBlogRoutes = blogs.map((post: any) => ({
+      // Uzantıları /slug şeklinde yaptığımız için doğrudan base url sonuna ekliyoruz
+      url: `${baseUrl}/${post.slug}`, 
+      lastModified: new Date(post.date || new Date()),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+  } catch (error) {
+    console.error("Sitemap oluşturulurken blog.json okunamadı:", error);
+  }
 
-  // Tüm sayfaları birleştirip arama motorlarına sunuyoruz
-  return [...staticPages, ...blogPages, ...projectPages];
+  // Bütün linkleri birleştirip Google'a sunuyoruz
+  return [...staticRoutes, ...dynamicBlogRoutes];
 }

@@ -3,18 +3,17 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-// --- VERİ MODELİ ---
-// Gönderdiğin HTML'deki soruları ve fiyatları buraya modüler olarak aktardık.
+// --- YENİ VERİ MODELİ (FİYATLAR GİZLİ, SEO/GOOGLE EKLENDİ) ---
 const stepsData = [
   {
     id: "q1",
     title: "1. Ne Tür Bir Web Sitesine İhtiyacınız Var?",
     type: "radio",
     options: [
-      { label: "Kişisel Web Sitesi", price: 22000, displayPrice: "22.000 ₺" },
-      { label: "Kurumsal Web Sitesi", price: 35000, displayPrice: "35.000 ₺" },
-      { label: "Ürün Modüllü Firma Sitesi", price: 75000, displayPrice: "75.000 ₺" },
-      { label: "E-ticaret Sitesi", price: 60000, displayPrice: "60.000 ₺" },
+      { id: "personal", label: "Kişisel Web Sitesi", price: 22000 },
+      { id: "corporate", label: "Kurumsal Web Sitesi", price: 40000 },
+      { id: "product", label: "Ürün Modüllü Web Sitesi", price: 75000 },
+      { id: "ecommerce", label: "E-Ticaret Sitesi", price: 60000 },
     ]
   },
   {
@@ -22,68 +21,43 @@ const stepsData = [
     title: "2. Yabancı Dil Seçimi",
     type: "radio",
     options: [
-      { label: "Sadece Türkçe", price: 0, displayPrice: "Ücretsiz" },
-      { label: "+1 Yabancı Dil", price: 7500, displayPrice: "+7.500 ₺" },
-      { label: "+2 Yabancı Dil", price: 15000, displayPrice: "+15.000 ₺" },
-      { label: "Google Translate ile Çeviri", price: 0, displayPrice: "Ücretsiz" },
+      { id: "tr", label: "Sadece Türkçe", price: 0, tag: "Ücretsiz" },
+      { id: "plus1", label: "+1 Yabancı Dil", price: 10000 },
+      { id: "plus2", label: "+2 Yabancı Dil", price: 20000 },
+      { id: "translate", label: "Google Translate", price: 0, tag: "Ücretsiz" },
     ]
   },
   {
     id: "q3",
-    title: "3. Kaç Sayfalık Tasarım Gerekli?",
+    title: "3. Ne Tür Bir Tasarım İstiyorsunuz?",
     type: "radio",
     options: [
-      { label: "1-5 Sayfa", price: 1250, displayPrice: "1.250 ₺" },
-      { label: "5-20 Sayfa", price: 5000, displayPrice: "5.000 ₺" },
-      { label: "20-40 Sayfa", price: 10000, displayPrice: "10.000 ₺" },
-      { label: "40-60 Sayfa", price: 15000, displayPrice: "15.000 ₺" },
+      { id: "ready", label: "Hazır Tasarım", price: 0, tag: "Ücretsiz" },
+      { id: "designer", label: "Tasarımcıya Bırakıyorum", price: 5000 },
+      { id: "detailed", label: "Detaylı Çalışılmış Bir Tasarım", price: 25000 },
+      { id: "custom", label: "Bana Özel Özgün Tasarım", price: 50000 },
     ]
   },
   {
     id: "q4",
-    title: "4. Ne Tür Bir Tasarım İstiyorsunuz?",
+    title: "4. Altyapı ve Teknoloji Seçimi",
     type: "radio",
     options: [
-      { label: "Hazır Tasarım", price: 0, displayPrice: "Standart" },
-      { label: "Tasarımcıya Bırakıyorum", price: 5000, displayPrice: "+5.000 ₺" },
-      { label: "Detaylı Çalışılmış Tasarım", price: 15000, displayPrice: "+15.000 ₺" },
-      { label: "İsteklerime Göre Özelleştirilmiş", price: 25000, displayPrice: "+25.000 ₺" },
-      { label: "Bana Özel Özgün Tasarım", price: 50000, displayPrice: "+50.000 ₺" },
+      { id: "cms", label: "Standart CMS (Örn: WordPress)", price: 0, tag: "Standart" },
+      { id: "nextjs", label: "Next.js / Headless Modern Mimari", price: 15000 },
+      { id: "custom_backend", label: "Tamamen Özel Yazılım & Veritabanı", price: 35000 },
     ]
   },
   {
     id: "q5",
-    title: "5. Yönetici Paneli Seçimi",
-    type: "radio",
-    options: [
-      { label: "ElaDesign Özel Panel İstiyorum", price: 5000, displayPrice: "+5.000 ₺" },
-      { label: "Açık Kaynaklı Panel İstiyorum", price: 0, displayPrice: "Standart" },
-    ]
-  },
-  {
-    id: "q6",
-    title: "6. Kurumsal E-posta Hizmeti",
-    type: "radio",
-    options: [
-      { label: "Webmail (1-10 E-posta)", price: 0, displayPrice: "Standart" },
-      { label: "Kurumsal Sunucu - 10 GB", price: 5000, displayPrice: "+5.000 ₺" },
-      { label: "Kurumsal Sunucu - 25 GB", price: 9000, displayPrice: "+9.000 ₺" },
-      { label: "Kurumsal Sunucu - 50 GB", price: 17000, displayPrice: "+17.000 ₺" },
-      { label: "Kurumsal Sunucu - 100 GB", price: 32000, displayPrice: "+32.000 ₺" },
-      { label: "Kurumsal Sunucu - 200 GB", price: 59000, displayPrice: "+59.000 ₺" },
-    ]
-  },
-  {
-    id: "q7",
-    title: "7. SEO ve Entegrasyonlar",
+    title: "5. SEO ve Google Entegrasyonları (Opsiyonel)",
     type: "checkbox", // Bu adım çoklu seçime (checkbox) izin veriyor
     options: [
-      { label: "Search Console Optimizasyonu", price: 10000, displayPrice: "+10.000 ₺" },
-      { label: "Analytics Optimizasyonu", price: 10000, displayPrice: "+10.000 ₺" },
-      { label: "Tag Manager Entegrasyonu", price: 5000, displayPrice: "+5.000 ₺" },
-      { label: "Yandex Metrica Entegrasyonu", price: 5000, displayPrice: "+5.000 ₺" },
-      { label: "Merchant Center Optimizasyonu", price: 17000, displayPrice: "+17.000 ₺" },
-      { label: "Google İşletme Kaydı", price: 5000, displayPrice: "+5.000 ₺" },
+      { id: "search_console", label: "Search Console Optimizasyonu", price: 10000 },
+      { id: "analytics", label: "Google Analytics Optimizasyonu", price: 10000 },
+      { id: "tag_manager", label: "Tag Manager Entegrasyonu", price: 5000 },
+      { id: "merchant", label: "Google Merchant Center Optimizasyonu", price: 17000 },
+      { id: "my_business", label: "Google İşletme (Harita) Kaydı", price: 5000 },
     ]
   }
 ];
@@ -91,27 +65,23 @@ const stepsData = [
 export default function PriceCalculator() {
   const brandColor = "#933c81";
   
-  // State: Hangi adımdayız?
   const [currentStep, setCurrentStep] = useState(0);
   
-  // State: Seçilen cevapları tutar (Örn: { q1: [22000], q7: [10000, 5000] })
+  // İlk adımda varsayılan değerler seçili gelsin
   const [selections, setSelections] = useState<Record<string, number[]>>({
-    q1: [22000], // Varsayılan seçimler (Gönderdiğin HTML'deki "checked" mantığı)
-    q2: [0],
-    q3: [1250],
-    q4: [0],
-    q5: [5000],
-    q6: [0],
-    q7: [] // Checkbox için boş dizi
+    q1: [40000], // Varsayılan Kurumsal
+    q2: [0],     // Türkçe
+    q3: [0],     // Hazır Tasarım
+    q4: [15000], // Next.js Mimari
+    q5: []       // Çoklu seçim boş gelsin
   });
 
-  // State: Toplam Fiyat
   const [totalPrice, setTotalPrice] = useState(0);
 
   const totalSteps = stepsData.length + 1; // Sorular + Sonuç Ekranı
   const isFinished = currentStep === stepsData.length;
 
-  // Seçimler her değiştiğinde fiyatı yeniden hesapla
+  // Seçimler değiştiğinde fiyatı hesapla
   useEffect(() => {
     let newTotal = 0;
     Object.values(selections).forEach(valArray => {
@@ -120,13 +90,11 @@ export default function PriceCalculator() {
     setTotalPrice(newTotal);
   }, [selections]);
 
-  // Radyo veya Checkbox seçildiğinde tetiklenen fonksiyon
   const handleSelect = (questionId: string, price: number, type: string) => {
     setSelections(prev => {
       if (type === "radio") {
         return { ...prev, [questionId]: [price] };
       } else {
-        // Checkbox mantığı: Varsa çıkar, yoksa ekle
         const currentVals = prev[questionId] || [];
         if (currentVals.includes(price)) {
           return { ...prev, [questionId]: currentVals.filter(v => v !== price) };
@@ -145,15 +113,15 @@ export default function PriceCalculator() {
     if (currentStep > 0) setCurrentStep(prev => prev - 1);
   };
 
-  // İleride İletişim Formuna (URL Parametresi olarak) taşınacak raporu oluşturur
-  const getMailLink = () => {
-    const formattedPrice = totalPrice.toLocaleString('tr-TR') + ' ₺';
-    const message = `Merhaba, tahmini proje bedelim: ${formattedPrice}. Seçimlerim üzerinden detayları görüşmek istiyorum.`;
-    return `/iletisim?not=${encodeURIComponent(message)}`;
+  // WhatsApp'a hazır mesaj oluştur
+  const getWhatsAppLink = () => {
+    const formattedPrice = totalPrice.toLocaleString('tr-TR');
+    const message = `Merhaba, Ela Teknoloji web sitenizden tahmini fiyat hesaplama aracınızı kullandım. Çıkan tahmini proje bedelim: ${formattedPrice} TL. Bu bütçe ve ihtiyaçlarım doğrultusunda detaylı görüşmek ve teklif almak istiyorum.`;
+    return `https://wa.me/908503028476?text=${encodeURIComponent(message)}`;
   };
 
   return (
-    <div className="bg-white rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden max-w-4xl mx-auto">
+    <div className="bg-white rounded-[2rem] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden max-w-4xl mx-auto relative z-10">
       
       {/* Üst Bar: İlerleme Durumu */}
       <div className="bg-slate-50 px-8 py-6 border-b border-slate-100">
@@ -185,6 +153,9 @@ export default function PriceCalculator() {
             <h3 className="text-2xl font-extrabold text-slate-900 mb-8">
               {stepsData[currentStep].title}
             </h3>
+            <p className="text-sm text-slate-500 mb-6 -mt-4">
+              {stepsData[currentStep].type === 'checkbox' ? "(Birden fazla seçim yapabilirsiniz)" : "(Tek bir seçim yapınız)"}
+            </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {stepsData[currentStep].options.map((option, idx) => {
@@ -192,42 +163,36 @@ export default function PriceCalculator() {
                 const isSelected = selections[qId]?.includes(option.price);
                 
                 return (
-                  <label 
-                    key={idx} 
-                    className={`flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 ${
-                      isSelected 
-                        ? "border-[#933c81] bg-[#933c81]/5 shadow-md shadow-[#933c81]/10" 
-                        : "border-slate-100 bg-white hover:border-slate-300 hover:bg-slate-50"
+                  <button
+                    key={idx}
+                    onClick={() => handleSelect(qId, option.price, stepsData[currentStep].type)}
+                    className={`relative p-5 rounded-2xl border-2 text-left transition-all duration-200 flex items-center justify-between group ${
+                      isSelected
+                        ? "border-[#933c81] bg-[#933c81]/5 shadow-md"
+                        : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
                     }`}
                   >
-                    <div className="flex items-center gap-4">
-                      {/* Özel Tasarım Input (Radio / Checkbox) */}
-                      <div className={`w-6 h-6 flex items-center justify-center shrink-0 ${stepsData[currentStep].type === 'radio' ? 'rounded-full' : 'rounded-md'} border-2 transition-colors ${isSelected ? 'border-[#933c81] bg-[#933c81]' : 'border-slate-300 bg-white'}`}>
+                    <span className={`font-semibold text-[15px] ${isSelected ? "text-[#933c81]" : "text-slate-700"}`}>
+                      {option.label}
+                    </span>
+                    
+                    <div className="flex items-center gap-3">
+                      {option.tag && (
+                        <span className={`text-[11px] font-bold px-2 py-1 rounded-md uppercase tracking-wide ${
+                          isSelected ? "bg-[#933c81] text-white" : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"
+                        }`}>
+                          {option.tag}
+                        </span>
+                      )}
+                      <div className={`w-5 h-5 flex items-center justify-center shrink-0 ${stepsData[currentStep].type === 'radio' ? 'rounded-full' : 'rounded-md'} border-2 transition-colors ${isSelected ? 'border-[#933c81] bg-[#933c81]' : 'border-slate-300 bg-white'}`}>
                         {isSelected && (
                           <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
                         )}
                       </div>
-                      
-                      {/* Görünmez gerçek input (Erişilebilirlik için) */}
-                      <input 
-                        type={stepsData[currentStep].type}
-                        name={qId}
-                        checked={isSelected}
-                        onChange={() => handleSelect(qId, option.price, stepsData[currentStep].type)}
-                        className="hidden"
-                      />
-                      
-                      <span className={`text-[15px] font-semibold ${isSelected ? 'text-slate-900' : 'text-slate-700'}`}>
-                        {option.label}
-                      </span>
                     </div>
-                    
-                    <span className={`text-[13px] font-bold px-3 py-1 rounded-lg ${isSelected ? 'bg-white text-[#933c81]' : 'bg-slate-100 text-slate-500'}`}>
-                      {option.displayPrice}
-                    </span>
-                  </label>
+                  </button>
                 );
               })}
             </div>
@@ -243,31 +208,33 @@ export default function PriceCalculator() {
             <h3 className="text-3xl font-extrabold text-slate-900 mb-2">Tahmini Proje Bedeli</h3>
             <p className="text-slate-500 mb-8 px-4 py-2 bg-yellow-50 text-yellow-800 rounded-lg inline-block text-sm font-medium">⚠️ Bu fiyatlar bilgi amaçlı tahmini tutarlardır.</p>
             
-            <div className="text-6xl font-black text-[#933c81] tracking-tight mb-10">
-              {totalPrice.toLocaleString('tr-TR')} ₺
+            <div className="text-5xl md:text-6xl font-black text-[#933c81] tracking-tight mb-10">
+              {totalPrice.toLocaleString('tr-TR')} ₺ <span className="text-lg font-medium text-slate-400">+ KDV</span>
             </div>
             
-            <Link 
-              href={getMailLink()}
-              className="inline-flex items-center gap-2 bg-[#933c81] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#7a316a] shadow-xl hover:shadow-2xl hover:shadow-[#933c81]/30 transition-all transform hover:-translate-y-1"
-            >
-              Teklif Al / İletişime Geç
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-            </Link>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 max-w-lg mx-auto">
+              <a 
+                href={getWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-[#20bd5a] shadow-lg transition-all transform hover:-translate-y-1"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+                WhatsApp İle Sor
+              </a>
+              <Link 
+                href="/iletisim"
+                className="flex-1 flex items-center justify-center gap-2 bg-slate-900 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-slate-800 shadow-lg transition-all transform hover:-translate-y-1"
+              >
+                Form Gönder
+              </Link>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Alt Bar: Fiyat Göstergesi ve İleri/Geri Butonları */}
-      <div className="bg-slate-50 px-8 py-6 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-        
-        <div className="flex flex-col">
-          <span className="text-[13px] font-semibold text-slate-500 uppercase tracking-wider">Tahmini Toplam</span>
-          <span className="text-2xl font-black text-slate-900">
-            {totalPrice.toLocaleString('tr-TR')} ₺
-          </span>
-        </div>
-
+      {/* Alt Bar: Sadece İleri/Geri Butonları (Fiyat Artık Gizli) */}
+      <div className="bg-slate-50 px-8 py-6 border-t border-slate-100 flex justify-end">
         <div className="flex gap-3 w-full sm:w-auto">
           {currentStep > 0 && !isFinished && (
             <button 
@@ -281,22 +248,21 @@ export default function PriceCalculator() {
           {!isFinished && (
             <button 
               onClick={nextStep}
-              className="flex-1 sm:flex-none px-8 py-3 rounded-xl bg-slate-900 text-white font-semibold shadow-md hover:bg-slate-800 transition-colors"
+              className="flex-1 sm:flex-none px-10 py-3 rounded-xl bg-gradient-to-r from-[#933c81] to-[#df6e32] text-white font-bold shadow-md hover:opacity-90 transition-opacity"
             >
-              {currentStep === stepsData.length - 1 ? "Sonuçları Gör" : "İleri"}
+              {currentStep === stepsData.length - 1 ? "Hesapla ve Fiyatı Gör" : "İleri"}
             </button>
           )}
           
           {isFinished && (
             <button 
               onClick={() => setCurrentStep(0)}
-              className="flex-1 sm:flex-none px-6 py-3 rounded-xl bg-slate-200 text-slate-700 font-semibold hover:bg-slate-300 transition-colors"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-200 text-slate-700 font-semibold hover:bg-slate-300 transition-colors"
             >
-              Baştan Başla
+              Yeniden Hesapla
             </button>
           )}
         </div>
-
       </div>
 
     </div>

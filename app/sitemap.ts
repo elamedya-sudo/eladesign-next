@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '', // Ana Sayfa
     '/hakkimizda',
     '/ekibimiz',
+    '/grup-sirketlerimiz',
     '/ela-ajans',
     '/nerelerdeyiz', 
     '/online-odeme',
@@ -35,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/2d-animasyon', 
     '/neler-yaptik', 
     '/kurumsal-web-tasarim-fiyatlari',
+    '/avukatlar-icin-web-sitesi-fiyatlari',
     '/e-ticaret-sitesi-fiyatlari', 
     '/blog',
     '/iletisim',

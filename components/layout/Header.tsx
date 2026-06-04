@@ -31,6 +31,7 @@ export default function Header() {
       subLinks: [
         { name: "Kurumsal Sayfası →", href: "/hakkimizda" },
         { name: "Ekibimiz", href: "/ekibimiz" },
+        { name: "Grup Şirketlerimiz", href: "/grup-sirketlerimiz" },
         { name: "Banka Bilgilerimiz", href: "/ela-ajans" },
         { name: "Nerelerdeyiz?", href: "/nerelerdeyiz" },
         { name: "Online Ödeme", href: "/online-odeme" },

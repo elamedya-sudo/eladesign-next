@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { GoogleAnalytics } from '@next/third-parties/google';
 import "./globals.css";
 
 const poppins = Poppins({ 
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Ela Design"
   },
   description: "Geleneksel ajans kalıplarını yıkıyoruz. Web tasarım, SEO, e-ticaret, özel CRM ve SaaS çözümlerimizle markanızı dijitalde büyüten mühendislik harikası sistemler kuruyoruz.",
-  // FAVICON BÖLÜMÜ EKLENDİ
+  // FAVICON BÖLÜMÜ
   icons: {
     icon: '/images/ela-favicon-y.jpg',
     apple: '/images/ela-favicon-y.jpg',
@@ -31,11 +32,22 @@ export const metadata: Metadata = {
     siteName: 'Ela Design',
     locale: 'tr_TR',
     type: 'website',
+    // CLAUDE SEO ÇÖZÜMÜ: OG Görseli Eklendi
+    images: [
+      {
+        url: '/og-image.jpg', 
+        width: 1200,
+        height: 630,
+        alt: 'Ela Design Dijital Performans Ajansı',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Ela Design - Dijital Performans Ajansı',
     description: 'Markanızı dijitalde büyüten mühendislik harikası sistemler.',
+    // CLAUDE SEO ÇÖZÜMÜ: Twitter Görseli Eklendi
+    images: ['/og-image.jpg'], 
   },
 };
 
@@ -48,7 +60,7 @@ export default function RootLayout({
   // 2. YAPISAL VERİ (JSON-LD) - Google'a kendimizi resmi olarak tanıtıyoruz
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService", // Ajanslar için en uygun kategori
+    "@type": "ProfessionalService", 
     "name": "Ela Teknoloji ve Tasarım",
     "alternateName": "Ela Design",
     "url": "https://www.eladesign.org",
@@ -85,6 +97,9 @@ export default function RootLayout({
       <body className={`${poppins.variable} font-sans antialiased bg-white text-slate-900`}>
         {children}
       </body>
+      
+      {/* 3. GOOGLE ANALYTICS BAĞLANTISI */}
+      <GoogleAnalytics gaId="G-1SV7XN3NRY" />
     </html>
   );
 }

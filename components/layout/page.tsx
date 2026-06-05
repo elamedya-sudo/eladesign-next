@@ -51,7 +51,7 @@ export default function RootLayout({
       </body>
       
       {/* 4. GOOGLE ANALYTICS BAĞLANTISI (Doğru ID eklendi) */}
-      <GoogleAnalytics gaId="G-GZ6KZFJL4V" />
+      <GoogleAnalytics gaId="G-1SV7XN3NRY" />
     </html>
   );
 }

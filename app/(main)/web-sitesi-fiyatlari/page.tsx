@@ -1,12 +1,15 @@
 import Link from "next/link";
 import PriceCalculator from "@/components/sections/PriceCalculator";
 
-// 1. SAYFAYA ÖZEL METADATA VE CANONICAL
+// 1. SAYFAYA ÖZEL METADATA, CANONICAL VE OG ETİKETLERİ (CLAUDE SEO ÇÖZÜMÜ)
 export const metadata = {
-  title: "2026 Web Sitesi Fiyatları ve E-Ticaret Maliyetleri", 
+  title: "2026 Web Sitesi Fiyatları ve Maliyetleri", 
   description: "2026 güncel web sitesi tasarım fiyatları. Kurumsal web sitesi, e-ticaret ve özel yazılım maliyetlerini interaktif fiyat hesaplama motoruyla hemen öğrenin.",
-  alternates: {
-    canonical: 'https://www.eladesign.org/web-sitesi-fiyatlari', // Sayfanın tam slug'ını buraya girmelisin
+  alternates: { canonical: 'https://www.eladesign.org/web-sitesi-fiyatlari' },
+  openGraph: {
+    title: "2026 Web Sitesi Fiyatları | Ela Design",
+    description: "Kurumsal web sitesi, e-ticaret ve özel yazılım maliyetlerini interaktif fiyat hesaplama motoruyla hemen öğrenin.",
+    url: 'https://www.eladesign.org/web-sitesi-fiyatlari',
   }
 };
 
@@ -85,11 +88,11 @@ export default function PricingPage() {
             <p className="text-[14px] font-semibold uppercase tracking-widest text-[#e890d6] mb-4">
               GÜNCEL FİYAT REHBERİ
             </p>
-            {/* H1 Etiketi: Tam arama motoru hedefli */}
+            {/* 3. H1 Etiketi: Lokasyon bazlı arama motoru hedefli */}
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl mb-6 leading-tight">
-              2026 Web Sitesi Fiyatları ve <br className="hidden md:block" />
-              <span className="text-[#e890d6]">E-Ticaret Maliyetleri</span>
-            </h1>
+  2026 Web Sitesi Fiyatları ve <br className="hidden md:block" />
+  <span className="text-[#e890d6]">E-Ticaret Maliyetleri</span>
+</h1>
             <p className="max-w-3xl mx-auto text-[17px] leading-8 text-slate-300 font-light">
               İstanbul Ataşehir merkezli ajansımızda, web sitesi yaptırmaya karar verip tekliflerle aklı karışanlar için tüm teknolojilerin maliyetlerini şeffafça açıklıyoruz. Temel projeler <strong className="text-white">22.000 TL</strong>'den başlarken, profesyonel e-ticaret sistemleri <strong className="text-white">185.000 TL</strong>'ye kadar çıkabilmektedir.
             </p>

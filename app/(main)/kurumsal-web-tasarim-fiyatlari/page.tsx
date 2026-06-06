@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-// 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)
+// 1. SAYFAYA ÖZEL METADATA, CANONICAL VE OG ETİKETLERİ (CLAUDE SEO ÇÖZÜMÜ)
 export const metadata = {
   title: "Kurumsal Web Tasarım Fiyatları 2026 | Şirketler İçin Profesyonel Paketler",
   description: "2026 güncel kurumsal web tasarım fiyatları, profesyonel web sitesi paketleri ve süreç hakkında detaylı bilgilendirme. İşletmenizin dijital dünyadaki prestijini artırın.",
-  alternates: {
-    canonical: 'https://www.eladesign.org/kurumsal-web-tasarim-fiyatlari',
+  alternates: { canonical: 'https://www.eladesign.org/kurumsal-web-tasarim-fiyatlari' },
+  openGraph: {
+    title: "Kurumsal Web Tasarım Fiyatları 2026 | Ela Design",
+    description: "2026 güncel kurumsal web tasarım fiyatları, profesyonel web sitesi paketleri ve süreç hakkında detaylı bilgilendirme.",
+    url: 'https://www.eladesign.org/kurumsal-web-tasarim-fiyatlari',
   }
 };
 
@@ -76,10 +79,11 @@ export default function KurumsalWebTasarimFiyatlari() {
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#933c81]/20 blur-[120px] rounded-full pointer-events-none transform translate-x-1/3 -translate-y-1/4"></div>
           
           <div className="max-w-[1440px] mx-auto px-6 lg:px-10 text-center relative z-10">
+            {/* 3. H1 Optimizasyonu (Lokasyon Eklendi) */}
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl mb-6 leading-tight">
-              Kurumsal Web Tasarım Fiyatları 2026: <br className="hidden md:block" />
-              <span className="text-[#e890d6]">Şirketler İçin Profesyonel Paketler</span>
-            </h1>
+  Kurumsal Web Tasarım Fiyatları 2026: <br className="hidden md:block" />
+  <span className="text-[#e890d6]">Şirketler İçin Profesyonel Paketler</span>
+</h1>
             <div className="max-w-3xl mx-auto text-[17px] leading-8 text-slate-300 font-light space-y-4">
               <p>
                 İşletmenizin dijital dünyadaki prestiji, kurumsal web sitenizin kalitesiyle doğru orantılıdır. Aşağıdaki paketler, firmanızı en iyi şekilde yansıtmak için hazırlanmıştır.

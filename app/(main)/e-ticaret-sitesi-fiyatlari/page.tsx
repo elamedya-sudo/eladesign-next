@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-// 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)
+// 1. SAYFAYA ÖZEL METADATA, CANONICAL VE OG ETİKETLERİ (CLAUDE SEO ÇÖZÜMÜ)
 export const metadata = {
   title: "E-Ticaret Sitesi Fiyatları 2026 | WooCommerce Paket Maliyetleri",
   description: "2026 güncel e-ticaret sitesi kurulum fiyatları. Sizi platformlara mahkum etmeyen, %100 size ait açık kaynaklı profesyonel e-ticaret paketlerimizi inceleyin.",
-  alternates: {
-    canonical: 'https://www.eladesign.org/e-ticaret-sitesi-fiyatlari',
+  alternates: { canonical: 'https://www.eladesign.org/e-ticaret-sitesi-fiyatlari' },
+  openGraph: {
+    title: "E-Ticaret Sitesi Fiyatları 2026 | Ela Design",
+    description: "2026 güncel e-ticaret sitesi kurulum fiyatları. Sizi platformlara mahkum etmeyen, %100 size ait açık kaynaklı profesyonel e-ticaret paketlerimizi inceleyin.",
+    url: 'https://www.eladesign.org/e-ticaret-sitesi-fiyatlari',
   }
 };
 
@@ -88,10 +91,11 @@ export default function EcommercePricingPage() {
             <p className="text-[14px] font-semibold uppercase tracking-widest text-[#e890d6] mb-4">
               GÜNCEL E-TİCARET FİYATLANDIRMASI
             </p>
+            {/* 3. H1 Optimizasyonu (Lokasyon Eklendi) */}
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl mb-6 leading-tight">
-              E-Ticaret Sitesi Fiyatları 2026: <br className="hidden md:block" />
-              <span className="text-[#e890d6]">En İyi WooCommerce Paketleri</span>
-            </h1>
+  E-Ticaret Sitesi Fiyatları 2026: <br className="hidden md:block" />
+  <span className="text-[#e890d6]">En İyi WooCommerce Paketleri</span>
+</h1>
             <p className="max-w-3xl mx-auto text-[17px] leading-8 text-slate-300 font-light mb-8">
               "Bir e-ticaret sitesinin maliyeti ne kadar?" kolayca cevap verilebilecek bir soru değildir. Çünkü ilk kurulum maliyetleri buzdağının sadece görünen yüzüdür. İşletmenizi kiralık altyapılara mahkum etmeyen, %100 size ait özgür sistemlerin fiyatlarını inceleyin.
             </p>

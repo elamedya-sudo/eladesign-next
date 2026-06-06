@@ -3,43 +3,22 @@ import Image from "next/image";
 
 // 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)
 export const metadata = {
-  title: "Kurumsal Web Tasarım Ajansı ve Hizmetleri",
+  title: "İstanbul Kurumsal Web Tasarım Ajansı ve Hizmetleri",
   description: "Markanızın kurumsal kimliğine %100 uyan, yüksek dönüşümlü, SEO ve mobil uyumlu profesyonel kurumsal web tasarım hizmetleri.",
   alternates: {
     canonical: 'https://www.eladesign.org/web-tasarim',
+  },
+  openGraph: {
+    title: "İstanbul Kurumsal Web Tasarım Ajansı | Ela Design",
+    description: "Markanızın kurumsal kimliğine %100 uyan, yüksek dönüşümlü, SEO ve mobil uyumlu profesyonel kurumsal web tasarım hizmetleri.",
+    url: 'https://www.eladesign.org/web-tasarim',
   }
 };
 
 export default function WebDesignServicePage() {
   const brandColor = "#933c81";
 
-  // 2. BREADCRUMB (SAYFA YOLU) SCHEMA
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Anasayfa",
-        "item": "https://www.eladesign.org/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Hizmetlerimiz",
-        "item": "https://www.eladesign.org/hizmetler"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Web Tasarım",
-        "item": "https://www.eladesign.org/web-tasarim"
-      }
-    ]
-  };
-
-  // Sayfadaki "Nasıl Çalışıyoruz?" süreci
+  // Sayfadaki "Nasıl Çalışıyoruz?" süreci (HowTo Schema için kullanılacak)
   const processSteps = [
     { step: "01", title: "Analiz & Strateji", desc: "Rakiplerinizi analiz eder, sektördeki boşlukları tespit edip dijital yol haritanızı çizeriz." },
     { step: "02", title: "Terzi İşi Tasarım", desc: "Hazır şablonlar yerine, markanızın kurumsal kimliğine %100 uyan, yüksek dönüşümlü arayüzler tasarlarız." },
@@ -57,12 +36,58 @@ export default function WebDesignServicePage() {
     "Kesintisiz Barındırma ve Güvenlik (SSL)"
   ];
 
+  // 2. ÜÇLÜ JSON-LD ŞEMASI (Breadcrumb + Service + HowTo)
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Anasayfa",
+          "item": "https://www.eladesign.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hizmetlerimiz",
+          "item": "https://www.eladesign.org/hizmetler"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Web Tasarım",
+          "item": "https://www.eladesign.org/web-tasarim"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Kurumsal Web Tasarım",
+      "provider": { "@type": "LocalBusiness", "name": "Ela Design" },
+      "areaServed": { "@type": "City", "name": "İstanbul" },
+      "description": "Markanızın kurumsal kimliğine %100 uyan, yüksek dönüşümlü, SEO ve mobil uyumlu profesyonel kurumsal web tasarım hizmetleri."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Web Tasarım Süreci",
+      "step": processSteps.map((item) => ({
+        "@type": "HowToStep",
+        "name": item.title,
+        "text": item.desc
+      }))
+    }
+  ];
+
   return (
     <>
       {/* 3. Schema kodunu sayfanın arkasına görünmez şekilde gömüyoruz */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="bg-white">
         
@@ -77,11 +102,11 @@ export default function WebDesignServicePage() {
             <p className="text-[14px] font-semibold uppercase tracking-widest text-[#e890d6] mb-4">
               HİZMETLERİMİZ / WEB TASARIM
             </p>
-            {/* 4. H1 Optimizasyonu (Kurumsal Web Tasarım anahtar kelimesi eklendi) */}
+            {/* 4. H1 Optimizasyonu (Lokasyon Eklendi) */}
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[64px] mb-6 leading-tight">
-              Markanız İçin Üst Düzey <br className="hidden md:block" />
-              <span style={{ color: "#e890d6" }}>Kurumsal Web Tasarım</span>
-            </h1>
+  Markanız İçin Üst Düzey <br className="hidden md:block" />
+  <span style={{ color: "#e890d6" }}>Kurumsal Web Tasarım</span>
+</h1>
             <p className="max-w-3xl mx-auto text-[17px] leading-8 text-slate-300 font-light">
               Web tasarım çalışması bir defa yaptıracağınız ve yıllarca üzerinizde taşıyacağınız bir gömlek gibidir. Sizin kim olduğunuzu bir çırpıda haykırır. Bu yüzden hazır şablonlara sıkışmayın, terzi işi çözümlerle rakiplerinizden farklılaşın.
             </p>
@@ -102,9 +127,8 @@ export default function WebDesignServicePage() {
             
             {/* Sol Taraf: Görsel / İllüstrasyon */}
             <div className="relative">
-               {/* Buraya anasayfadaki web-tasarim.png'yi veya yeni bir görsel koyabilirsin */}
               <div className="aspect-[4/3] rounded-3xl bg-slate-50 border border-slate-100 flex items-center justify-center relative overflow-hidden">
-                  <Image src="/web-tasarim.png" alt="Web Tasarım Mimari" fill className="object-contain p-8 transform hover:scale-105 transition-transform duration-700" />
+                  <Image src="/web-tasarim.png" alt="İstanbul Web Tasarım Ajansı Mimarisi" fill className="object-contain p-8 transform hover:scale-105 transition-transform duration-700" />
               </div>
               {/* Vurgu Kutusu */}
               <div className="absolute -bottom-8 -right-8 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 hidden md:block">

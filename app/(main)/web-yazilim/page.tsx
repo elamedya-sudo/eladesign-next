@@ -1,42 +1,19 @@
 import Link from "next/link";
 
-// 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)
+// 1. SAYFAYA ÖZEL METADATA, CANONICAL VE OG ETİKETLERİ (CLAUDE SEO ÇÖZÜMÜ)
 export const metadata = {
   title: "Özel Web Yazılım Ajansı ve Çözümleri",
   description: "İşletmenizin ihtiyaçlarına özel, yüksek performanslı ve güvenli web yazılım, API entegrasyonu ve B2B/B2C portal çözümleri üretiyoruz.",
-  alternates: {
-    canonical: 'https://www.eladesign.org/web-yazilim',
+  alternates: { canonical: 'https://www.eladesign.org/web-yazilim' },
+  openGraph: {
+    title: "Özel Web Yazılım Ajansı | Ela Design",
+    description: "İşletmenizin ihtiyaçlarına özel, yüksek performanslı ve güvenli web yazılım, API entegrasyonu ve B2B/B2C portal çözümleri üretiyoruz.",
+    url: 'https://www.eladesign.org/web-yazilim',
   }
 };
 
 export default function WebSoftwarePage() {
   const brandColor = "#933c81";
-
-  // 2. BREADCRUMB (SAYFA YOLU) SCHEMA
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Anasayfa",
-        "item": "https://www.eladesign.org/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Hizmetlerimiz",
-        "item": "https://www.eladesign.org/hizmetler"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Özel Web Yazılım",
-        "item": "https://www.eladesign.org/web-yazilim"
-      }
-    ]
-  };
 
   // Sunduğumuz Yazılım Çözümleri
   const solutions = [
@@ -65,12 +42,48 @@ export default function WebSoftwarePage() {
   // Kullanılan Teknolojiler
   const technologies = ["Next.js", "React", "Node.js", "TypeScript", "Supabase", "Tailwind CSS", "PHP", "REST/GraphQL API"];
 
+  // 2. İKİLİ SCHEMA (BREADCRUMB + SERVICE) YAPILANDIRMASI
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Anasayfa",
+          "item": "https://www.eladesign.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hizmetlerimiz",
+          "item": "https://www.eladesign.org/hizmetler"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Özel Web Yazılım",
+          "item": "https://www.eladesign.org/web-yazilim"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Özel Web Yazılım Çözümleri",
+      "provider": { "@type": "LocalBusiness", "name": "Ela Design" },
+      "areaServed": { "@type": "City", "name": "İstanbul" },
+      "description": "İşletmenizin ihtiyaçlarına özel, yüksek performanslı ve güvenli web yazılım, API entegrasyonu ve B2B/B2C portal çözümleri."
+    }
+  ];
+
   return (
     <>
       {/* 3. Schema kodunu sayfanın arkasına görünmez şekilde gömüyoruz */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       
       <div className="bg-white min-h-screen">
@@ -87,11 +100,11 @@ export default function WebSoftwarePage() {
             <p className="text-[14px] font-semibold uppercase tracking-widest text-[#e890d6] mb-4">
               HİZMETLERİMİZ / WEB YAZILIM
             </p>
-            {/* 4. H1 Optimizasyonu (Özel Web Yazılım anahtar kelimesi eklendi) */}
+            {/* 4. H1 Optimizasyonu (Lokasyon Eklendi) */}
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[64px] mb-6 leading-tight">
-              Hazır Şablonlara Sığamayanlara Özel <br className="hidden md:block" />
-              <span style={{ color: "#e890d6" }}>Web Yazılım Çözümleri</span>
-            </h1>
+  Hazır Şablonlara Sığamayanlara Özel <br className="hidden md:block" />
+  <span style={{ color: "#e890d6" }}>Web Yazılım Çözümleri</span>
+</h1>
             <p className="max-w-3xl mx-auto text-[17px] leading-8 text-slate-300 font-light mb-10">
               İşletmenizin kendine has kuralları ve süreçleri varsa, paket programlar sizi yavaşlatır. İhtiyaçlarınızı dinliyor, mühendislik vizyonumuzla modern, güvenli ve ölçeklenebilir özel web yazılımları geliştiriyoruz.
             </p>

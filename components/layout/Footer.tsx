@@ -58,7 +58,7 @@ export default function Footer() {
               <li><Link href="/e-ticaret-sitesi-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">E-Ticaret Sitesi Fiyatları</Link></li>
               <li><Link href="/avukatlar-icin-web-sitesi-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Avukatlar İçin Web Sitesi Fiyatları</Link></li>
               <li><Link href="/blog" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Ela Akademi</Link></li>
-              <li><Link href="/randevu-talebi" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Teklif İsteyin</Link></li>
+              <li><Link href="/teklif" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Teklif İsteyin</Link></li>
               <li><Link href="/iletisim" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">İletişim</Link></li>
             </ul>
           </div>

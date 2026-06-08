@@ -20,6 +20,7 @@ export default function TeamPage() {
     { name: "Tanyel Çakır", role: "Mimar - 3D Max Modelleme", image: "/ekip/tanyel-cakir.jpg" },
     { name: "Semiha Parlak", role: "Grafik Tasarım", image: "/ekip/semiha-parlak.jpg" },
     { name: "Ahmet Temel", role: "Sosyal Medya Yöneticisi", image: "/ekip/ahmet-temel.jpg" },
+    { name: "Volkan Daşdemir", role: "Kıdemli Yazılımcı", image: "/ekip/volkan.png" },
   ];
 
   // 2. PERSON SCHEMA (Her bir ekip üyesi için SEO gücü)

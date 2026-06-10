@@ -1,14 +1,16 @@
 import Link from "next/link";
 import PriceCalculator from "@/components/sections/PriceCalculator";
 
-// 1. SAYFAYA ÖZEL METADATA, CANONICAL VE OG ETİKETLERİ (CLAUDE SEO ÇÖZÜMÜ)
+// 1. GLOBAL VİZYON ODAKLI METADATA & CANONICAL
 export const metadata = {
-  title: "2026 Web Sitesi Fiyatları ve Maliyetleri", 
-  description: "2026 güncel web sitesi tasarım fiyatları. Kurumsal web sitesi, e-ticaret ve özel yazılım maliyetlerini interaktif fiyat hesaplama motoruyla hemen öğrenin.",
-  alternates: { canonical: 'https://www.eladesign.org/web-sitesi-fiyatlari' },
+  title: "2026 Web Sitesi Fiyat Hesaplama Motoru & Proje Maliyetleri", 
+  description: "Kurumsal web sitesi, e-ticaret ve özel yazılım maliyetlerinizi interaktif fiyat hesaplama motoruyla hemen öğrenin. 2026 güncel web teknolojileri bütçe rehberi.",
+  alternates: {
+    canonical: 'https://www.eladesign.org/web-sitesi-fiyatlari', 
+  },
   openGraph: {
-    title: "2026 Web Sitesi Fiyatları | Ela Design",
-    description: "Kurumsal web sitesi, e-ticaret ve özel yazılım maliyetlerini interaktif fiyat hesaplama motoruyla hemen öğrenin.",
+    title: "2026 Web Sitesi Fiyat Hesaplama Motoru | Ela Design",
+    description: "Kurumsal web sitesi, e-ticaret ve özel yazılım maliyetlerinizi interaktif fiyat hesaplama motoruyla hemen öğrenin.",
     url: 'https://www.eladesign.org/web-sitesi-fiyatlari',
   }
 };
@@ -16,7 +18,6 @@ export const metadata = {
 export default function PricingPage() {
   const brandColor = "#933c81";
 
-  // SEO Odaklı SSS (Sıkça Sorulan Sorular) Verisi
   const faqs = [
     {
       q: "2026 Web sitesi fiyatları ortalama ne kadar?",
@@ -36,7 +37,7 @@ export default function PricingPage() {
     }
   ];
 
-  // 2. İKİLİ SCHEMA (BREADCRUMB + FAQ) YAPILANDIRMASI
+  // BREADCRUMB + FAQ SCHEMA
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -72,7 +73,6 @@ export default function PricingPage() {
 
   return (
     <>
-      {/* Schema kodumuzu sayfanın arkasına görünmez bir şekilde gömüyoruz */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -80,33 +80,32 @@ export default function PricingPage() {
       
       <div className="bg-slate-50 min-h-screen">
         
-        {/* 1. HERO ALANI (SEO Odaklı Güçlendirilmiş H1) */}
+        {/* HERO ALANI */}
         <div className="bg-slate-900 py-24 lg:py-32 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#933c81]/20 blur-[120px] rounded-full pointer-events-none transform translate-x-1/3 -translate-y-1/4"></div>
           
           <div className="max-w-[1440px] mx-auto px-6 lg:px-10 text-center relative z-10">
             <p className="text-[14px] font-semibold uppercase tracking-widest text-[#e890d6] mb-4">
-              GÜNCEL FİYAT REHBERİ
+              DİJİTAL MALİYET REHBERİ
             </p>
-            {/* 3. H1 Etiketi: Lokasyon bazlı arama motoru hedefli */}
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl mb-6 leading-tight">
-  2026 Web Sitesi Fiyatları ve <br className="hidden md:block" />
-  <span className="text-[#e890d6]">E-Ticaret Maliyetleri</span>
-</h1>
+              2026 Web Sitesi Fiyat Hesaplama Motoru ve <br className="hidden md:block" />
+              <span className="text-[#e890d6]">Yeni Nesil Maliyet Analizi</span>
+            </h1>
             <p className="max-w-3xl mx-auto text-[17px] leading-8 text-slate-300 font-light">
-              İstanbul Ataşehir merkezli ajansımızda, web sitesi yaptırmaya karar verip tekliflerle aklı karışanlar için tüm teknolojilerin maliyetlerini şeffafça açıklıyoruz. Temel projeler <strong className="text-white">22.000 TL</strong>'den başlarken, profesyonel e-ticaret sistemleri <strong className="text-white">185.000 TL</strong>'ye kadar çıkabilmektedir.
+              Web sitesi yaptırmaya karar verip karmaşık tekliflerle aklı karışanlar için tüm yeni nesil teknolojilerin maliyetlerini şeffafça simüle ediyoruz. Projenizin bütçesini saniyeler içinde belirleyin.
             </p>
           </div>
         </div>
 
-        {/* 2. ORTALAMA FİYAT KARTLARI (Paketler) */}
+        {/* PAKET KARTLARI */}
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-20 -mt-10 relative z-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
             <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl shadow-slate-200/40 hover:-translate-y-2 transition-transform duration-300">
               <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-2xl mb-6">🏢</div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Kurumsal Web Sitesi</h3>
-              <p className="text-[14px] text-slate-500 mb-6">Şirketler, Kobiler ve Holdingler için prestijli vitrin.</p>
+              <p className="text-[14px] text-slate-500 mb-6">Şirketler, Kobiler ve Global markalar için prestijli vitrin.</p>
               <div className="text-2xl font-black text-[#933c81] mb-6">35.000 ₺ <span className="text-[14px] font-medium text-slate-400">'den başlayan</span></div>
               <Link href="#hesapla" className="block w-full py-3 text-center rounded-xl bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition-colors border border-slate-200">
                 Maliyet Hesapla
@@ -127,7 +126,7 @@ export default function PricingPage() {
             <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl shadow-slate-200/40 hover:-translate-y-2 transition-transform duration-300">
               <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-2xl mb-6">⚖️</div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Hukuk / Avukat Sitesi</h3>
-              <p className="text-[14px] text-slate-500 mb-6">TBB kurallarına uygun, güven veren özel tasarımlar.</p>
+              <p className="text-[14px] text-slate-500 mb-6">Mevzuatlara uygun, güven veren üst düzey tasarımlar.</p>
               <div className="text-2xl font-black text-[#933c81] mb-6">22.000 ₺ <span className="text-[14px] font-medium text-slate-400">'den başlayan</span></div>
               <Link href="#hesapla" className="block w-full py-3 text-center rounded-xl bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition-colors border border-slate-200">
                 Maliyet Hesapla
@@ -147,8 +146,8 @@ export default function PricingPage() {
           </div>
         </div>
 
-        {/* 3. İNTERAKTİF HESAPLAMA MOTORU ALANI */}
-        <div id="hesapla" className="py-20 bg-white border-y border-slate-200">
+        {/* INTERAKTİF HESAPLAMA MOTORU ALANI */}
+        <div id="hesapla" className="py-20 bg-white border-y border-slate-200 scroll-mt-20">
           <div className="max-w-[1000px] mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">İnteraktif Fiyat Hesaplama Motoru</h2>
@@ -159,19 +158,27 @@ export default function PricingPage() {
           </div>
         </div>
 
-        {/* 4. SEO İÇERİĞİ VE SSS */}
+        {/* SEO İÇERİĞİ VE SSS (CRITICAL LINK JUICE TRANSFER) */}
         <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             
             <div>
               <h2 className="text-3xl font-bold text-slate-900 mb-8">Fiyatlar Neye Göre Değişir?</h2>
               <div className="space-y-8">
+                
+                {/* STRATEJİK İÇ LİNKLEME ALANI - Backlink gücünü snippet sayfasına aktarıyoruz */}
+                <div className="bg-[#933c81]/5 border-l-4 border-[#933c81] p-6 rounded-r-2xl mb-6">
+                  <p className="text-[15px] text-slate-700 leading-relaxed font-medium">
+                    💡 <strong>Not:</strong> Kurumsal şirketler, holdingler ve ölçeklenebilir web altyapıları için hazırladığımız detaylı bütçe kırılımlarına ve resmi fiyat tablosuna ulaşmak için <Link href="/kurumsal-web-tasarim-fiyatlari" className="text-[#933c81] font-bold hover:underline">Kurumsal Web Tasarım Fiyatları</Link> rehberimizi inceleyebilirsiniz.
+                  </p>
+                </div>
+
                 <div>
                   <h3 className="text-[18px] font-bold text-[#933c81] mb-3 flex items-center">
                     <span className="w-6 h-6 rounded-full bg-[#933c81]/10 flex items-center justify-center text-[12px] mr-3">1</span>
                     Projenin Yapısı ve Amacı
                   </h3>
-                  <p className="text-slate-600 leading-relaxed text-[15px]">Kişisel bir tanıtım sitesi ile karmaşık ödeme sistemleri ve stok yönetimi olan bir e-ticaret sitesi aynı eforu gerektirmez. İhtiyaç duyulan modüller fiyatı doğrudan belirler.</p>
+                  <p className="text-slate-600 leading-relaxed text-[15px]">Kimi projeler sadece marka vitrinidir, kimileri ise arka planda karmaşık API entegrasyonları barındırır. İhtiyaç duyulan modüller fiyatı doğrudan belirler.</p>
                 </div>
                 
                 <div>
@@ -179,15 +186,15 @@ export default function PricingPage() {
                     <span className="w-6 h-6 rounded-full bg-[#933c81]/10 flex items-center justify-center text-[12px] mr-3">2</span>
                     Kullanılacak Altyapı ve Teknoloji
                   </h3>
-                  <p className="text-slate-600 leading-relaxed text-[15px]">Piyasada 3.000 TL'ye kurulan hazır şablonlu WordPress siteleri bulunurken; yüksek performans, AIO (Yapay Zeka Aramaları) ve güvenlik için özel kodlanan Next.js Headless mimarilerin maliyeti doğal olarak daha yüksektir.</p>
+                  <p className="text-slate-600 leading-relaxed text-[15px]">Yüksek performans, yapay zeka entegrasyonları ve tam güvenlik için özel kodlanan Next.js Headless mimarilerin maliyeti, hazır şablonlara göre farklılık göstermektedir.</p>
                 </div>
 
                 <div>
                   <h3 className="text-[18px] font-bold text-[#933c81] mb-3 flex items-center">
                     <span className="w-6 h-6 rounded-full bg-[#933c81]/10 flex items-center justify-center text-[12px] mr-3">3</span>
-                    Ajansın Deneyimi ve Süreklilik
+                    Süreklilik ve Teknik Destek
                   </h3>
-                  <p className="text-slate-600 leading-relaxed text-[15px]">Sadece "boş bir site" teslim almakla, içerikleri optimize edilmiş, Google araçları (Search Console, Analytics) bağlanmış ve en önemlisi site yayına girdikten sonra 7/24 teknik destek alabileceğiniz bir ajansla çalışmak arasındaki fark, kaliteyi belirler.</p>
+                  <p className="text-slate-600 leading-relaxed text-[15px]">Sadece bir web sitesi teslim almak değil; tüm analizlerin yapılması, Google araçlarının optimizasyonu ve yayından sonra kesintisiz teknik destek sunulması kalite standardını belirler.</p>
                 </div>
               </div>
             </div>

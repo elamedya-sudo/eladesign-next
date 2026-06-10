@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-// 1. SAYFAYA ÖZEL METADATA, CANONICAL VE OG ETİKETLERİ (CLAUDE SEO ÇÖZÜMÜ)
+// 1. GLOBAL VİZYONLU METADATA VE CANONICAL (İSTANBUL BAĞIMSIZ)
 export const metadata = {
   title: "Kurumsal Web Tasarım Fiyatları 2026 | Şirketler İçin Profesyonel Paketler",
   description: "2026 güncel kurumsal web tasarım fiyatları, profesyonel web sitesi paketleri ve süreç hakkında detaylı bilgilendirme. İşletmenizin dijital dünyadaki prestijini artırın.",
@@ -27,11 +27,11 @@ export default function KurumsalWebTasarimFiyatlari() {
     { q: "Kurumsal web sitesi paketlerine hosting ve domain dahil mi?", a: "Evet, tüm kurumsal paketlerimizde 1 yıllık Hosting (Sunucu), Domain (Alan Adı) ve SSL güvenlik sertifikası fiyatlara dahildir." },
     { q: "Web sitesini yönetim panelinden ben güncelleyebilir miyim?", a: "Kesinlikle. Türkçe ve kullanıcı dostu yönetim paneli sayesinde kod bilmenize gerek kalmadan yazılarınızı, hizmetlerinizi ve görsellerinizi kolayca güncelleyebilirsiniz." },
     { q: "Kurumsal e-posta hesapları açılıyor mu?", a: "Evet, firmanıza kurumsal bir kimlik kazandıran isim@firmaniz.com uzantılı e-posta hesapları paket kapsamında açılmaktadır." },
-    { q: "Web sitesi mobil uyumlu (Responsive) olacak mı?", a: "Tasarladığımız tüm siteler %100 mobil uyumludur. Telefon, tablet ve masaüstü cihazlarda kusursuz görünür ve Google mobil uyumluluk testinden başarıyla geçer." },
+    { q: "Web sitesi mobil uyumlu (Responsive) olacak mı?", a: "Tasarladığımız tüm siteler %100 mobil uyumludur. Telefon, tablet and masaüstü cihazlarda kusursuz görünür ve Google mobil uyumluluk testinden başarıyla geçer." },
     { q: "SEO altyapısı mevcut mu?", a: "Evet, siteleriniz teknik SEO kurallarına (Hız, Sitemap, Temiz Kod) uygun olarak inşa edilir ve Google'da bulunabilirliğiniz artırılır." }
   ];
 
-  // 2. İKİLİ SCHEMA (BREADCRUMB + FAQ) YAPILANDIRMASI
+  // BREADCRUMB + FAQ SCHEMA (LOCAL BUSINESS ROOTS STORED IN SYSTEM BACKGROUND)
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -74,16 +74,16 @@ export default function KurumsalWebTasarimFiyatlari() {
       
       <div className="bg-slate-50 min-h-screen pb-24">
         
-        {/* 1. HERO ALANI */}
+        {/* HERO ALANI */}
         <div className="bg-slate-900 py-24 lg:py-32 relative overflow-hidden border-b border-slate-800">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#933c81]/20 blur-[120px] rounded-full pointer-events-none transform translate-x-1/3 -translate-y-1/4"></div>
           
           <div className="max-w-[1440px] mx-auto px-6 lg:px-10 text-center relative z-10">
-            {/* 3. H1 Optimizasyonu (Lokasyon Eklendi) */}
+            {/* VİZYONER H1 (SNIPPET GÜCÜNÜ KORUYAN FORMAT) */}
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl mb-6 leading-tight">
-  Kurumsal Web Tasarım Fiyatları 2026: <br className="hidden md:block" />
-  <span className="text-[#e890d6]">Şirketler İçin Profesyonel Paketler</span>
-</h1>
+              Kurumsal Web Tasarım Fiyatları 2026: <br className="hidden md:block" />
+              <span className="text-[#e890d6]">Şirketler İçin Profesyonel Paketler</span>
+            </h1>
             <div className="max-w-3xl mx-auto text-[17px] leading-8 text-slate-300 font-light space-y-4">
               <p>
                 İşletmenizin dijital dünyadaki prestiji, kurumsal web sitenizin kalitesiyle doğru orantılıdır. Aşağıdaki paketler, firmanızı en iyi şekilde yansıtmak için hazırlanmıştır.
@@ -99,6 +99,18 @@ export default function KurumsalWebTasarimFiyatlari() {
           
           {/* İçerik Giriş */}
           <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-100 shadow-sm mb-16 prose prose-slate max-w-none">
+            
+            {/* DÖNÜŞÜM HUNİSİ AKSİYON BANNERI - Gelen trafiği motor sayfasına akıtıyoruz */}
+            <div className="bg-[#933c81] text-white p-6 md:p-8 rounded-2xl mb-8 flex flex-col md:flex-row justify-between items-center gap-6 shadow-lg">
+              <div>
+                <h3 className="text-xl font-bold text-white mb-1">Kendi Projenizin Maliyetini Şimdi Hesaplayın</h3>
+                <p className="text-sm text-slate-200">İhtiyaçlarınızı seçerek milimetrik bir bütçe analizi çıkarmak ister misiniz?</p>
+              </div>
+              <Link href="/web-sitesi-fiyatlari#hesapla" className="bg-white text-[#933c81] px-6 py-3 rounded-full text-sm font-bold shadow-md hover:bg-slate-50 transition-colors whitespace-nowrap">
+                Fiyat Hesaplama Motorunu Deneyin →
+              </Link>
+            </div>
+
             <p>
               Kurumlar ya da şirketler için özel olarak tasarlanan modern ve çok işlevli web sitelerini kurumsal web tasarım kategorisinde değerlendirebiliriz. Hazır web sitelerine nazaran en büyük farkı özgün olmasıdır. Rakiplerinden farklı görünmek ve internet ortamında zirvede olmak isteyenlerin tercih ettiği bir tasarım türüdür.
             </p>
@@ -114,7 +126,7 @@ export default function KurumsalWebTasarimFiyatlari() {
             </div>
           </div>
 
-          {/* Fiyat Tablosu */}
+          {/* Fiyat Tablosu (Snippet'i Kazandıran Semantic Alan) */}
           <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/40 border border-slate-100 overflow-hidden mb-20">
             <div className="p-6 md:p-10 border-b border-slate-100 bg-slate-50">
               <h2 className="text-2xl font-bold text-slate-900">Kurumsal Web Tasarım Fiyat Listesi 2026</h2>
@@ -156,7 +168,7 @@ export default function KurumsalWebTasarimFiyatlari() {
             </div>
           </div>
 
-          {/* Uzun İçerik (Eski Sitedeki 5 Madde) */}
+          {/* Uzun İçerik */}
           <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-100 shadow-sm mb-20 prose prose-slate max-w-none">
             
             <h2 className="text-3xl font-bold text-slate-900 border-b border-slate-200 pb-4 mb-8">Web Tasarım Karar Verme Süreci</h2>

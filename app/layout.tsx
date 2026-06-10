@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import CookieBanner from "@/components/CookieBanner"; // ÇEREZ BİLEŞENİ EKLENDİ
 import "./globals.css";
 
 const poppins = Poppins({ 
@@ -86,7 +87,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="tr">
+    // DARK MODE ÇÖZÜMÜ BURADA: className="light" ve style ayarı eklendi
+    <html lang="tr" className="light" style={{ colorScheme: 'light' }}>
       <head>
         {/* Schema kodumuzu Google'ın okuyabileceği formata (script) çevirip head etiketine gömüyoruz */}
         <script
@@ -94,11 +96,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${poppins.variable} font-sans antialiased bg-white text-slate-900`}>
+      <body className={`${poppins.variable} font-sans antialiased bg-white text-slate-900 relative`}>
         {children}
+        
+        {/* 3. ÇEREZ UYARISI BİLEŞENİ */}
+        <CookieBanner />
       </body>
       
-      {/* 3. GOOGLE ANALYTICS BAĞLANTISI */}
+      {/* 4. GOOGLE ANALYTICS BAĞLANTISI */}
       <GoogleAnalytics gaId="G-1SV7XN3NRY" />
     </html>
   );

@@ -34,8 +34,8 @@ export default function YasalIcerik() {
       {/* İÇERİK ALANI */}
       <div className="max-w-[1200px] mx-auto px-6 lg:px-10 mt-12 flex flex-col md:flex-row gap-12 relative items-start">
         
-        {/* SOL MENÜ (SEKMELER) */}
-        <div className="w-full md:w-1/4 sticky top-32 flex flex-col gap-2">
+        {/* SOL MENÜ (SEKMELER) - MOBİL SORUNU BURADA ÇÖZÜLDÜ: md:sticky ve md:top-32 eklendi */}
+        <div className="w-full md:w-1/4 md:sticky md:top-32 flex flex-col gap-2">
           <button 
             onClick={() => setActiveTab("kvkk")}
             className={`text-left px-6 py-4 rounded-xl font-semibold transition-all ${

@@ -89,7 +89,7 @@ export default function KurumsalWebTasarimFiyatlari() {
                 İşletmenizin dijital dünyadaki prestiji, kurumsal web sitenizin kalitesiyle doğru orantılıdır. Aşağıdaki paketler, firmanızı en iyi şekilde yansıtmak için hazırlanmıştır.
               </p>
               <p className="text-white font-medium bg-[#003300]/20 p-4 rounded-xl border border-[#003300]/30">
-                Eğer satış odaklı bir sistem arıyorsanız <Link href="/eticaret-sitesi-fiyatlari" className="text-[#e890d6] font-bold hover:underline">E-Ticaret Fiyatları</Link> rehberimize göz atabilirsiniz.
+                Eğer satış odaklı bir sistem arıyorsanız <Link href="/e-ticaret-sitesi-fiyatlari" className="text-[#e890d6] font-bold hover:underline">E-Ticaret Fiyatları</Link> rehberimize göz atabilirsiniz.
               </p>
             </div>
           </div>

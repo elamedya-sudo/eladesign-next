@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google';
-import CookieBanner from "@/components/CookieBanner"; // ÇEREZ BİLEŞENİ EKLENDİ
+import CookieBanner from "@/components/ui/CookieBanner"; // ÇEREZ BİLEŞENİ EKLENDİ
 import "./globals.css";
 
 const poppins = Poppins({ 

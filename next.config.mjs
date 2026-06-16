@@ -1,49 +1,42 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // SEO Optimizasyonu: URL sonlarındaki eğik çizgileri temizler ve standartlaştırır
   trailingSlash: false,
 
   async redirects() {
     return [
-      // 1. DİNAMİK SSS YÖNLENDİRMESİ
       {
         source: '/sss/:path*',
         destination: '/web-sitesi-fiyatlari',
         permanent: true,
       },
-      
-      // 2. YASAL SAYFA YÖNLENDİRMESİ
       {
         source: '/cerez-politikasi',
         destination: '/yasal',
         permanent: true,
       },
-
-      // 3. EKİP VE YAZAR PROFİLLERİ 
+      // 1. DÜZELTME: Ekip resimlerini korur, sadece eski ekip sayfalarını yönlendirir
       {
-        source: '/ekip/:path*',
+        source: '/ekip/:slug((?!.*\\.).*)',
         destination: '/', 
         permanent: true,
       },
-
-      // 4. ESKİ KATEGORİ, SERVİS VE REFERANS YÖNLENDİRMELERİ
       {
         source: '/kategori/:path*',
         destination: '/blog', 
         permanent: true,
       },
+      // 2. DÜZELTME: Servis resimleri varsa onları korur
       {
-        source: '/servisler/:path*',
+        source: '/servisler/:slug((?!.*\\.).*)',
         destination: '/', 
         permanent: true,
       },
+      // 3. DÜZELTME: Referans resimleri varsa onları korur
       {
-        source: '/referanslar/:path*',
+        source: '/referanslar/:slug((?!.*\\.).*)',
         destination: '/', 
         permanent: true,
       },
-
-      // 5. TEKİL ÖZEL SAYFALAR VE ARTIKLAR
       {
         source: '/doktor-web-sitesi-fiyatlari',
         destination: '/kurumsal-web-tasarim-fiyatlari',

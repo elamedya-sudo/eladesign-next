@@ -31,12 +31,6 @@ const nextConfig = {
         destination: '/', 
         permanent: true,
       },
-      // 3. DÜZELTME: Referans resimleri varsa onları korur
-      {
-        source: '/referanslar/:slug((?!.*\\.).*)',
-        destination: '/', 
-        permanent: true,
-      },
       {
         source: '/doktor-web-sitesi-fiyatlari',
         destination: '/kurumsal-web-tasarim-fiyatlari',

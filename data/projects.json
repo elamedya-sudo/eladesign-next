@@ -85,8 +85,9 @@
     "slug": "aygun-tuce-atas-klinik-yazilimi",
     "category": "Özel Web Yazılım",
     "client": "Uzm. Psk. Aygün Tuçe Ataş Önç",
+    "liveUrl": "https://www.ayguntuceatas.com",
     "completionDate": "2026-06",
-    "image": "/images/projects/aygun-tuce-atas-klinik.webp",
+    "image": "/projeler/aygun-tuce-atas-klinik.webp",
     "shortDescription": "Geleneksel sistemlerin hantal yapısını ortadan kaldırarak, baştan sona özel, yüksek performanslı ve interaktif bir klinik yönetim platformu inşa ettik.",
     "technologies": [
       "Next.js 15+", 

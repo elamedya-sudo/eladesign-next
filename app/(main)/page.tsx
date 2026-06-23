@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Services from "@/components/sections/Services";
 import SuccessStories from "@/components/sections/SuccessStories";
+// YENİ VİTRİN BİLEŞENİNİ IMPORT ETTİK
+import FeaturedProjects from "@/components/sections/FeaturedProjects"; 
 import ProjectsPreview from "@/components/sections/ProjectsPreview";
 import LatestArticles from "@/components/sections/LatestArticles";
 import postsData from "@/data/posts.json";
@@ -110,7 +112,6 @@ export default function HomePage() {
                 >
                   Fiyatları Hesapla
                   <svg className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    {/* Hesap Makinesi İkonu */}
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
                 </Link>
@@ -140,10 +141,13 @@ export default function HomePage() {
       {/* 3. BÖLÜM: BAŞARI HİKAYELERİ (Koyu Tema) */}
       <SuccessStories />
 
-      {/* 4. BÖLÜM: NELER YAPTIK (Projeler) */}
+      {/* 4. BÖLÜM: VİTRİN / ÖNE ÇIKAN PROJELER (YENİ EKLENDİ) */}
+      <FeaturedProjects />
+
+      {/* 5. BÖLÜM: NELER YAPTIK (Tüm Projelerin Izgarası) */}
       <ProjectsPreview />
 
-      {/* 5. BÖLÜM: ELA AKADEMİ (Son Yazılar) */}
+      {/* 6. BÖLÜM: ELA AKADEMİ (Son Yazılar) */}
       <LatestArticles />
     </>
   );

@@ -50,6 +50,18 @@ const nextConfig = {
         source: '/en/home',
         destination: '/', 
         permanent: true,
+      },
+      // 3. YENİ DÜZELTME: Ahrefs raporundaki 404 ve Bozuk Yönlendirme (Randevu)
+      {
+        source: '/randevu-talebi',
+        destination: '/iletisim',
+        permanent: true,
+      },
+      // 4. YENİ DÜZELTME: Ahrefs raporundaki 404 ve Bozuk Yönlendirme (Ataşehir SEO)
+      {
+        source: '/web-sitesi-fiyatlari-atasehir',
+        destination: '/web-sitesi-fiyatlari',
+        permanent: true,
       }
     ];
   },

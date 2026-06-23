@@ -24,11 +24,11 @@ export default function LatestArticles() {
   const featuredPostSlugs = [
     "yapay-zeka-ile-icerik-uretmek", 
     "telefonunuz-aslinda-sizi-dinlemiyor", 
+    "dijital-yayincilik-1-7-30-4-2-1-icerik-kurali",
     "headless-mimari-nedir",
     "organik-trafiginizi-10-adimda-arttirma",
     "canonical-url-nedir",
     "dijital-pazarlama-nedir",
-    "web-tasarim-trendleri",
     "web-tasarim-fiyatlari-nasil-belirlenir",
     "sosyal-medya-yonetimi-hakkinda-bilinmesi-gerekenler",
   ];

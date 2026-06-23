@@ -5,6 +5,7 @@ import SuccessStories from "@/components/sections/SuccessStories";
 // YENİ VİTRİN BİLEŞENİNİ IMPORT ETTİK
 import FeaturedProjects from "@/components/sections/FeaturedProjects"; 
 import ProjectsPreview from "@/components/sections/ProjectsPreview";
+import Testimonials from "@/components/sections/Testimonials";
 import LatestArticles from "@/components/sections/LatestArticles";
 import postsData from "@/data/posts.json";
 
@@ -138,16 +139,19 @@ export default function HomePage() {
       {/* 2. BÖLÜM: HİZMETLER */}
       <Services />
 
-      {/* 3. BÖLÜM: BAŞARI HİKAYELERİ (Koyu Tema) */}
+      {/* 3. BÖLÜM: BAŞARI HİKAYELERİ */}
       <SuccessStories />
 
-      {/* 4. BÖLÜM: VİTRİN / ÖNE ÇIKAN PROJELER (YENİ EKLENDİ) */}
+      {/* 4. BÖLÜM: VİTRİN / ÖNE ÇIKAN PROJELER */}
       <FeaturedProjects />
 
-      {/* 5. BÖLÜM: NELER YAPTIK (Tüm Projelerin Izgarası) */}
+      {/* 5. BÖLÜM: YORUMLAR / SOSYAL KANIT (Araya Çok Şık Oturur) */}
+      <Testimonials />
+
+      {/* 6. BÖLÜM: NELER YAPTIK */}
       <ProjectsPreview />
 
-      {/* 6. BÖLÜM: ELA AKADEMİ (Son Yazılar) */}
+      {/* 7. BÖLÜM: ELA AKADEMİ */}
       <LatestArticles />
     </>
   );

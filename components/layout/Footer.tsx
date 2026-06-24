@@ -53,13 +53,14 @@ export default function Footer() {
             <h4 className="text-white font-bold text-[16px] mb-6 tracking-wide">Kurumsal</h4>
             <ul className="space-y-4">
               <li><Link href="/hakkimizda" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Hakkımızda</Link></li>
-              {/* YENİ EKLENEN LİNK BURADA */}
               <li><Link href="/kurumsal-web-tasarim-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Web Tasarım Fiyatları</Link></li>
               <li><Link href="/e-ticaret-sitesi-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">E-Ticaret Sitesi Fiyatları</Link></li>
               <li><Link href="/avukatlar-icin-web-sitesi-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Avukatlar İçin Web Sitesi Fiyatları</Link></li>
               <li><Link href="/blog" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Ela Akademi</Link></li>
               <li><Link href="/teklif" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Teklif İsteyin</Link></li>
               <li><Link href="/iletisim" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">İletişim</Link></li>
+              {/* YENİ: SITE HARİTASI LİNKİ EKLENDİ */}
+              <li><Link href="/site-haritasi" className="text-[#933c81] font-semibold hover:text-white text-[15px] transition-colors">Site Haritası</Link></li>
             </ul>
           </div>
 

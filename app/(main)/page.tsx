@@ -11,7 +11,9 @@ import postsData from "@/data/posts.json";
 
 // 1. ANASAYFA METADATA VE CANONICAL (SEO)
 export const metadata = {
-  title: "Kurumsal Web Tasarım ve Yazılım Ajansı | Ela Design",
+  title: {
+    absolute: "Kurumsal Web Tasarım ve Yazılım Ajansı | Ela Teknoloji"
+  },
   description: "Web tasarım, özel yazılım, e-ticaret, SEO ve 360° dijital ajans hizmetleri. Terzi işi butik yaklaşımımızla markanızı dijital dünyada öne çıkarıyoruz.",
   alternates: {
     canonical: 'https://www.eladesign.org/',

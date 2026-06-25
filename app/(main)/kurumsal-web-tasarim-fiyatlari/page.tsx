@@ -95,12 +95,12 @@ export default function KurumsalWebTasarimFiyatlari() {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto px-6 mt-16">
+        <div className="max-w-[1200px] mx-auto px-6 mt-16 w-full">
           
           {/* İçerik Giriş */}
           <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-100 shadow-sm mb-16 prose prose-slate max-w-none">
             
-            {/* DÖNÜŞÜM HUNİSİ AKSİYON BANNERI - Gelen trafiği motor sayfasına akıtıyoruz */}
+            {/* DÖNÜŞÜM HUNİSİ AKSİYON BANNERI */}
             <div className="bg-[#933c81] text-white p-6 md:p-8 rounded-2xl mb-8 flex flex-col md:flex-row justify-between items-center gap-6 shadow-lg">
               <div>
                 <h3 className="text-xl font-bold text-white mb-1">Kendi Projenizin Maliyetini Şimdi Hesaplayın</h3>
@@ -126,12 +126,12 @@ export default function KurumsalWebTasarimFiyatlari() {
             </div>
           </div>
 
-          {/* Fiyat Tablosu (Snippet'i Kazandıran Semantic Alan) */}
-          <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/40 border border-slate-100 overflow-hidden mb-20">
+          {/* DÜZELTİLEN ALAN: Fiyat Tablosu - Overflow Fix */}
+          <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/40 border border-slate-100 overflow-hidden mb-20 w-full max-w-full">
             <div className="p-6 md:p-10 border-b border-slate-100 bg-slate-50">
               <h2 className="text-2xl font-bold text-slate-900">Kurumsal Web Tasarım Fiyat Listesi 2026</h2>
             </div>
-            <div className="overflow-x-auto">
+            <div className="w-full overflow-x-auto">
               <table className="w-full text-left border-collapse min-w-[800px]">
                 <thead className="bg-slate-900 text-white">
                   <tr>
@@ -169,7 +169,7 @@ export default function KurumsalWebTasarimFiyatlari() {
           </div>
 
           {/* Uzun İçerik */}
-          <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-100 shadow-sm mb-20 prose prose-slate max-w-none">
+          <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-100 shadow-sm mb-20 prose prose-slate max-w-none w-full">
             
             <h2 className="text-3xl font-bold text-slate-900 border-b border-slate-200 pb-4 mb-8">Web Tasarım Karar Verme Süreci</h2>
             <p>
@@ -286,7 +286,7 @@ export default function KurumsalWebTasarimFiyatlari() {
           </div>
 
           {/* SSS Alanı */}
-          <div>
+          <div className="w-full">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-slate-900">Soru-Cevap</h2>
             </div>

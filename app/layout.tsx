@@ -13,12 +13,10 @@ const poppins = Poppins({
 // 1. Global SEO ve Metadata Yapılandırması
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.eladesign.org'),
-  alternates: {
-    canonical: '/',
-  },
+  // DİKKAT: Hatalı canonical yönlendirmesi ( alternates: { canonical: '/' } ) Ahrefs SEO hatasını çözmek için tamamen silindi.
   title: {
-    default: "Ela Design | İstanbul Web Tasarım & Dijital Performans Ajansı",
-    template: "%s | Ela Design"
+    default: "Kurumsal Web Tasarım ve Yazılım Ajansı | Ela Teknoloji",
+    template: "%s | Ela Teknoloji"
   },
   description: "Geleneksel ajans kalıplarını yıkıyoruz. Web tasarım, SEO, e-ticaret, özel CRM ve SaaS çözümlerimizle markanızı dijitalde büyüten mühendislik harikası sistemler kuruyoruz.",
   // FAVICON BÖLÜMÜ
@@ -27,27 +25,25 @@ export const metadata: Metadata = {
     apple: '/images/ela-favicon-y.jpg',
   },
   openGraph: {
-    title: "Ela Design - 360° Dijital Performans Ajansı",
+    title: "Ela Teknoloji - 360° Dijital Performans Ajansı",
     description: "Markanızı dijitalde büyüten mühendislik harikası sistemler kuruyoruz. Yeni nesil web tasarım, SEO, e-ticaret, SaaS ve CRM çözümleri.",
     url: 'https://www.eladesign.org',
-    siteName: 'Ela Design',
+    siteName: 'Ela Teknoloji',
     locale: 'tr_TR',
     type: 'website',
-    // CLAUDE SEO ÇÖZÜMÜ: OG Görseli Eklendi
     images: [
       {
         url: '/og-image.jpg', 
         width: 1200,
         height: 630,
-        alt: 'Ela Design Dijital Performans Ajansı',
+        alt: 'Ela Teknoloji Dijital Performans Ajansı',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ela Design - Dijital Performans Ajansı',
+    title: 'Ela Teknoloji - Dijital Performans Ajansı',
     description: 'Markanızı dijitalde büyüten mühendislik harikası sistemler.',
-    // CLAUDE SEO ÇÖZÜMÜ: Twitter Görseli Eklendi
     images: ['/og-image.jpg'], 
   },
 };
@@ -87,7 +83,7 @@ export default function RootLayout({
   };
 
   return (
-    // DARK MODE ÇÖZÜMÜ BURADA: className="light" ve style ayarı eklendi
+    // DARK MODE ÇÖZÜMÜ BURADA
     <html lang="tr" className="light" style={{ colorScheme: 'light' }}>
       <head>
         {/* Schema kodumuzu Google'ın okuyabileceği formata (script) çevirip head etiketine gömüyoruz */}

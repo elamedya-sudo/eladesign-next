@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PriceCalculator from "@/components/sections/PriceCalculator";
+import SalesAdvisor from "@/components/sections/SalesAdvisor";
 
 // 1. GLOBAL VİZYON ODAKLI METADATA & CANONICAL
 export const metadata = {
@@ -154,7 +154,7 @@ export default function PricingPage() {
               <p className="text-slate-600">İhtiyaçlarınızı seçin, projenizin tahmini maliyetini saniyeler içinde öğrenin.</p>
             </div>
             
-            <PriceCalculator />
+            <SalesAdvisor />
           </div>
         </div>
 

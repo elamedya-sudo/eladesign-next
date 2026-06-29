@@ -1,7 +1,8 @@
 import Link from "next/link";
-import PriceCalculator from "@/components/sections/PriceCalculator";
+// YENİ DANIŞMAN BİLEŞENİMİZİ İÇE AKTARIYORUZ
+import SalesAdvisor from "@/components/sections/SalesAdvisor";
 
-// 1. GLOBAL VİZYON ODAKLI METADATA & CANONICAL
+// 1. GLOBAL VİZYON ODAKLI METADATA & CANONICAL (SEO İÇİN DOKUNULMADI)
 export const metadata = {
   title: "2026 Web Sitesi Fiyat Hesaplama Motoru & Proje Maliyetleri", 
   description: "Kurumsal web sitesi, e-ticaret ve özel yazılım maliyetlerinizi interaktif fiyat hesaplama motoruyla hemen öğrenin. 2026 güncel web teknolojileri bütçe rehberi.",
@@ -37,7 +38,7 @@ export default function PricingPage() {
     }
   ];
 
-  // BREADCRUMB + FAQ SCHEMA
+  // BREADCRUMB + FAQ SCHEMA (SEO İÇİN DOKUNULMADI)
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -80,20 +81,20 @@ export default function PricingPage() {
       
       <div className="bg-slate-50 min-h-screen">
         
-        {/* HERO ALANI */}
+        {/* HERO ALANI - VİZYON GÜNCELLENDİ */}
         <div className="bg-slate-900 py-24 lg:py-32 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#933c81]/20 blur-[120px] rounded-full pointer-events-none transform translate-x-1/3 -translate-y-1/4"></div>
           
           <div className="max-w-[1440px] mx-auto px-6 lg:px-10 text-center relative z-10">
             <p className="text-[14px] font-semibold uppercase tracking-widest text-[#e890d6] mb-4">
-              DİJİTAL MALİYET REHBERİ
+              DİJİTAL MALİYET VE YATIRIM REHBERİ
             </p>
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl mb-6 leading-tight">
               2026 Web Sitesi Fiyat Hesaplama Motoru ve <br className="hidden md:block" />
-              <span className="text-[#e890d6]">Yeni Nesil Maliyet Analizi</span>
+              <span className="text-[#e890d6]">Yapay Zeka Destekli Proje Analizi</span>
             </h1>
             <p className="max-w-3xl mx-auto text-[17px] leading-8 text-slate-300 font-light">
-              Web sitesi yaptırmaya karar verip karmaşık tekliflerle aklı karışanlar için tüm yeni nesil teknolojilerin maliyetlerini şeffafça simüle ediyoruz. Projenizin bütçesini saniyeler içinde belirleyin.
+              Sadece bir fiyat hesaplamakla kalmayın. İşletmenizin dijital hedeflerini seçin, akıllı keşif motorumuz size en uygun teknoloji altyapısını ve yatırım planını saniyeler içinde hazırlasın.
             </p>
           </div>
         </div>
@@ -108,7 +109,7 @@ export default function PricingPage() {
               <p className="text-[14px] text-slate-500 mb-6">Şirketler, Kobiler ve Global markalar için prestijli vitrin.</p>
               <div className="text-2xl font-black text-[#933c81] mb-6">35.000 ₺ <span className="text-[14px] font-medium text-slate-400">'den başlayan</span></div>
               <Link href="#hesapla" className="block w-full py-3 text-center rounded-xl bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition-colors border border-slate-200">
-                Maliyet Hesapla
+                Projemi Analiz Et
               </Link>
             </div>
 
@@ -119,7 +120,7 @@ export default function PricingPage() {
               <p className="text-[14px] text-slate-500 mb-6">Yüksek dönüşüm oranlı, güvenli online satış sistemleri.</p>
               <div className="text-2xl font-black text-[#933c81] mb-6">60.000 ₺ <span className="text-[14px] font-medium text-slate-400">'den başlayan</span></div>
               <Link href="#hesapla" className="block w-full py-3 text-center rounded-xl bg-[#933c81] text-white font-semibold shadow-md hover:bg-[#7a316a] transition-colors">
-                Maliyet Hesapla
+                Projemi Analiz Et
               </Link>
             </div>
 
@@ -129,7 +130,7 @@ export default function PricingPage() {
               <p className="text-[14px] text-slate-500 mb-6">Mevzuatlara uygun, güven veren üst düzey tasarımlar.</p>
               <div className="text-2xl font-black text-[#933c81] mb-6">22.000 ₺ <span className="text-[14px] font-medium text-slate-400">'den başlayan</span></div>
               <Link href="#hesapla" className="block w-full py-3 text-center rounded-xl bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition-colors border border-slate-200">
-                Maliyet Hesapla
+                Projemi Analiz Et
               </Link>
             </div>
 
@@ -139,22 +140,24 @@ export default function PricingPage() {
               <p className="text-[14px] text-slate-500 mb-6">Danışmanlar ve uzmanlar için dijital itibar yönetimi.</p>
               <div className="text-2xl font-black text-[#933c81] mb-6">22.000 ₺ <span className="text-[14px] font-medium text-slate-400">'den başlayan</span></div>
               <Link href="#hesapla" className="block w-full py-3 text-center rounded-xl bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition-colors border border-slate-200">
-                Maliyet Hesapla
+                Projemi Analiz Et
               </Link>
             </div>
 
           </div>
         </div>
 
-        {/* INTERAKTİF HESAPLAMA MOTORU ALANI */}
+        {/* YENİ NESİL YZ DANIŞMAN ALANI */}
         <div id="hesapla" className="py-20 bg-white border-y border-slate-200 scroll-mt-20">
           <div className="max-w-[1000px] mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">İnteraktif Fiyat Hesaplama Motoru</h2>
-              <p className="text-slate-600">İhtiyaçlarınızı seçin, projenizin tahmini maliyetini saniyeler içinde öğrenin.</p>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Yapay Zeka Destekli Keşif Motoru</h2>
+              <p className="text-slate-600">Projenizin ihtiyaçlarını seçin, size en uygun mimariyi ve tahmini bütçeyi anında raporlayalım.</p>
             </div>
             
-            <PriceCalculator />
+            {/* ESKİ PriceCalculator YERİNE SalesAdvisor KULLANILIYOR */}
+            <SalesAdvisor />
+            
           </div>
         </div>
 

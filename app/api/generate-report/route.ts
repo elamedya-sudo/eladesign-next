@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
     // 2. Yapay Zeka (Gemini) Bağlantısı ve Rapor Üretimi.
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
     const prompt = `
       Sen Ela Teknoloji'nin (Ela Design) Baş Dijital Dönüşüm Danışmanısın. B2B ve kurumsal bir dil kullan.

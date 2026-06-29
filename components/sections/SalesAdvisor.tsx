@@ -80,7 +80,6 @@ export default function SalesAdvisor() {
     else { setStep(step + 1); setTimeout(() => setStep(prev => prev + 1), 1000); }
   };
 
-  // YENİ: Geri Gitme Fonksiyonu
   const handleBack = () => {
     if (step > 0) setStep(step - 1);
   };
@@ -90,15 +89,30 @@ export default function SalesAdvisor() {
     setIsLoading(true);
     const template = reportTemplates[currentSegment.id as keyof typeof reportTemplates] || reportTemplates.starter;
     
-    // Supabase Kaydı
+    // 1. Supabase Kaydı
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
     await supabase.from('leads').insert([{
       full_name: leadData.name, email: leadData.email, phone: leadData.phone,
       segment: currentSegment.id, ai_report: `${template.title} | ${template.price}`
     }]);
 
-    // TODO: Burada E-Posta / PDF Gönderme API'si tetiklenecek
+    // 2. E-Postaları Gönder
+    try {
+      await fetch('/api/send-proposal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: leadData.name,
+          email: leadData.email,
+          phone: leadData.phone,
+          reportTemplate: template
+        })
+      });
+    } catch (err) {
+      console.error("Mail tetiklenirken hata oluştu:", err);
+    }
 
+    // 3. Sonuç Ekranına Geç
     setFinalReport({...template, ...leadData});
     setStep(questions.length + 3);
     setIsLoading(false);
@@ -152,7 +166,7 @@ export default function SalesAdvisor() {
         <div className="text-center py-10 animate-in zoom-in-95 duration-500">
             <span className="inline-block px-4 py-1.5 rounded-full bg-green-100 text-green-700 text-sm font-bold tracking-wide uppercase mb-4">Analiz Tamamlandı</span>
             <h3 className="text-3xl font-bold mb-4 text-slate-900">İdeal Mimari: <span className="text-[#933c81]">{currentSegment.title}</span></h3>
-            <p className="text-slate-500 mb-8 max-w-lg mx-auto">Size özel hazırlanan maliyet ve strateji raporunu PDF olarak iletebilmemiz için lütfen iletişim bilgilerinizi girin.</p>
+            <p className="text-slate-500 mb-8 max-w-lg mx-auto">Size özel hazırlanan maliyet ve strateji raporunu iletebilmemiz için lütfen iletişim bilgilerinizi girin.</p>
             <div className="flex justify-center gap-4">
                <button onClick={handleBack} className="px-6 py-3 text-slate-500 font-bold hover:text-slate-900">Geri Dön</button>
                <button onClick={() => setStep(step + 1)} className="px-8 py-3 bg-[#933c81] text-white rounded-xl font-bold shadow-lg shadow-[#933c81]/30 hover:-translate-y-1 transition-transform">Raporu Hazırla</button>
@@ -185,7 +199,7 @@ export default function SalesAdvisor() {
         </div>
       )}
 
-      {/* YENİ: Yönetici Özeti (Executive Summary) Ekranı */}
+      {/* Yönetici Özeti (Executive Summary) Ekranı */}
       {step === questions.length + 3 && finalReport && (
         <div className="animate-in fade-in zoom-in-95 duration-500">
           
@@ -196,7 +210,7 @@ export default function SalesAdvisor() {
             </div>
             <div>
               <h4 className="font-bold text-green-800">Detaylı Rapor Gönderildi</h4>
-              <p className="text-sm text-green-700 mt-1">Sayın {finalReport.name}, {finalReport.title} detaylarını ve PDF dosyasını <strong>{finalReport.email}</strong> adresine başarıyla ilettik.</p>
+              <p className="text-sm text-green-700 mt-1">Sayın {finalReport.name}, {finalReport.title} detaylarını <strong>{finalReport.email}</strong> adresine başarıyla ilettik.</p>
             </div>
           </div>
 

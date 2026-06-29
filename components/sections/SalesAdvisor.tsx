@@ -65,10 +65,17 @@ export default function SalesAdvisor() {
 
   const calculateFinalSegment = () => {
     const answersArr = Object.values(answers);
+    
+    // Otomasyon veya E-Ticaret seçildiyse doğrudan hedefe yönlendir
     if (answersArr.some(ans => ans.id === 'automation' || ans.id === 'tech')) return { id: "enterprise", title: "Enterprise & Otomasyon" };
     if (answersArr.some(ans => ans.segment === 'ecommerce')) return { id: "ecommerce", title: "Gelişmiş E-Ticaret" };
-    let totalScore = 0; answersArr.forEach(ans => totalScore += totalScore + ans.score);
+    
+    // YENİ VE DOĞRU HESAPLAMA MANTIĞI
+    let totalScore = 0; 
+    answersArr.forEach(ans => totalScore += ans.score);
+    
     if (totalScore >= 25) return { id: "professional", title: "Premium Kurumsal Mimari" };
+    
     return { id: "starter", title: "Hızlı Kurumsal Çıkış" };
   };
 

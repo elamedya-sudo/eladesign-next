@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-// Rapor Şablonları (Fiyat ve Süre Eklendi)
+// Rapor Şablonları (Fiyat bilgisi e-posta için tutuluyor)
 const reportTemplates = {
   starter: {
     title: "Hızlı Kurumsal Çıkış Stratejisi",
@@ -66,11 +66,9 @@ export default function SalesAdvisor() {
   const calculateFinalSegment = () => {
     const answersArr = Object.values(answers);
     
-    // Otomasyon veya E-Ticaret seçildiyse doğrudan hedefe yönlendir
     if (answersArr.some(ans => ans.id === 'automation' || ans.id === 'tech')) return { id: "enterprise", title: "Enterprise & Otomasyon" };
     if (answersArr.some(ans => ans.segment === 'ecommerce')) return { id: "ecommerce", title: "Gelişmiş E-Ticaret" };
     
-    // YENİ VE DOĞRU HESAPLAMA MANTIĞI
     let totalScore = 0; 
     answersArr.forEach(ans => totalScore += ans.score);
     
@@ -96,14 +94,12 @@ export default function SalesAdvisor() {
     setIsLoading(true);
     const template = reportTemplates[currentSegment.id as keyof typeof reportTemplates] || reportTemplates.starter;
     
-    // 1. Supabase Kaydı
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
     await supabase.from('leads').insert([{
       full_name: leadData.name, email: leadData.email, phone: leadData.phone,
       segment: currentSegment.id, ai_report: `${template.title} | ${template.price}`
     }]);
 
-    // 2. E-Postaları Gönder
     try {
       await fetch('/api/send-proposal', {
         method: 'POST',
@@ -112,14 +108,13 @@ export default function SalesAdvisor() {
           name: leadData.name,
           email: leadData.email,
           phone: leadData.phone,
-          reportTemplate: template
+          reportTemplate: template // Fiyat bilgisi mail için arka plana gidiyor
         })
       });
     } catch (err) {
       console.error("Mail tetiklenirken hata oluştu:", err);
     }
 
-    // 3. Sonuç Ekranına Geç
     setFinalReport({...template, ...leadData});
     setStep(questions.length + 3);
     setIsLoading(false);
@@ -128,7 +123,6 @@ export default function SalesAdvisor() {
   return (
     <div className="bg-white p-6 md:p-10 lg:p-12 max-w-4xl mx-auto rounded-[2rem] shadow-2xl relative">
       
-      {/* Üst Bar ve Geri Butonu */}
       {step < questions.length && (
          <div className="mb-8">
             <div className="flex justify-between items-center mb-3">
@@ -146,7 +140,6 @@ export default function SalesAdvisor() {
          </div>
       )}
 
-      {/* Sorular */}
       {step < questions.length && (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-8">{questions[step].title}</h3>
@@ -160,7 +153,6 @@ export default function SalesAdvisor() {
         </div>
       )}
 
-      {/* Analiz Yükleniyor Ekranı */}
       {step === questions.length && (
         <div className="text-center py-16 animate-pulse">
            <div className="w-16 h-16 border-4 border-[#933c81] border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
@@ -168,7 +160,6 @@ export default function SalesAdvisor() {
         </div>
       )}
 
-      {/* Form Ekranı Öncesi Ara Onay */}
       {step === questions.length + 1 && (
         <div className="text-center py-10 animate-in zoom-in-95 duration-500">
             <span className="inline-block px-4 py-1.5 rounded-full bg-green-100 text-green-700 text-sm font-bold tracking-wide uppercase mb-4">Analiz Tamamlandı</span>
@@ -181,7 +172,6 @@ export default function SalesAdvisor() {
         </div>
       )}
 
-      {/* Form Ekranı */}
       {step === questions.length + 2 && (
         <div className="space-y-5 max-w-md mx-auto animate-in fade-in slide-in-from-right-8 duration-500">
           <div className="text-center mb-6">
@@ -206,18 +196,16 @@ export default function SalesAdvisor() {
         </div>
       )}
 
-      {/* Yönetici Özeti (Executive Summary) Ekranı */}
       {step === questions.length + 3 && finalReport && (
         <div className="animate-in fade-in zoom-in-95 duration-500">
           
-          {/* E-Posta Gönderildi Bildirimi */}
           <div className="bg-green-50 border border-green-200 rounded-2xl p-4 flex items-start gap-4 mb-8">
             <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center shrink-0 text-green-600">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
             </div>
             <div>
               <h4 className="font-bold text-green-800">Detaylı Rapor Gönderildi</h4>
-              <p className="text-sm text-green-700 mt-1">Sayın {finalReport.name}, {finalReport.title} detaylarını <strong>{finalReport.email}</strong> adresine başarıyla ilettik.</p>
+              <p className="text-sm text-green-700 mt-1">Sayın {finalReport.name}, fiyat teklifi ve strateji raporunuzu <strong>{finalReport.email}</strong> adresine başarıyla ilettik. Lütfen gelen kutunuzu (ve spam klasörünü) kontrol edin.</p>
             </div>
           </div>
 
@@ -227,12 +215,13 @@ export default function SalesAdvisor() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-              <div className="text-slate-500 font-semibold mb-1 text-sm">TAHMİNİ BÜTÇE</div>
-              <div className="text-2xl font-black text-slate-900">{finalReport.price}</div>
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex flex-col justify-center items-center text-center">
+              <div className="text-slate-500 font-semibold mb-2 text-sm">TAHMİNİ BÜTÇE</div>
+              {/* EKRANDA GÖRÜNMEYEN, E-POSTAYA GİDEN FİYAT ALANI */}
+              <div className="text-lg font-bold text-[#933c81] bg-[#933c81]/10 px-4 py-2 rounded-lg">E-Postanıza İletildi 📩</div>
             </div>
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-              <div className="text-slate-500 font-semibold mb-1 text-sm">PROJE SÜRESİ</div>
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex flex-col justify-center items-center text-center">
+              <div className="text-slate-500 font-semibold mb-2 text-sm">PROJE SÜRESİ</div>
               <div className="text-2xl font-black text-slate-900">{finalReport.timeline}</div>
             </div>
           </div>

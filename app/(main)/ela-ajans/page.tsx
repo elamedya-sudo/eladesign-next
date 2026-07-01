@@ -36,7 +36,8 @@ export default function BankaHesapBilgileri() {
       accounts: [
         { type: "TL", iban: "TR86 0006 2000 7690 0006 2907 25" },
         { type: "USD", iban: "TR05 0006 2000 7690 0009 0486 32" },
-        { type: "EUR", iban: "TR32 0006 2000 7690 0009 0486 31" }
+        { type: "EUR", iban: "TR32 0006 2000 7690 0009 0486 31" },
+        { type: "GBP", iban: "TR96 0006 2000 7690 0009 0454 42" }
       ]
     }
   ];

@@ -157,7 +157,7 @@ export default function BlogClient() {
               </div>
             )}
 
-            {/* DAHA FAZLA YÜKLE BUTONU (Otomatik yükleme hakkı bitince görünür ayari) */}
+            {/* DAHA FAZLA YÜKLE BUTONU (Otomatik yükleme hakkı bitince görünür) */}
             {hasMore && autoLoadCount >= 2 && (
               <div className="flex justify-center">
                 <button 

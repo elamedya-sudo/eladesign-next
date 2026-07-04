@@ -106,6 +106,13 @@ const nextConfig = {
         destination: '/', 
         permanent: true,
       },
+
+      // Eski WordPress "Daha Fazla Yükle" / Sayfalama kalıntılarını temizler
+      {
+        source: '/ekip/page/:path*',
+        destination: '/ekibimiz',
+        permanent: true,
+      },
       
       // --- Diğer Toplu Temizlikler ---
       {

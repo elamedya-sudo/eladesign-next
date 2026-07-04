@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import projects from "@/data/projects.json"; 
@@ -10,6 +10,8 @@ export default function PortfolioClient() {
 
   const [filter, setFilter] = useState("Tümü");
   const [visibleCount, setVisibleCount] = useState(6);
+  const [autoLoadCount, setAutoLoadCount] = useState(0); // Otomatik yüklemeyi sınırlandırmak için
+  const loaderRef = useRef(null); // Sayfa sonu sensörü
 
   const categories = ["Tümü", "Kurumsal Web", "E-Ticaret", "Endüstriyel", "İnşaat & Mimarlık", "Özel Yazılım"];
 
@@ -20,16 +22,46 @@ export default function PortfolioClient() {
 
   // Ekranda kaç adet gösterileceğinin sınırı
   const displayedProjects = filteredProjects.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProjects.length;
 
+  // Filtre değişince her şeyi sıfırla
   const handleCategoryChange = (category: string) => {
     setFilter(category);
-    setVisibleCount(6); // Filtre değişince limiti sıfırla
+    setVisibleCount(6); 
+    setAutoLoadCount(0); // Yeni kategoride otomatik yükleme hakkını sıfırla
+  };
+
+  // Sonsuz Kaydırma Sensörü (Intersection Observer)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Sensör ekranda göründüyse, daha fazla proje varsa ve otomatik yükleme limiti (2) dolmadıysa
+        if (entries[0].isIntersecting && hasMore && autoLoadCount < 2) {
+          setVisibleCount((prev) => prev + 6);
+          setAutoLoadCount((prev) => prev + 1);
+        }
+      },
+      { threshold: 0.1 } // Sensörün %10'u ekrana girdiğinde tetikle
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) observer.unobserve(loaderRef.current);
+    };
+  }, [hasMore, autoLoadCount]);
+
+  // Manuel Buton Tıklaması
+  const handleLoadMoreManual = () => {
+    setVisibleCount((prev) => prev + 6);
   };
 
   return (
     <div className="bg-white min-h-screen">
       
-      {/* Üst Başlık (Hero) Alanı - H1 Başlığı SEO Odaklı Güncellendi */}
+      {/* Üst Başlık (Hero) Alanı */}
       <div className="relative isolate bg-slate-50 py-20 sm:py-28 border-b border-slate-200">
         <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 pointer-events-none">
           <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#933c81] to-[#e890d6] opacity-10 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
@@ -105,11 +137,18 @@ export default function PortfolioClient() {
           ))}
         </div>
 
-        {/* Daha Fazla Yükle Butonu */}
-        {filteredProjects && visibleCount < filteredProjects.length && (
+        {/* Görünmez Sensör ve Yükleme Göstergesi (İlk 2 otomatik yükleme için) */}
+        {hasMore && autoLoadCount < 2 && (
+          <div ref={loaderRef} className="h-24 w-full flex justify-center items-center mt-8">
+            <div className="w-8 h-8 border-4 border-[#933c81] border-t-transparent rounded-full animate-spin opacity-50"></div>
+          </div>
+        )}
+
+        {/* Daha Fazla Yükle Butonu (Otomatik yükleme hakkı bitince görünür) */}
+        {hasMore && autoLoadCount >= 2 && (
           <div className="mt-16 text-center">
             <button 
-              onClick={() => setVisibleCount(prev => prev + 6)}
+              onClick={handleLoadMoreManual}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-[14px] hover:bg-slate-100 transition-colors"
             >
               <svg className="w-5 h-5 text-[#933c81]" fill="none" viewBox="0 0 24 24">

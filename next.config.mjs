@@ -14,9 +14,12 @@ const nextConfig = {
         destination: '/yasal',
         permanent: true,
       },
+      
+      // --- 1. EKİP YÖNLENDİRMELERİ DÜZELTİLDİ ---
+      // Eskiden anasayfaya (/) gidiyordu, şimdi direkt /ekibimiz sayfasına gidiyor
       {
         source: '/ekip/:slug((?!.*\\.).*)',
-        destination: '/', 
+        destination: '/ekibimiz', 
         permanent: true,
       },
       {
@@ -24,19 +27,41 @@ const nextConfig = {
         destination: '/blog', 
         permanent: true,
       },
+      
+      // --- 2. SERVİSLER YÖNLENDİRMELERİ DÜZELTİLDİ ---
+      // Önce spesifik olanı yakalıyoruz (2D ve olası 3D aramaları için)
       {
-        source: '/servisler/:slug((?!.*\\.).*)',
-        destination: '/', 
+        source: '/servisler/2d-animasyon',
+        destination: '/2d-animasyon', 
         permanent: true,
       },
+      {
+        source: '/servisler/3d-animasyon',
+        destination: '/2d-animasyon', 
+        permanent: true,
+      },
+      // Tam eşleşme ile ana servisler sayfası
+      {
+        source: '/servisler',
+        destination: '/hizmetler', 
+        permanent: true,
+      },
+      // Kalan diğer tüm tanımsız servis alt sayfalarını da hizmetlere gönder
+      {
+        source: '/servisler/:slug((?!.*\\.).*)',
+        destination: '/hizmetler', 
+        permanent: true,
+      },
+      
       {
         source: '/doktor-web-sitesi-fiyatlari',
         destination: '/kurumsal-web-tasarim-fiyatlari',
         permanent: true,
       },
+      // Mimari görselleştirme de anasayfa yerine hizmetler sayfasına alındı
       {
         source: '/mimari-gorsellestirme',
-        destination: '/',
+        destination: '/hizmetler',
         permanent: true,
       },
       {
@@ -60,8 +85,7 @@ const nextConfig = {
         permanent: true,
       },
       
-      // --- YENİ DÜZELTME: Toptan yönlendirme yerine Nokta Atışı Yönlendirmeler ---
-      // Eski uzun URL'leri, yeni temiz slug'lara yönlendiriyoruz
+      // --- Nokta Atışı Portfolyo Yönlendirmeleri ---
       {
         source: '/referanslar/vicom-energy-uluslararasi-enerji-sirketi-web-tasarimi',
         destination: '/referanslar/vicom', 
@@ -77,13 +101,12 @@ const nextConfig = {
         destination: '/referanslar/byevrenmusti', 
         permanent: true,
       },
-      // Karşılığı olmayan tekil kırık link
       {
         source: '/neler-yaptik/cakmakci-grup-web-tasarim',
         destination: '/', 
         permanent: true,
       },
-
+      
       // --- Diğer Toplu Temizlikler ---
       {
         source: '/referans-kategori/:path*',

@@ -59,21 +59,34 @@ const nextConfig = {
         destination: '/web-sitesi-fiyatlari',
         permanent: true,
       },
-      // --- 404 TEMİZLİĞİ VE DÜZELTMELER ---
+      
+      // --- YENİ DÜZELTME: Toptan yönlendirme yerine Nokta Atışı Yönlendirmeler ---
+      // Eski uzun URL'leri, yeni temiz slug'lara yönlendiriyoruz
       {
-        // YENİ: Sadece /referanslar/eski-proje gibi alt sayfaları yönlendirir, ana sayfayı bozmaz
-        source: '/referanslar/:path+',
-        destination: '/', 
+        source: '/referanslar/vicom-energy-uluslararasi-enerji-sirketi-web-tasarimi',
+        destination: '/referanslar/vicom', 
         permanent: true,
       },
       {
-        source: '/referans-kategori/:path+',
-        destination: '/', 
+        source: '/referanslar/dwt-turkiye-endustriyel-kurumsal-web-tasarim-projesi',
+        destination: '/referanslar/dwt-turkiye', 
         permanent: true,
       },
       {
-        // YENİ: Sadece /neler-yaptik/eski-proje gibi alt sayfaları yönlendirir, ana sayfayı bozmaz
-        source: '/neler-yaptik/:path+',
+        source: '/neler-yaptik/byevren-musti-eticaret-sitesi',
+        destination: '/referanslar/byevrenmusti', 
+        permanent: true,
+      },
+      // Karşılığı olmayan tekil kırık link
+      {
+        source: '/neler-yaptik/cakmakci-grup-web-tasarim',
+        destination: '/', 
+        permanent: true,
+      },
+
+      // --- Diğer Toplu Temizlikler ---
+      {
+        source: '/referans-kategori/:path*',
         destination: '/', 
         permanent: true,
       },

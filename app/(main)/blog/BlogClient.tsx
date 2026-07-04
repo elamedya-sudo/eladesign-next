@@ -1,6 +1,6 @@
 "use client"; // Etkileşim (Filtre ve Buton) için gerekli
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import postsData from "@/data/posts.json";
@@ -11,9 +11,12 @@ export default function BlogClient() {
   // 1. JSON içindeki tüm benzersiz kategorileri bul ve "Tümü" seçeneğini başa ekle
   const allCategories = ["Tümü", ...Array.from(new Set(postsData.map(post => post.category)))];
 
-  // 2. React State'leri (Aktif Kategori ve Ekranda Görünen Yazı Sayısı)
+  // 2. React State'leri (Aktif Kategori, Ekranda Görünen Yazı Sayısı ve Otomatik Yükleme Sayacı)
   const [activeCategory, setActiveCategory] = useState("Tümü");
   const [visibleCount, setVisibleCount] = useState(6); // İlk etapta 6 yazı göster
+  const [autoLoadCount, setAutoLoadCount] = useState(0); // Sensörle otomatik yükleme limiti
+  
+  const loaderRef = useRef(null); // Sonsuz kaydırma sensörü
 
   // 3. Seçilen kategoriye göre yazıları filtrele
   const filteredPosts = postsData.filter(post => 
@@ -22,10 +25,33 @@ export default function BlogClient() {
 
   // 4. Sadece 'visibleCount' kadar yazıyı ekrana basmak için kes (slice)
   const displayedPosts = filteredPosts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredPosts.length;
 
-  // 5. Daha Fazla Yükle butonuna basılınca çalışacak fonksiyon
-  const handleLoadMore = () => {
-    setVisibleCount(prevCount => prevCount + 6); // 6'şar 6'şar yükle
+  // 5. Sonsuz Kaydırma Sensörü (Intersection Observer)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Eğer sensör ekranda göründüyse, hala gösterilecek yazı varsa ve limiti (2 kez) aşmadıysak
+        if (entries[0].isIntersecting && hasMore && autoLoadCount < 2) {
+          setVisibleCount((prev) => prev + 6);
+          setAutoLoadCount((prev) => prev + 1);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) observer.unobserve(loaderRef.current);
+    };
+  }, [hasMore, autoLoadCount]);
+
+  // Manuel Buton Tıklaması
+  const handleLoadMoreManual = () => {
+    setVisibleCount(prevCount => prevCount + 6);
   };
 
   return (
@@ -41,7 +67,6 @@ export default function BlogClient() {
           <p className="text-[14px] font-semibold uppercase tracking-widest text-[#e890d6] mb-4">
             BİLGİ MERKEZİ
           </p>
-          {/* H1 SEO Optimizasyonu: Görsel olarak aynı, ancak HTML'de daha zengin */}
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl mb-6">
             Ela <span style={{ color: brandColor }}>Akademi</span> <br className="hidden md:block" />
             <span className="text-2xl sm:text-3xl lg:text-4xl text-slate-300 font-medium mt-4 block">Dijital Pazarlama & Web Tasarım Blogu</span>
@@ -62,6 +87,7 @@ export default function BlogClient() {
               onClick={() => {
                 setActiveCategory(category);
                 setVisibleCount(6); // Kategori değişince sayacı sıfırla
+                setAutoLoadCount(0); // Otomatik yükleme hakkını sıfırla
               }}
               className={`px-6 py-2.5 rounded-full text-[14px] font-semibold transition-all duration-300 ${
                 activeCategory === category 
@@ -124,11 +150,18 @@ export default function BlogClient() {
               ))}
             </div>
 
-            {/* DAHA FAZLA YÜKLE BUTONU */}
-            {visibleCount < filteredPosts.length && (
+            {/* Görünmez Sensör ve Yükleme Göstergesi (İlk 2 otomatik yükleme için) */}
+            {hasMore && autoLoadCount < 2 && (
+              <div ref={loaderRef} className="h-24 w-full flex justify-center items-center mt-8">
+                <div className="w-8 h-8 border-4 border-[#933c81] border-t-transparent rounded-full animate-spin opacity-50"></div>
+              </div>
+            )}
+
+            {/* DAHA FAZLA YÜKLE BUTONU (Otomatik yükleme hakkı bitince görünür) */}
+            {hasMore && autoLoadCount >= 2 && (
               <div className="flex justify-center">
                 <button 
-                  onClick={handleLoadMore}
+                  onClick={handleLoadMoreManual}
                   className="bg-white border-2 border-slate-200 text-slate-700 font-bold px-10 py-4 rounded-full hover:border-[#933c81] hover:text-[#933c81] transition-all duration-300 flex items-center gap-2"
                 >
                   <svg className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>

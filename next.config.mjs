@@ -14,7 +14,6 @@ const nextConfig = {
         destination: '/yasal',
         permanent: true,
       },
-      // 1. DÜZELTME: Ekip resimlerini korur, sadece eski ekip sayfalarını yönlendirir
       {
         source: '/ekip/:slug((?!.*\\.).*)',
         destination: '/', 
@@ -25,7 +24,6 @@ const nextConfig = {
         destination: '/blog', 
         permanent: true,
       },
-      // 2. DÜZELTME: Servis resimleri varsa onları korur
       {
         source: '/servisler/:slug((?!.*\\.).*)',
         destination: '/', 
@@ -51,31 +49,31 @@ const nextConfig = {
         destination: '/', 
         permanent: true,
       },
-      // 3. YENİ DÜZELTME: Ahrefs raporundaki 404 ve Bozuk Yönlendirme (Randevu)
       {
         source: '/randevu-talebi',
         destination: '/iletisim',
         permanent: true,
       },
-      // 4. YENİ DÜZELTME: Ahrefs raporundaki 404 ve Bozuk Yönlendirme (Ataşehir SEO)
       {
         source: '/web-sitesi-fiyatlari-atasehir',
         destination: '/web-sitesi-fiyatlari',
         permanent: true,
       },
-      // 5. KAPSAMLI DÜZELTME: Search Console "Hatabulunamadı.xlsx" 404 Temizliği
+      // --- 404 TEMİZLİĞİ VE DÜZELTMELER ---
       {
-        source: '/referanslar/:path*',
-        destination: '/', // Varsa portfolyo sayfana yönlendirebilirsin
-        permanent: true,
-      },
-      {
-        source: '/referans-kategori/:path*',
+        // YENİ: Sadece /referanslar/eski-proje gibi alt sayfaları yönlendirir, ana sayfayı bozmaz
+        source: '/referanslar/:path+',
         destination: '/', 
         permanent: true,
       },
       {
-        source: '/neler-yaptik/:path*',
+        source: '/referans-kategori/:path+',
+        destination: '/', 
+        permanent: true,
+      },
+      {
+        // YENİ: Sadece /neler-yaptik/eski-proje gibi alt sayfaları yönlendirir, ana sayfayı bozmaz
+        source: '/neler-yaptik/:path+',
         destination: '/', 
         permanent: true,
       },
@@ -111,7 +109,7 @@ const nextConfig = {
       },
       {
         source: '/wp-content/:path*',
-        destination: '/', // WordPress'ten kalan kalıntıları ana sayfaya temizler
+        destination: '/', 
         permanent: true,
       },
       {

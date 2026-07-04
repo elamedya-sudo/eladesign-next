@@ -62,6 +62,62 @@ const nextConfig = {
         source: '/web-sitesi-fiyatlari-atasehir',
         destination: '/web-sitesi-fiyatlari',
         permanent: true,
+      },
+      // 5. KAPSAMLI DÜZELTME: Search Console "Hatabulunamadı.xlsx" 404 Temizliği
+      {
+        source: '/referanslar/:path*',
+        destination: '/', // Varsa portfolyo sayfana yönlendirebilirsin
+        permanent: true,
+      },
+      {
+        source: '/referans-kategori/:path*',
+        destination: '/', 
+        permanent: true,
+      },
+      {
+        source: '/neler-yaptik/:path*',
+        destination: '/', 
+        permanent: true,
+      },
+      {
+        source: '/sss_kategori/:path*',
+        destination: '/web-sitesi-fiyatlari',
+        permanent: true,
+      },
+      {
+        source: '/avukatlar-icin-web-sitesi-fiyatlari-2',
+        destination: '/kurumsal-web-tasarim-fiyatlari',
+        permanent: true,
+      },
+      {
+        source: '/kvkk-politikasi',
+        destination: '/yasal',
+        permanent: true,
+      },
+      {
+        source: '/iptal-iade-kosullari',
+        destination: '/yasal',
+        permanent: true,
+      },
+      {
+        source: '/hazir-web-tasarim',
+        destination: '/kurumsal-web-tasarim-fiyatlari',
+        permanent: true,
+      },
+      {
+        source: '/dijital-katalog',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/wp-content/:path*',
+        destination: '/', // WordPress'ten kalan kalıntıları ana sayfaya temizler
+        permanent: true,
+      },
+      {
+        source: '/blog/page/:path*',
+        destination: '/blog',
+        permanent: true,
       }
     ];
   },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next"
 import { Poppins } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import CookieBanner from "@/components/ui/CookieBanner"; // ÇEREZ BİLEŞENİ EKLENDİ
@@ -101,6 +102,10 @@ export default function RootLayout({
       
       {/* 4. GOOGLE ANALYTICS BAĞLANTISI */}
       <GoogleAnalytics gaId="G-1SV7XN3NRY" />
+      
+      {/* 5. VERCEL ANALYTICS BAĞLANTISI */}
+      <Analytics />
+
     </html>
   );
 }

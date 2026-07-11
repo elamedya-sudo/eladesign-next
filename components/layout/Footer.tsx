@@ -104,7 +104,7 @@ export default function Footer() {
           
           <div className="flex gap-6 text-[13px] font-medium">
             <Link href="/yasal" className="text-slate-500 hover:text-white transition-colors">
-              Yasal Bilgilendirme & Politikalar
+              Yasal Bilgilendirmeler & Politikalar
             </Link>
           </div>
         </div>

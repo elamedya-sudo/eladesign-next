@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Poppins } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import CookieBanner from "@/components/ui/CookieBanner"; // ÇEREZ BİLEŞENİ EKLENDİ
@@ -106,6 +107,9 @@ export default function RootLayout({
       {/* 5. VERCEL ANALYTICS BAĞLANTISI */}
       <Analytics />
 
+      {/* 6. VERCEL SPEED INSIGHTS BAĞLANTISI */}
+      <SpeedInsights />
+      
     </html>
   );
 }

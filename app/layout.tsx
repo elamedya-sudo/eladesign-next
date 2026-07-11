@@ -99,13 +99,13 @@ export default function RootLayout({
         
         {/* 3. ÇEREZ UYARISI BİLEŞENİ */}
         <CookieBanner />
+        
+        {/* 4. VERCEL ANALYTICS BAĞLANTISI */}
+        <Analytics />
+        
+        {/* 5. GOOGLE ANALYTICS BAĞLANTISI */}
+        <GoogleAnalytics gaId="G-1SV7XN3NRY" />
       </body>
-      
-      {/* 4. GOOGLE ANALYTICS BAĞLANTISI */}
-      <GoogleAnalytics gaId="G-1SV7XN3NRY" />
-      
-      {/* 5. VERCEL ANALYTICS BAĞLANTISI */}
-      <Analytics />
 
       {/* 6. VERCEL SPEED INSIGHTS BAĞLANTISI */}
       <SpeedInsights />

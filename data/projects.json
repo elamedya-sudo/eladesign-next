@@ -54,14 +54,24 @@
     "description": "Alan adı (domain) çatışmasının ardından uyguladığımız başarılı site yeniden inşası ve SEO kurtarma (recovery) projesi.",
     "content": "<h3>Kriz ve Çözüm</h3><p>Markanın yaşadığı domain problemi sonrası arama motoru sıralamalarındaki dramatik düşüşe anında müdahale ettik. Sitenin mimarisini baştan aşağı kurarken, kaybolan SEO değerini titiz bir 'Recovery' operasyonu ile geri kazandırdık.</p>"
   },
-  { 
-    "id": 12, 
-    "title": "Veluxe", 
-    "category": "E-Ticaret", 
-    "slug": "veluxe", 
-    "image": "/projeler/ref-veluxe-deri-koltuk.png",
-    "description": "WordPress hantallığından kurtararak Headless mimarisine taşıdığımız modern e-ticaret platformu.",
-    "content": "<h3>Projenin Kapsamı</h3><p>Geniş ürün kategorilerine sahip Veluxe markasının e-ticaret altyapısını tamamen yeniledik. Geleneksel WordPress yapısından sıyrılarak çok daha hızlı, güvenli ve ölçeklenebilir olan Next.js Headless mimarisine geçiş yaptık.</p><ul><li>Sıfır milisaniye sayfa geçişleri</li><li>Özelleştirilmiş sepet ve ödeme adımları</li><li>Kusursuz SEO uyumluluğu</li></ul>"
+  {
+  "id": 12,
+  "title": "Veluxe",
+  "slug": "veluxe",
+  "category": "E-Ticaret",
+  "client": "Veluxe Furniture",
+  "liveUrl": "https://www.veluxe.com.tr",
+  "completionDate": "2026-07",
+  "image": "/projeler/ref-veluxe.png",
+  "shortDescription": "Geleneksel WordPress hantallığından tamamen kurtarılan Veluxe, Next.js, React ve Supabase mimarisiyle %100 performans skoruna sahip premium bir dijital e-ticaret vitrine dönüştürüldü.",
+  "technologies": [
+    "Next.js",
+    "React",
+    "Supabase",
+    "Tailwind CSS",
+    "Custom Feed API"
+  ],
+  "content": "<p><strong>📌 Projeye Genel Bakış</strong></p><p>Kendi markamız olan Veluxe'ün dijital vitrini, geleneksel WordPress yapısının getirdiği performans kayıplarından ve hantallıktan tamamen kurtarılarak Next.js ve React altyapısıyla sıfırdan inşa edildi. Premium marka kimliğini yansıtan, modern ve ultra hızlı bir kullanıcı deneyimi (UX) tasarlandı.</p><hr class=\"my-8 border-slate-700\" /><h3>🛠️ Yapılan İyileştirmeler ve Özel Yazılım</h3><ul><li><strong>Kusursuz Veri Göçü (Migration):</strong> Eski sistemdeki tüm ürünler ve blog yazıları dışarı aktarılıp Next.js yapısına uygun şekilde derlendi. Ürün galerileri tüm cihazlara tam uyumlu hale getirildi ve ürünlere özel marka hikayeleri entegre edildi.</li><li><strong>Supabase Admin ve Akıllı Fiyatlandırma:</strong> Ürünler, bloglar ve kullanıcılar için özel bir yönetim paneli kodlandı. Hantal varyasyon sistemi kaldırılarak; hakiki deri, suni deri ve kumaş seçenekleri için fiyatların tek merkezden dinamik yönetildiği özel bir fiyatlandırma modülü kuruldu.</li><li><strong>Otomasyon ve Canlı Feed API:</strong> Google Merchant Center ve Facebook Katalog sistemleri için anlık fiyat ve stok bilgilerini besleyen özel bir API yazıldı. Eski sistemde yer alan tüm Merchant Center hataları giderildi.</li><li><strong>Görsel ve Takip Optimizasyonu:</strong> Tüm görseller Next.js kuralları ile otomatik olarak <strong>.avif</strong> formatına çevrildi. Google Analytics ve Search Console etiketleri, siteyi bir milisaniye bile yavaşlatmayacak asenkron tekniklerle bağlandı.</li></ul><hr class=\"my-8 border-slate-700\" /><h3>📊 Rakamlarla Başarı</h3><ul><li><strong>Performans Artışı:</strong> Mobil ve masaüstü PageSpeed metriklerinde 100/100 tam puana ulaşıldı.</li><li><strong>Teknik SEO Sağlığı:</strong> Ahrefs denetimlerinde %100 site sağlığı skoru elde edilerek kusursuz bir mimari oluşturuldu.</li><li><strong>Operasyonel Verimlilik:</strong> Vercel Speed Insights ve Analytics araçları kurularak kesintisiz veri takibi ve sıfır hata oranına ulaşıldı.</li></ul>"
   },
   {
     "id": 101,

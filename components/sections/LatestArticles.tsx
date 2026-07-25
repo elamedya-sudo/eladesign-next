@@ -25,10 +25,10 @@ export default function LatestArticles() {
     "kizimin-cizgileri-yapay-zeka-ve-kusursuzluk",
     "yapay-zeka-ile-icerik-uretmek", 
     "telefonunuz-aslinda-sizi-dinlemiyor", 
+    "dijital-amnezi-aklimizi-cebimizde-mi-tasiyoruz",
     "dijital-yayincilik-1-7-30-4-2-1-icerik-kurali",
     "headless-mimari-nedir",
     "organik-trafiginizi-10-adimda-arttirma",
-    "dijital-pazarlama-nedir",
     "web-tasarim-fiyatlari-nasil-belirlenir",
     "sosyal-medya-yonetimi-hakkinda-bilinmesi-gerekenler",
   ];

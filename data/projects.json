@@ -30,7 +30,25 @@
     "content": "<p><strong>📌 Projeye Genel Bakış</strong></p>\n<p>İzmir'in önde gelen makine üreticilerinden İnokstek ile uzun yıllara dayanan teknoloji partnerliğimizin bir sonucu olarak, markanın dijital vitrinini baştan aşağı yeniledik. Klasik bir kurumsal tanıtım sitesinin ötesine geçerek, markanın devasa üretim kapasitesini interaktif bir dijital kataloğa dönüştürdük.</p>\n\n<hr class=\"my-8 border-slate-700\" />\n\n<h3>🛠️ B2B Odaklı Ürün ve Kategori Mimarisi</h3>\n<p>Platform, standart sayfalar yerine B2B (İşletmeden İşletmeye) müşteri deneyimine uygun, özel bir ürün mimarisiyle kurgulandı. Makineler ve çözümler, karmaşık listeler yerine doğrudan \"Endüstriyel Kullanım Alanlarına\" (Gıda, Kimya, İlaç vb.) göre sınıflandırılarak, potansiyel müşterilerin aradıkları spesifik çözüme saniyeler içinde ulaşması sağlandı.</p>\n\n<h3>🚀 Teknik SEO ve Kurumsal Kimlik Entegrasyonu</h3>\n<p>Tüm ürün detay sayfaları, endüstriyel arama terimlerine uygun teknik SEO altyapısıyla kodlandı. Sitenin ön yüzü, İnokstek'in kurumsal ağırlığını ve sektörel güvenilirliğini yansıtacak modern, minimalist ve yüksek performanslı bir kullanıcı arayüzü (UI) ile tasarlandı.</p>"
   },
   { "id": 4, "title": "Livyadent", "category": "Kurumsal Web", "slug": "livyadent", "image": "/projeler/ref-livyadent.png", "liveUrl": "https://www.livyadent.com/" },
-  { "id": 5, "title": "Pergolasan", "category": "Kurumsal Web", "slug": "pergolasan", "image": "/projeler/ref-pergolasan.png" , "liveUrl": "https://www.pergolasan.us/" },
+  {
+  "id": 5,
+  "title": "Antalya EMDR Merkezi",
+  "slug": "antalya-emdr",
+  "category": "Özel Web Yazılım",
+  "client": "Antalya EMDR",
+  "liveUrl": "https://www.antalyaemdr.com.tr",
+  "completionDate": "2026-08",
+  "image": "/projeler/ref-antalyaemdr.webp",
+  "shortDescription": "Danışan güvenini ve dijital huzuru merkeze alan, Next.js ve Supabase mimarisiyle inşa edilmiş, ultra hızlı ve kuruma özel yönetim panelli klinik platformu.",
+  "technologies": [
+    "Next.js",
+    "React",
+    "Supabase",
+    "Tailwind CSS",
+    "Vercel Edge"
+  ],
+  "content": "<p><strong>📌 Projeye Genel Bakış: Dijitalde Güven İnşası</strong></p><p>Psikoloji ve terapi merkezleri için web sitesi sadece bir iletişim aracı değil, danışanla kurulan ilk güven bağıdır. Karmaşık, yavaş açılan ve hantal bir dijital deneyim, terapi arayışındaki bir danışanın stresini daha da artırır. Bu bilinçle, Antalya EMDR için sıradan bir web sitesi değil, <strong>Next.js</strong>'in milisaniyelik hızıyla çalışan, huzur veren ve güven aşılayan \"Başsız\" (Headless) bir dijital klinik deneyimi tasarladık.</p><img src=\"/projeler/antalyaemdr-front.webp\" alt=\"Antalya EMDR Ön Yüz Tasarımı\" class=\"w-full rounded-xl my-8 shadow-xl border border-slate-200 dark:border-slate-800\" /><hr class=\"my-8 border-slate-700\" /><h3>🛠️ Kaputun Altındaki Mühendislik: Supabase ve Terzi İşi Admin Paneli</h3><p>Bir kliniğin dijital operasyonlarını yönetmek, standart blog sistemlerinin (WordPress) yeteneklerinin ve hantallığının çok ötesindedir. Uzmanların makalelerini, terapi seans içeriklerini ve danışan bilgilendirmelerini güvenle yönetebilmesi için arka planda tamamen kuruma özel bir mimari inşa ettik.</p><ul><li><strong>Kusursuz İçerik Yönetimi:</strong> Veritabanı ve arka uç (backend) altyapısı olarak <strong>Supabase</strong> kullanıldı. Uzmanların teknik hiçbir koda veya eklentiye ihtiyaç duymadan içerik girebileceği, markaya özel bir yönetim paneli (Admin Panel) kodlandı.</li><li><strong>Yüksek Güvenlik ve Hız:</strong> Veriler Supabase'in sunduğu üst düzey güvenlik protokolleriyle korunurken, ön yüze aktarım Next.js mimarisiyle sıfır gecikmeyle (Zero-Latency) sağlandı.</li></ul><img src=\"/projeler/antalyaemdr-admin.webp\" alt=\"Antalya EMDR Özel Yönetim Paneli\" class=\"w-full rounded-xl my-8 shadow-xl border border-slate-200 dark:border-slate-800\" /><hr class=\"my-8 border-slate-700\" /><h3>🚀 Vercel Edge ile Sınırları Zorlayan Performans</h3><p>Projenin barındırma (hosting) ve dağıtım süreçleri doğrudan <strong>Vercel</strong> üzerinde konumlandırıldı. Bu sayede site, ziyaretçinin bulunduğu konuma en yakın sunucudan anında yanıt veriyor.</p><ul><li><strong>Yeni Nesil GEO Uyumluluğu:</strong> Yapay zeka arama motorlarının (GEO) ve Google'ın en sevdiği temiz HTML/React mimarisi sayesinde kusursuz organik görünürlük.</li><li><strong>Sıfır Kesinti:</strong> Vercel altyapısının getirdiği esneklikle, site trafiği ne kadar artarsa artsın performans kaybı yaşanmıyor.</li></ul><p><em>Sonuç olarak: Antalya EMDR, sadece modern bir tasarıma değil; arka planda kusursuz işleyen, güvenli ve rakiplerini teknolojik olarak fersah fersah geride bırakan devasa bir yazılım altyapısına kavuştu.</em></p>"
+},
   { "id": 6, "title": "Artem", "category": "Kurumsal Web", "slug": "artem", "image": "/projeler/ref-artem.png", "liveUrl": "https://www.artem.com.tr/" },
   { "id": 7, "title": "Hasan Sever İnşaat", "category": "İnşaat & Mimarlık", "slug": "hasan-sever", "image": "/projeler/ref-hasansever.png" },
   { 

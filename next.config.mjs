@@ -15,20 +15,33 @@ const nextConfig = {
         permanent: true,
       },
       
-      // --- 1. EKİP YÖNLENDİRMELERİ DÜZELTİLDİ ---
-      // Eskiden anasayfaya (/) gidiyordu, şimdi direkt /ekibimiz sayfasına gidiyor
+      // --- 1. EKİP YÖNLENDİRMELERİ ---
+      // Resimleri (.webp, .jpg) koruyan ve sadece sayfaları yönlendiren kural
       {
         source: '/ekip/:slug((?!.*\\.).*)',
         destination: '/ekibimiz', 
         permanent: true,
       },
+      // Excel'de 404 veren /feed kalıntıları için nokta atışı kural
+      {
+        source: '/ekip/:slug/feed',
+        destination: '/blog',
+        permanent: true,
+      },
+      // Eski WordPress "Daha Fazla Yükle" / Sayfalama kalıntıları
+      {
+        source: '/ekip/page/:path*',
+        destination: '/ekibimiz',
+        permanent: true,
+      },
+      
       {
         source: '/kategori/:path*',
         destination: '/blog', 
         permanent: true,
       },
       
-      // --- 2. SERVİSLER YÖNLENDİRMELERİ DÜZELTİLDİ ---
+      // --- 2. SERVİSLER YÖNLENDİRMELERİ ---
       // Önce spesifik olanı yakalıyoruz (2D ve olası 3D aramaları için)
       {
         source: '/servisler/2d-animasyon',
@@ -58,7 +71,7 @@ const nextConfig = {
         destination: '/kurumsal-web-tasarim-fiyatlari',
         permanent: true,
       },
-      // Mimari görselleştirme de anasayfa yerine hizmetler sayfasına alındı
+      // Mimari görselleştirme anasayfa yerine hizmetler sayfasına alındı
       {
         source: '/mimari-gorsellestirme',
         destination: '/hizmetler',
@@ -106,13 +119,6 @@ const nextConfig = {
         destination: '/', 
         permanent: true,
       },
-
-      // Eski WordPress "Daha Fazla Yükle" / Sayfalama kalıntılarını temizler
-      {
-        source: '/ekip/:path*',
-        destination: '/ekibimiz', 
-        permanent: true,
-      },
       
       // --- Diğer Toplu Temizlikler ---
       {
@@ -155,10 +161,11 @@ const nextConfig = {
         destination: '/', 
         permanent: true,
       },
-      // --- EKSİK WP VE SİSTEM KALINTILARI ---
+
+      // --- EKSİK WP VE SİSTEM KALINTILARI (GSC Hataları İçin) ---
       {
         source: '/author/:path*',
-        destination: '/hakkimizda', // veya '/'
+        destination: '/hakkimizda',
         permanent: true,
       },
       {
@@ -178,7 +185,7 @@ const nextConfig = {
       },
       {
         source: '/referanslar',
-        destination: '/neler-yaptik', // Eğer ana referans sayfan burasıysa
+        destination: '/neler-yaptik',
         permanent: true,
       },
       {

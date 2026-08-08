@@ -109,8 +109,8 @@ const nextConfig = {
 
       // Eski WordPress "Daha Fazla Yükle" / Sayfalama kalıntılarını temizler
       {
-        source: '/ekip/page/:path*',
-        destination: '/ekibimiz',
+        source: '/ekip/:path*',
+        destination: '/ekibimiz', 
         permanent: true,
       },
       
@@ -153,6 +153,32 @@ const nextConfig = {
       {
         source: '/wp-content/:path*',
         destination: '/', 
+        permanent: true,
+      },
+      // --- EKSİK WP VE SİSTEM KALINTILARI ---
+      {
+        source: '/author/:path*',
+        destination: '/hakkimizda', // veya '/'
+        permanent: true,
+      },
+      {
+        source: '/arama',
+        destination: '/', 
+        permanent: true,
+      },
+      {
+        source: '/:slug/feed',
+        destination: '/blog', 
+        permanent: true,
+      },
+      {
+        source: '/cdn-cgi/l/email-protection',
+        destination: '/iletisim', 
+        permanent: true,
+      },
+      {
+        source: '/referanslar',
+        destination: '/neler-yaptik', // Eğer ana referans sayfan burasıysa
         permanent: true,
       },
       {

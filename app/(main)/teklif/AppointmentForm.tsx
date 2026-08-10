@@ -14,7 +14,7 @@ export default function AppointmentForm() {
     
     const formData = new FormData(e.currentTarget);
     
-    // API route ile tam uyumlu veri yapısı
+    // API route ile tam uyumlu veri yapısı (Honeypot dahil)
     const data = {
       fullName: formData.get("fullName"),
       company: formData.get("company"),
@@ -22,6 +22,7 @@ export default function AppointmentForm() {
       phone: formData.get("phone"),
       service: formData.get("service"),
       message: formData.get("message"),
+      honeypot: formData.get("website_url"), // Bot tuzağı
     };
 
     try {
@@ -31,6 +32,7 @@ export default function AppointmentForm() {
         body: JSON.stringify(data),
       });
 
+      // API her halükarda (spam olsa bile) 200 dönecektir
       if (response.ok) {
         setIsSuccess(true);
       } else {
@@ -63,7 +65,7 @@ export default function AppointmentForm() {
       <div className="max-w-[1200px] mx-auto px-6 lg:px-10 -mt-8 relative z-20">
         <div className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 overflow-hidden flex flex-col lg:flex-row border border-slate-100">
           
-          {/* SOL TARAF: İLETİŞİM BİLGİLERİ */}
+          {/* SOL TARAF: İLETİŞİM BİLGİLERİ (Değişiklik Yok) */}
           <div className="lg:w-2/5 bg-[#933c81] p-10 lg:p-12 text-white flex flex-col justify-between relative overflow-hidden">
             <div className="absolute bottom-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl translate-y-1/3 translate-x-1/3 pointer-events-none"></div>
             
@@ -129,6 +131,12 @@ export default function AppointmentForm() {
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col h-full justify-center">
                 <h2 className="text-2xl font-bold text-slate-900 mb-8">Randevu / Teklif Formu</h2>
+                
+                {/* HONEYPOT ALANI (Bot Tuzağı) */}
+                <div style={{ display: 'none', visibility: 'hidden' }} aria-hidden="true">
+                  <label htmlFor="website_url">Website URL (Lütfen bu alanı boş bırakın)</label>
+                  <input type="text" name="website_url" id="website_url" tabIndex={-1} autoComplete="off" />
+                </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>

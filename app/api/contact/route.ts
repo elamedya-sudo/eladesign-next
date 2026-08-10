@@ -1,12 +1,39 @@
-// Dosya: app/api/contact/route.ts
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { fullName, company, email, phone, service, message } = body;
+    const { fullName, company, email, phone, service, message, honeypot } = body;
 
+    // ----- GÜVENLİK FİLTRELERİ (SPAM KORUMASI) -----
+
+    // 1. Honeypot Kontrolü: Gizli alan doldurulmuşsa (bot) mail atmadan başarılı dön
+    if (honeypot) {
+      console.log("Spam engellendi (Honeypot tuzağına düştü):", email);
+      return NextResponse.json({ message: "Başarılı" }, { status: 200 });
+    }
+
+    // 2. Anlamsız Metin (Gibberish) Kontrolü
+    const isGibberish = (str: string) => {
+      if (!str) return false;
+      // 6 veya daha fazla sessiz harf yan yana ise (Örn: tjtXfxLNJL)
+      const tooManyConsonants = /[bcdfghjklmnpqrstvwxyz]{6,}/i;
+      // İçinde hiç boşluk olmayan 20 karakterden uzun kelime (Örn: ifEheXVCRFQGXZFgWF)
+      const noSpacesLongText = /^\S{20,}$/; 
+      
+      return tooManyConsonants.test(str) || noSpacesLongText.test(str);
+    };
+
+    if (isGibberish(fullName) || isGibberish(company) || isGibberish(message)) {
+       console.log("Spam engellendi (Anlamsız Metin):", fullName);
+       return NextResponse.json({ message: "Başarılı" }, { status: 200 });
+    }
+    
+    // ----- GÜVENLİK FİLTRELERİ SONU -----
+
+
+    // Normal E-Posta Gönderme İşlemi
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),

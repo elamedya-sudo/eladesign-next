@@ -1,12 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PortableText } from "@portabletext/react";
 import { client, urlFor } from "@/app/sanity"; // sanity.ts dosyanın yolu
 
 export const revalidate = 60; // 60 saniyede bir güncellemeleri kontrol et
 
-// Tüm slug'ları Sanity'den alıp sayfaları statik olarak oluşturur (En yeniden eskiye sıralı)
+// Tüm slug'ları Sanity'den alıp sayfaları statik olarak oluşturur (En son eklenen en başta)
 export async function generateStaticParams() {
   const query = `*[_type == "post"] | order(_createdAt desc){ "slug": slug.current }`;
   const slugs = await client.fetch(query);
@@ -158,7 +157,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
              )}
           </div>
 
-          {/* Yazı İçeriği (PortableText kullanarak) */}
+          {/* Yazı İçeriği (Orijinal HTML Yapısını Korumak İçin dangerouslySetInnerHTML) */}
           <div 
             className="text-slate-700 text-[17px] leading-relaxed font-light
             [&>p]:mb-6
@@ -168,9 +167,8 @@ export default async function BlogPostPage({ params }: { params: any }) {
             [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol>li]:mb-2
             [&>img]:rounded-xl [&>img]:shadow-md [&>img]:my-8 [&>img]:w-full [&>img]:h-auto
             [&>pre]:bg-slate-900 [&>pre]:text-slate-100 [&>pre]:p-4 [&>pre]:rounded-xl [&>pre]:overflow-x-auto [&>pre]:mb-6 [&>pre>code]:text-[14px]"
-          >
-            <PortableText value={post.content} />
-          </div>
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
           <div className="mt-16 pt-8 border-t border-slate-200">
             <Link href="/blog" className="inline-flex items-center gap-2 text-[#933c81] font-bold hover:text-slate-900 transition-colors">

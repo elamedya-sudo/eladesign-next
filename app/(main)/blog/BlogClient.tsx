@@ -1,25 +1,25 @@
-"use client"; // Etkileşim (Filtre ve Buton) için gerekli
+"use client"; 
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import postsData from "@/data/posts.json";
 
-export default function BlogClient() {
+// JSON yerine veriler Server Component'ten prop olarak geliyor
+export default function BlogClient({ initialPosts }: { initialPosts: any[] }) {
   const brandColor = "#933c81";
 
-  // 1. JSON içindeki tüm benzersiz kategorileri bul ve "Tümü" seçeneğini başa ekle
-  const allCategories = ["Tümü", ...Array.from(new Set(postsData.map(post => post.category)))];
+  // 1. Sanity'den gelen tüm benzersiz kategorileri bul ve "Tümü" seçeneğini başa ekle
+  const allCategories = ["Tümü", ...Array.from(new Set(initialPosts.map(post => post.category)))];
 
   // 2. React State'leri (Aktif Kategori, Ekranda Görünen Yazı Sayısı ve Otomatik Yükleme Sayacı)
   const [activeCategory, setActiveCategory] = useState("Tümü");
-  const [visibleCount, setVisibleCount] = useState(6); // İlk etapta 6 yazı göster
-  const [autoLoadCount, setAutoLoadCount] = useState(0); // Sensörle otomatik yükleme limiti
+  const [visibleCount, setVisibleCount] = useState(6); 
+  const [autoLoadCount, setAutoLoadCount] = useState(0); 
   
-  const loaderRef = useRef(null); // Sonsuz kaydırma sensörü
+  const loaderRef = useRef(null); 
 
   // 3. Seçilen kategoriye göre yazıları filtrele
-  const filteredPosts = postsData.filter(post => 
+  const filteredPosts = initialPosts.filter(post => 
     activeCategory === "Tümü" ? true : post.category === activeCategory
   );
 
@@ -31,7 +31,6 @@ export default function BlogClient() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        // Eğer sensör ekranda göründüyse, hala gösterilecek yazı varsa ve limiti (2 kez) aşmadıysak
         if (entries[0].isIntersecting && hasMore && autoLoadCount < 2) {
           setVisibleCount((prev) => prev + 6);
           setAutoLoadCount((prev) => prev + 1);
@@ -49,14 +48,12 @@ export default function BlogClient() {
     };
   }, [hasMore, autoLoadCount]);
 
-  // Manuel Buton Tıklaması
   const handleLoadMoreManual = () => {
     setVisibleCount(prevCount => prevCount + 6);
   };
 
   return (
     <div className="bg-slate-50 min-h-screen pb-24">
-      
       {/* HERO ALANI */}
       <div className="relative isolate bg-slate-900 py-24 sm:py-32 overflow-hidden border-b border-slate-800">
         <div className="absolute inset-0 -z-10">
@@ -78,7 +75,6 @@ export default function BlogClient() {
       </div>
 
       <div className="max-w-[1440px] mx-auto px-6 lg:px-10 py-16">
-        
         {/* KATEGORİ FİLTRELEME BUTONLARI */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-16">
           {allCategories.map((category, index) => (
@@ -86,8 +82,8 @@ export default function BlogClient() {
               key={index}
               onClick={() => {
                 setActiveCategory(category);
-                setVisibleCount(6); // Kategori değişince sayacı sıfırla
-                setAutoLoadCount(0); // Otomatik yükleme hakkını sıfırla
+                setVisibleCount(6); 
+                setAutoLoadCount(0); 
               }}
               className={`px-6 py-2.5 rounded-full text-[14px] font-semibold transition-all duration-300 ${
                 activeCategory === category 
@@ -109,7 +105,7 @@ export default function BlogClient() {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {displayedPosts.map((post) => (
-                <Link key={post.id} href={`/${post.slug}`} className="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+                <Link key={post._id} href={`/${post.slug}`} className="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
                   
                   {/* Resim Alanı */}
                   <div className="relative w-full aspect-[640/290] bg-slate-100 overflow-hidden">
@@ -142,7 +138,7 @@ export default function BlogClient() {
                     </p>
                     <div className="mt-auto flex items-center text-[#933c81] font-semibold text-[14px]">
                       Devamını Oku
-                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7-7m7-7H3" /></svg>
                     </div>
                   </div>
 
@@ -150,14 +146,12 @@ export default function BlogClient() {
               ))}
             </div>
 
-            {/* Görünmez Sensör ve Yükleme Göstergesi (İlk 2 otomatik yükleme için) */}
             {hasMore && autoLoadCount < 2 && (
               <div ref={loaderRef} className="h-24 w-full flex justify-center items-center mt-8">
                 <div className="w-8 h-8 border-4 border-[#933c81] border-t-transparent rounded-full animate-spin opacity-50"></div>
               </div>
             )}
 
-            {/* DAHA FAZLA YÜKLE BUTONU (Otomatik yükleme hakkı bitince görünür) */}
             {hasMore && autoLoadCount >= 2 && (
               <div className="flex justify-center">
                 <button 
@@ -171,7 +165,6 @@ export default function BlogClient() {
             )}
           </>
         )}
-
       </div>
     </div>
   );

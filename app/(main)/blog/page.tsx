@@ -1,4 +1,9 @@
 import BlogClient from "./BlogClient";
+import { client } from "@/app/sanity"; // sanity.ts dosyanın yoluna göre ayarlarsın
+
+// ISR (Incremental Static Regeneration): Sanity'de yeni yazı yayınlarsan, 
+// Vercel arka planda sayfayı 60 saniyede bir otomatik yeniler. Hız %100 kalır.
+export const revalidate = 60; 
 
 // 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)
 export const metadata = {
@@ -9,7 +14,22 @@ export const metadata = {
   }
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  // Sanity'den tüm yazıları çekiyoruz (Tarihe göre yeniden eskiye sıralı)
+  // image.asset->url komutu, görselin doğrudan CDN linkini almamızı sağlar.
+  const query = `*[_type == "post"] | order(_createdAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    category,
+    date,
+    readTime,
+    excerpt,
+    "image": image.asset->url
+  }`;
+  
+  const posts = await client.fetch(query);
+
   // 2. BREADCRUMB (SAYFA YOLU) SCHEMA
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -38,8 +58,8 @@ export default function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       
-      {/* İnteraktif arayüzü çağırıyoruz */}
-      <BlogClient />
+      {/* İnteraktif arayüzü çağırıyoruz ve Sanity verilerini yolluyoruz */}
+      <BlogClient initialPosts={posts} />
     </>
   );
 }

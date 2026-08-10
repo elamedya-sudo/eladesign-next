@@ -2,6 +2,13 @@
 const nextConfig = {
   trailingSlash: false,
 
+  // --- SANITY GÖRSELLERİ İÇİN İZİN ---
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'cdn.sanity.io' },
+    ],
+  },
+
   async redirects() {
     return [
       {

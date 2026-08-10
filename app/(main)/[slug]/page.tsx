@@ -6,9 +6,9 @@ import { client, urlFor } from "@/app/sanity"; // sanity.ts dosyanın yolu
 
 export const revalidate = 60; // 60 saniyede bir güncellemeleri kontrol et
 
-// Tüm slug'ları Sanity'den alıp sayfaları statik olarak oluşturur
+// Tüm slug'ları Sanity'den alıp sayfaları statik olarak oluşturur (En yeniden eskiye sıralı)
 export async function generateStaticParams() {
-  const query = `*[_type == "post"]{ "slug": slug.current }`;
+  const query = `*[_type == "post"] | order(_createdAt desc){ "slug": slug.current }`;
   const slugs = await client.fetch(query);
   return slugs.map((post: any) => ({
     slug: post.slug,
@@ -159,8 +159,6 @@ export default async function BlogPostPage({ params }: { params: any }) {
           </div>
 
           {/* Yazı İçeriği (PortableText kullanarak) */}
-          {/* Senin muazzam CSS seçicilerini (Tailwind) doğrudan div üzerinde bıraktım, 
-              PortableText HTML'e dönüştükçe senin CSS'lerin devreye girip süsleyecek! */}
           <div 
             className="text-slate-700 text-[17px] leading-relaxed font-light
             [&>p]:mb-6

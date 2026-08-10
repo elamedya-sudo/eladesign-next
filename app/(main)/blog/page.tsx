@@ -1,11 +1,11 @@
 import BlogClient from "./BlogClient";
-import { client } from "@/app/sanity"; // sanity.ts dosyanın yoluna göre ayarlarsın[cite: 8]
+import { client } from "@/app/sanity";
 
 // ISR (Incremental Static Regeneration): Sanity'de yeni yazı yayınlarsan, 
-// Vercel arka planda sayfayı 60 saniyede bir otomatik yeniler. Hız %100 kalır.[cite: 8]
-export const revalidate = 60;[cite: 8]
+// Vercel arka planda sayfayı 60 saniyede bir otomatik yeniler. Hız %100 kalır.
+export const revalidate = 60;
 
-// 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)[cite: 8]
+// 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)
 export const metadata = {
   title: "Ela Akademi | Web Tasarım, Yazılım ve SEO Blogu",
   description: "Web tasarım trendleri, yazılım mimarileri, SEO ipuçları ve dijital pazarlama dünyasından en güncel gelişmeleri uzman ekibimizin kaleminden okuyun.",
@@ -34,7 +34,6 @@ function parseTurkishDate(dateStr: string) {
 
 export default async function BlogPage() {
   // Sanity'den tüm yazıları çekiyoruz
-  // image.asset->url komutu, görselin doğrudan CDN linkini almamızı sağlar.[cite: 8]
   const query = `*[_type == "post"] {
     _id,
     title,
@@ -51,7 +50,7 @@ export default async function BlogPage() {
   // Yazıları tarihlerine göre en yeninden en eskiye (desc) sıralıyoruz
   posts.sort((a: any, b: any) => parseTurkishDate(b.date) - parseTurkishDate(a.date));
 
-  // 2. BREADCRUMB (SAYFA YOLU) SCHEMA[cite: 8]
+  // 2. BREADCRUMB (SAYFA YOLU) SCHEMA
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -73,13 +72,13 @@ export default async function BlogPage() {
 
   return (
     <>
-      {/* Schema kodunu görünmez şekilde gömüyoruz */}[cite: 8]
+      {/* Schema kodunu görünmez şekilde gömüyoruz */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       
-      {/* İnteraktif arayüzü çağırıyoruz ve Sanity verilerini yolluyoruz */}[cite: 8]
+      {/* İnteraktif arayüzü çağırıyoruz ve Sanity verilerini yolluyoruz */}
       <BlogClient initialPosts={posts} />
     </>
   );

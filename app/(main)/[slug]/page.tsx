@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { client, urlFor } from "@/app/sanity"; // sanity.ts dosyanın yolu
+import { PortableText } from "@portabletext/react";
+import { client, urlFor } from "@/app/sanity";
 
-export const revalidate = 60; // 60 saniyede bir güncellemeleri kontrol et
-export const dynamicParams = true; // Yeni eklenen yazıların 404 vermesini kesin olarak engeller.
+export const revalidate = 60; 
+export const dynamicParams = true;
 
-// Tüm slug'ları Sanity'den alıp sayfaları statik olarak oluşturur (En son eklenen en başta)
 export async function generateStaticParams() {
   const query = `*[_type == "post"] | order(_createdAt desc){ "slug": slug.current }`;
   const slugs = await client.fetch(query);
@@ -15,7 +15,6 @@ export async function generateStaticParams() {
   }));
 }
 
-// 1. DİNAMİK METADATA, CANONICAL VE OPEN GRAPH (SEO)
 export async function generateMetadata({ params }: { params: any }) {
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug).trim();
@@ -49,7 +48,6 @@ export default async function BlogPostPage({ params }: { params: any }) {
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug).trim();
   
-  // 2. Sanity'den yazıyı çekiyoruz
   const query = `*[_type == "post" && slug.current == $slug][0]`;
   const post = await client.fetch(query, { slug: decodedSlug });
 
@@ -60,7 +58,6 @@ export default async function BlogPostPage({ params }: { params: any }) {
 
   const imageUrl = post.image ? urlFor(post.image).url() : '';
 
-  // 3. ARTICLE VE BREADCRUMB SCHEMA
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -117,7 +114,6 @@ export default async function BlogPostPage({ params }: { params: any }) {
       />
 
       <div className="bg-slate-50 min-h-screen pb-24">
-        {/* ÜST ALAN */}
         <div className="bg-white pt-24 pb-16 border-b border-slate-200">
           <div className="max-w-[800px] mx-auto px-6 text-center">
             <div className="flex items-center justify-center gap-4 mb-6">
@@ -145,9 +141,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
           </div>
         </div>
 
-        {/* İÇERİK ALANI */}
         <div className="max-w-[800px] mx-auto px-6 mt-12">
-          {/* Öne Çıkan Görsel */}
           <div className="relative w-full aspect-[640/290] bg-slate-100 rounded-3xl overflow-hidden mb-12 shadow-lg border border-slate-100">
              {imageUrl ? (
                <Image src={imageUrl} alt={post.title} fill className="object-cover relative z-10" />
@@ -158,7 +152,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
              )}
           </div>
 
-          {/* Yazı İçeriği (Orijinal HTML Yapısını Korumak İçin dangerouslySetInnerHTML) */}
+          {/* ÇÖZÜM: Sanity PortableText bileşeni devreye alındı. Tailwind stilleri korundu. */}
           <div 
             className="text-slate-700 text-[17px] leading-relaxed font-light
             [&>p]:mb-6
@@ -168,8 +162,9 @@ export default async function BlogPostPage({ params }: { params: any }) {
             [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol>li]:mb-2
             [&>img]:rounded-xl [&>img]:shadow-md [&>img]:my-8 [&>img]:w-full [&>img]:h-auto
             [&>pre]:bg-slate-900 [&>pre]:text-slate-100 [&>pre]:p-4 [&>pre]:rounded-xl [&>pre]:overflow-x-auto [&>pre]:mb-6 [&>pre>code]:text-[14px]"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          >
+            <PortableText value={post.content} />
+          </div>
 
           <div className="mt-16 pt-8 border-t border-slate-200">
             <Link href="/blog" className="inline-flex items-center gap-2 text-[#933c81] font-bold hover:text-slate-900 transition-colors">

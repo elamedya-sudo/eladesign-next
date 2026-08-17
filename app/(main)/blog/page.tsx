@@ -1,11 +1,8 @@
 import BlogClient from "./BlogClient";
 import { client } from "@/app/sanity";
 
-// ISR (Incremental Static Regeneration): Sanity'de yeni yazı yayınlarsan, 
-// Vercel arka planda sayfayı 60 saniyede bir otomatik yeniler. Hız %100 kalır.
 export const revalidate = 60;
 
-// 1. SAYFAYA ÖZEL METADATA VE CANONICAL (SEO)
 export const metadata = {
   title: "Ela Akademi | Web Tasarım, Yazılım ve SEO Blogu",
   description: "Web tasarım trendleri, yazılım mimarileri, SEO ipuçları ve dijital pazarlama dünyasından en güncel gelişmeleri uzman ekibimizin kaleminden okuyun.",
@@ -14,11 +11,24 @@ export const metadata = {
   }
 };
 
-// Gelişmiş Tarih Çözücü: Hem kısa (Ağu) hem uzun (Ağustos) ayları anlar.
-// Eğer format hatalıysa veya boşsa Sanity'nin sistem tarihini (_createdAt) kullanır.
+// ÇÖZÜM: Hem "17 Ağu 2026" hem de "17-08-2026" veya "17.08.2026" formatını anlayan zeki tarih çözücü
 function parseDateSafe(dateStr: string, createdAt: string) {
   if (!dateStr) return new Date(createdAt).getTime();
 
+  // Nokta, tire veya eğik çizgi ile ayrılmış tarihleri (DD-MM-YYYY) anla
+  if (dateStr.includes('-') || dateStr.includes('.') || dateStr.includes('/')) {
+    const parts = dateStr.split(/[-./]/);
+    if (parts.length === 3) {
+      const day = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1; // JS'de aylar 0'dan başlar
+      const year = parseInt(parts[2], 10);
+      if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+        return new Date(year, month, day).getTime();
+      }
+    }
+  }
+
+  // Boşlukla ayrılmış eski formatları (17 Ağu 2026) anla
   const months: { [key: string]: number } = {
     "Oca": 0, "Ocak": 0, "Şub": 1, "Şubat": 1, "Mar": 2, "Mart": 2, 
     "Nis": 3, "Nisan": 3, "May": 4, "Mayıs": 4, "Haz": 5, "Haziran": 5,
@@ -32,18 +42,15 @@ function parseDateSafe(dateStr: string, createdAt: string) {
     const month = months[parts[1]];
     const year = parseInt(parts[2], 10);
     
-    // Eğer formatımızla eşleşirse tarihi hesapla
     if (month !== undefined && !isNaN(day) && !isNaN(year)) {
       return new Date(year, month, day).getTime();
     }
   }
   
-  // Eğer format uymazsa (örneğin 17/08/2026 yazıldıysa) Sanity'nin kendi eklenme tarihini baz al
   return new Date(createdAt).getTime();
 }
 
 export default async function BlogPage() {
-  // GROQ Sorgusuna _createdAt alanını da ekledik
   const query = `*[_type == "post"] {
     _id,
     title,
@@ -58,10 +65,8 @@ export default async function BlogPage() {
   
   const posts = await client.fetch(query);
 
-  // Hataya dayanıklı sıralama: En yeninden en eskiye (desc) sıralıyoruz
   posts.sort((a: any, b: any) => parseDateSafe(b.date, b._createdAt) - parseDateSafe(a.date, a._createdAt));
 
-  // 2. BREADCRUMB (SAYFA YOLU) SCHEMA
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

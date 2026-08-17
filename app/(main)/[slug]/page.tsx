@@ -1,11 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import postsData from "@/data/posts.json";
+import { client, urlFor } from "@/app/sanity"; // sanity.ts dosyanın yolu
 
+export const revalidate = 60; // 60 saniyede bir güncellemeleri kontrol et
+export const dynamicParams = true; // Yeni eklenen yazıların 404 vermesini kesin olarak engeller.
+
+// Tüm slug'ları Sanity'den alıp sayfaları statik olarak oluşturur (En son eklenen en başta)
 export async function generateStaticParams() {
-  return postsData.map((post) => ({
-    slug: post.slug.trim(),
+  const query = `*[_type == "post"] | order(_createdAt desc){ "slug": slug.current }`;
+  const slugs = await client.fetch(query);
+  return slugs.map((post: any) => ({
+    slug: post.slug,
   }));
 }
 
@@ -13,41 +19,48 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: any }) {
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug).trim();
-  const post = postsData.find((p) => p.slug.trim() === decodedSlug);
+  
+  const query = `*[_type == "post" && slug.current == $slug][0]`;
+  const post = await client.fetch(query, { slug: decodedSlug });
   
   if (!post) return { title: "Sayfa Bulunamadı" };
   
+  const imageUrl = post.image ? urlFor(post.image).url() : '';
+
   return {
     title: `${post.title} | Ela Akademi`,
     description: post.excerpt,
     alternates: {
-      canonical: `https://www.eladesign.org/${post.slug}`,
+      canonical: `https://www.eladesign.org/${post.slug.current}`,
     },
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `https://www.eladesign.org/${post.slug}`,
+      url: `https://www.eladesign.org/${post.slug.current}`,
       type: "article",
       publishedTime: post.date,
       authors: ["Ela Design Ekibi"],
-      images: post.image ? [{ url: `https://www.eladesign.org${post.image}` }] : [],
+      images: imageUrl ? [{ url: imageUrl }] : [],
     }
   };
 }
 
 export default async function BlogPostPage({ params }: { params: any }) {
-  
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug).trim();
   
-  const post = postsData.find((p) => p.slug.trim() === decodedSlug);
+  // 2. Sanity'den yazıyı çekiyoruz
+  const query = `*[_type == "post" && slug.current == $slug][0]`;
+  const post = await client.fetch(query, { slug: decodedSlug });
 
   if (!post) {
     console.log("EŞLEŞMEYEN SLUG HATASI -> Aranan:", decodedSlug);
     notFound(); 
   }
 
-  // 2. ARTICLE VE BREADCRUMB SCHEMA (Google Makale Zengin Sonuçları İçin)
+  const imageUrl = post.image ? urlFor(post.image).url() : '';
+
+  // 3. ARTICLE VE BREADCRUMB SCHEMA
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -69,7 +82,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
           "@type": "ListItem",
           "position": 3,
           "name": post.title,
-          "item": `https://www.eladesign.org/${post.slug}`
+          "item": `https://www.eladesign.org/${post.slug.current}`
         }
       ]
     },
@@ -78,7 +91,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
       "@type": "Article",
       "headline": post.title,
       "description": post.excerpt,
-      "image": post.image ? [`https://www.eladesign.org${post.image}`] : [],
+      "image": imageUrl ? [imageUrl] : [],
       "datePublished": post.date,
       "author": [{
           "@type": "Organization",
@@ -98,7 +111,6 @@ export default async function BlogPostPage({ params }: { params: any }) {
 
   return (
     <>
-      {/* 3. Schema kodunu sayfanın arkasına görünmez şekilde gömüyoruz */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -137,8 +149,8 @@ export default async function BlogPostPage({ params }: { params: any }) {
         <div className="max-w-[800px] mx-auto px-6 mt-12">
           {/* Öne Çıkan Görsel */}
           <div className="relative w-full aspect-[640/290] bg-slate-100 rounded-3xl overflow-hidden mb-12 shadow-lg border border-slate-100">
-             {post.image ? (
-               <Image src={post.image} alt={post.title} fill className="object-cover relative z-10" />
+             {imageUrl ? (
+               <Image src={imageUrl} alt={post.title} fill className="object-cover relative z-10" />
              ) : (
                <div className="absolute inset-0 flex items-center justify-center text-slate-300">
                  Görsel Yok
@@ -146,7 +158,7 @@ export default async function BlogPostPage({ params }: { params: any }) {
              )}
           </div>
 
-          {/* Yazı İçeriği (Tailwind Tipografi Ayarları) */}
+          {/* Yazı İçeriği (Orijinal HTML Yapısını Korumak İçin dangerouslySetInnerHTML) */}
           <div 
             className="text-slate-700 text-[17px] leading-relaxed font-light
             [&>p]:mb-6

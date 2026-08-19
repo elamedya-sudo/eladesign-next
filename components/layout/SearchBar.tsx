@@ -1,21 +1,39 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Fuse from 'fuse.js';
 import Link from 'next/link';
-import posts from '@/data/posts.json';
+import { client } from '@/app/sanity'; // Sanity bağlantısı eklendi
 
 export default function SearchBar() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<any[]>([]);
+  const [allPosts, setAllPosts] = useState<any[]>([]); // Sanity verilerini tutacak state
 
-  const fuse = new Fuse(posts, {
+  // 1. Bileşen yüklendiğinde Sanity'den güncel blogları çek
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const query = `*[_type == "post"] { title, category, "slug": slug.current }`;
+        const fetchedPosts = await client.fetch(query);
+        setAllPosts(fetchedPosts);
+      } catch (error) {
+        console.error("Arama çubuğu verileri çekerken hata oluştu:", error);
+      }
+    };
+    
+    fetchPosts();
+  }, []);
+
+  // 2. Çekilen verilere göre Fuse arama motorunu ayarla (Gereksiz render'ı önlemek için useMemo)
+  const fuse = useMemo(() => new Fuse(allPosts, {
     keys: ['title', 'category'],
     threshold: 0.3,
-  });
+  }), [allPosts]);
 
+  // 3. Kullanıcı yazı yazdıkça aramayı tetikle
   useEffect(() => {
     setResults(query.length > 2 ? fuse.search(query).map(r => r.item) : []);
-  }, [query]);
+  }, [query, fuse]);
 
   return (
     <div className="relative">

@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
+import { client } from '@/app/sanity'; // Sanity bağlantımız eklendi
 
 // GÜVENLİ TARİH FONKSİYONU: Hatalı tarihleri yakalayıp build çökmesini engeller
 function getSafeDate(dateString: string | undefined): Date {
@@ -11,7 +12,7 @@ function getSafeDate(dateString: string | undefined): Date {
   return isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.eladesign.org';
 
   // 1. SİTENİN STATİK SAYFALARI
@@ -49,22 +50,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '' ? 1 : 0.8,
   }));
 
-  // 2. DİNAMİK BLOG SAYFALARI
+  // 2. DİNAMİK BLOG SAYFALARI (Artık Doğrudan Sanity'den Geliyor)
   let dynamicBlogRoutes: MetadataRoute.Sitemap = [];
   try {
-    const blogFilePath = path.join(process.cwd(), 'data', 'posts.json'); 
-    const blogContents = fs.readFileSync(blogFilePath, 'utf8');
-    const blogs = JSON.parse(blogContents);
+    const query = `*[_type == "post"] { "slug": slug.current, _updatedAt }`;
+    const blogs = await client.fetch(query);
 
     dynamicBlogRoutes = blogs.map((post: any) => ({
       url: `${baseUrl}/${post.slug}`, 
-      // Artık tarih okuyamazsa sistemi çökertmek yerine güvenli tarihi kullanacak
-      lastModified: getSafeDate(post.date), 
+      lastModified: new Date(post._updatedAt), 
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
   } catch (error) {
-    console.error("Sitemap oluşturulurken posts.json okunamadı:", error);
+    console.error("Sitemap oluşturulurken Sanity'den veriler okunamadı:", error);
   }
 
   // 3. DİNAMİK REFERANS (PROJE) DETAY SAYFALARI
@@ -76,7 +75,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     dynamicReferenceRoutes = references.map((ref: any) => ({
       url: `${baseUrl}/referanslar/${ref.slug}`, 
-      lastModified: getSafeDate(ref.date), // Burası da güvenli hale getirildi
+      lastModified: getSafeDate(ref.date), 
       changeFrequency: 'monthly' as const,
       priority: 0.7, 
     }));

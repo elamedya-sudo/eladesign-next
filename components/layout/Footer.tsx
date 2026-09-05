@@ -54,6 +54,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li><Link href="/hakkimizda" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Hakkımızda</Link></li>
               <li><Link href="/kurumsal-web-tasarim-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Web Tasarım Fiyatları</Link></li>
+              <li><Link href="/ucretsiz-web-sitesi" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Ücretsiz Web Sitesi</Link></li>
               <li><Link href="/e-ticaret-sitesi-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">E-Ticaret Sitesi Fiyatları</Link></li>
               <li><Link href="/avukatlar-icin-web-sitesi-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Avukatlar İçin Web Sitesi Fiyatları</Link></li>
               <li><Link href="/blog" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Ela Akademi</Link></li>

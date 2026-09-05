@@ -113,7 +113,7 @@ export default function UcretsizWebSitesi() {
 
             <h3 className="text-2xl font-bold text-slate-900 mt-12 mb-6">Göz Alıcı "Glassmorphism" Tasarım ve Ürün Vitrini</h3>
             <div className="relative h-[400px] md:h-[600px] w-full rounded-xl overflow-hidden mb-6 shadow-md border border-slate-200">
-              <Image src="/image_51dd61.jpg" alt="Ücretsiz Web Sitesi Ön Yüz Tasarımı" fill className="object-contain bg-slate-100" />
+              <Image src="/image_51dd61.png" alt="Ücretsiz Web Sitesi Ön Yüz Tasarımı" fill className="object-contain bg-slate-100" />
             </div>
             <p>
               Müşteriniz sitenize girdiğinde sıradan bir tasarımla değil; şeffaf, modern ve son derece premium hissettiren "Glassmorphism" (buzlu cam) arayüzüyle karşılaşır. Satmak istediğiniz ürünleri veya hizmetleri sınırsızca sergileyebilirsiniz. İster stoklu fiziksel bir ürün satın, ister "Sınırsız/Hizmet" ibaresiyle dijital danışmanlık verin. 

@@ -11,7 +11,7 @@ export default function GrupSirketleriPage() {
     {
       id: "ela-teknoloji",
       name: "Ela Teknoloji",
-      legalName: "Ela Web Tasarım Bilişim Medya Yayıncılık Tic. Ltd. Şti.",
+      legalName: "Ela Teknoloji ve Tasarım San. Tic. Ltd. Şti.",
       description: "Çeyrek asırlık mühendislik deneyimi ve küresel operasyon gücüyle Ela Teknoloji, dijital dönüşüm ve internet teknolojilerinde sektörün öncüsüdür. Bu yüksek derinlik sayesinde genel çerçeveler dahilinde, istenilen her türlü projeye mühendislik hassasiyetiyle cevap verebilmekteyiz. Kibirli rakiplerimizin aksine her işi aynı derecede önemsemekte ve gereken titizliği göstermekteyiz. Ataşehir merkezli bir aile şirketi olmamızın vermiş olduğu avantajla, müşterilerimizle uzun soluklu dostluklar ve sarsılmaz güven bağları kurabilmekteyiz.",
       url: "https://www.eladesign.org/",
       image: "/grup-sirketlerimiz/elawebajans.jpg",

@@ -40,6 +40,7 @@ export default function Footer() {
             <h4 className="text-white font-bold text-[16px] mb-6 tracking-wide">Hizmetlerimiz</h4>
             <ul className="space-y-4">
               <li><Link href="/web-tasarim" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Kurumsal Web Tasarım</Link></li>
+              <li><Link href="/ucretsiz-web-sitesi" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Ücretsiz Web Sitesi</Link></li>
               <li><Link href="/web-yazilim" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Özel Web Yazılım</Link></li>
               <li><Link href="/eticaret-sitesi" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">E-Ticaret Sistemleri</Link></li>
               <li><Link href="/google-adwords" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Google Ads Yönetimi</Link></li>
@@ -54,7 +55,6 @@ export default function Footer() {
             <ul className="space-y-4">
               <li><Link href="/hakkimizda" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Hakkımızda</Link></li>
               <li><Link href="/kurumsal-web-tasarim-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Web Tasarım Fiyatları</Link></li>
-              <li><Link href="/ucretsiz-web-sitesi" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Ücretsiz Web Sitesi</Link></li>
               <li><Link href="/e-ticaret-sitesi-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">E-Ticaret Sitesi Fiyatları</Link></li>
               <li><Link href="/avukatlar-icin-web-sitesi-fiyatlari" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Avukatlar İçin Web Sitesi Fiyatları</Link></li>
               <li><Link href="/blog" className="text-slate-400 hover:text-[#e890d6] text-[15px] transition-colors">Ela Akademi</Link></li>
